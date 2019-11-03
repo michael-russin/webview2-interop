@@ -50,6 +50,8 @@
   </PropertyGroup>
   <ItemGroup />
   <ItemGroup>
+    <Compile Include="ExternDll.cs" />
+    <Compile Include="Interop\Globals.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
