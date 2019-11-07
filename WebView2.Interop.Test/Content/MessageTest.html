@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+        const messageHandler = event => {
+            var message = event.data.message;
+            var args = event.data.args;
+
+            if (message == undefined) {
+                message = event.data;
+            }
+
+            var node = document.createElement("li");
+            node.innerText = args + ":" + message;
+            var elem = document.getElementById("myList");
+            elem.appendChild(node);
+        };
+
+        function postMessage() {
+            var message = {
+                message: 201,
+                args: {
+                    uri: "https://www.test.com",
+                    encodedSearchURI: true
+                }
+            };
+
+            window.chrome.webview.postMessage(message);
+        }
+
+        function init() {
+            window.chrome.webview.addEventListener('message', messageHandler);
+        }
+    </script>
+</head>
+<body onload="init()">
+    <p>This is a test message page.</p>
+    <button onclick="postMessage()">Post a Message</button>
+    <ul id="myList"></ul>
+</body>
+</html>

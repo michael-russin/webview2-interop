@@ -74,8 +74,8 @@ namespace MtrDev.WebView2.Interop
 		{
             [return: MarshalAs(UnmanagedType.LPWStr)]
             get;
-			
-			set;
+            [param: MarshalAs(UnmanagedType.LPWStr)]
+            set;
 		}
 
         /// <summary>

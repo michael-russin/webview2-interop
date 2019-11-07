@@ -17,7 +17,18 @@ namespace MtrDev.WebView2.Interop.Test.Args
 
         public string Uri => _args.Uri;
 
-        public IWebView2WebView NewWindow { get => _args.NewWindow; set => _args.NewWindow = value; }
+        //public IWebView2WebView NewWindow { get => _args.NewWindow; set => _args.NewWindow = value; }
+
+        public void put_NewWindow(IWebView2WebView newWindow)
+        {
+            _args.put_NewWindow(newWindow);
+        }
+        /// Gets the new window.
+        public void get_NewWindow(out IWebView2WebView newWindow)
+        {
+            _args.get_NewWindow(out newWindow);
+        }
+
         public bool Handled { get => _args.Handled; set => _args.Handled = value; }
 
         public bool IsUserInitiated => _args.IsUserInitiated;

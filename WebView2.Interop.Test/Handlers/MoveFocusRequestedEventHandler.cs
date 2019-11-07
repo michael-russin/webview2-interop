@@ -11,7 +11,7 @@ namespace MtrDev.WebView2.Interop.Test.Handlers
         {
         }
 
-        public void Invoke(IWebView2WebView3 webview, IWebView2MoveFocusRequestedEventArgs args)
+        public void Invoke(IWebView2WebView webview, IWebView2MoveFocusRequestedEventArgs args)
         {
             MoveFocusRequestedEventArgs eventArgs = new MoveFocusRequestedEventArgs(args);
             Callback.Invoke(eventArgs);

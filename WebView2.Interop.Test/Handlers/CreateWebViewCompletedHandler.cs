@@ -10,9 +10,9 @@ namespace MtrDev.WebView2.Interop.Test.Handlers
         {
         }
 
-        public void Invoke(int result, IWebView2WebView3 webView)
+        public void Invoke(int result, IWebView2WebView webView)
         {
-            CreateWebViewCompletedEventArgs eventArgs = new CreateWebViewCompletedEventArgs(result, webView);
+            CreateWebViewCompletedEventArgs eventArgs = new CreateWebViewCompletedEventArgs(result, (IWebView2WebView3)webView);
             Callback.Invoke(eventArgs);
         }
     }

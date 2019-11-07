@@ -52,7 +52,17 @@
   <ItemGroup />
   <ItemGroup>
     <Compile Include="ExternDll.cs" />
+    <Compile Include="Interop\CallDevToolsProtocolMethodCompletedEventArgs.cs" />
     <Compile Include="Interop\Globals.cs" />
+    <Compile Include="Interop\IWebView2AcceleratorKeyPressedEventArgs.cs" />
+    <Compile Include="Interop\IWebView2AcceleratorKeyPressedEventHandler.cs" />
+    <Compile Include="Interop\IWebView2Environment3.cs" />
+    <Compile Include="Interop\IWebView2NewVersionAvailableEventArgs.cs" />
+    <Compile Include="Interop\IWebView2NewVersionAvailableEventHandler.cs" />
+    <Compile Include="Interop\IWebView2Settings2.cs" />
+    <Compile Include="Interop\IWebView2WebView4.cs" />
+    <Compile Include="Interop\WEBVIEW2_KEY_EVENT_TYPE.cs" />
+    <Compile Include="Interop\WEBVIEW2_PHYSICAL_KEY_STATUS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>

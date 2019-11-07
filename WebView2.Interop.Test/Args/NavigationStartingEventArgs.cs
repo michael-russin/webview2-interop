@@ -28,6 +28,19 @@ namespace MtrDev.WebView2.Interop.Test.Args
 
         public override string ToString()
         {
+            IWebView2HttpHeadersCollectionIterator iterator;
+            RequestHeaders.GetIterator(out iterator);
+            int hasNext;
+            iterator.MoveNext(out hasNext);
+            while(hasNext == 1)
+            {
+                string name;
+                string value;
+                iterator.GetCurrentHeader(out name, out value);
+                System.Diagnostics.Debug.WriteLine("Name={0} Value={1}", name, value);
+                iterator.MoveNext(out hasNext);
+            }
+
             return string.Format("Uri={0}, IsUserInitiated={1}, IsRedirected={2}, Cancel={3}", Uri, IsUserInitiated, IsRedirected, Cancel);
         }
     }

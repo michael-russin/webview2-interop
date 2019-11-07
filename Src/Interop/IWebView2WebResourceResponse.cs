@@ -24,11 +24,12 @@ namespace MtrDev.WebView2.Interop
         [DispId(1610678272)]
 		IStream Content
 		{
-			
-			get;
-			
-			set;
-		}
+            [return: MarshalAs(UnmanagedType.Interface)]
+            get;
+
+            [param: MarshalAs(UnmanagedType.Interface)]
+            set;
+        }
 
         /// <summary>
         /// Overridden HTTP response headers.
@@ -36,8 +37,8 @@ namespace MtrDev.WebView2.Interop
 		[DispId(1610678274)]
 		IWebView2HttpResponseHeaders Headers
 		{
-			
-			get;
+            [return: MarshalAs(UnmanagedType.Interface)]
+            get;
 		}
 
         /// <summary>
@@ -60,8 +61,8 @@ namespace MtrDev.WebView2.Interop
 		{
             [return: MarshalAs(UnmanagedType.LPWStr)]
             get;
-			
-			set;
+            [param: MarshalAs(UnmanagedType.LPWStr)]
+            set;
 		}
 
 

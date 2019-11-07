@@ -14,6 +14,6 @@ namespace MtrDev.WebView2.Interop
 	public interface IWebView2NewWindowRequestedEventHandler
 	{
 		
-		void Invoke([In] IWebView2WebView3 webview, [In] IWebView2NewWindowRequestedEventArgs args);
+		void Invoke([In] IWebView2WebView webview, [In] IWebView2NewWindowRequestedEventArgs args);
 	}
 }

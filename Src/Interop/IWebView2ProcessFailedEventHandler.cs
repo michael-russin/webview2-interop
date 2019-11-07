@@ -14,6 +14,6 @@ namespace MtrDev.WebView2.Interop
 	public interface IWebView2ProcessFailedEventHandler
 	{
 		
-		void Invoke([In, MarshalAs(UnmanagedType.Interface)] IWebView2WebView3 webview, [In, MarshalAs(UnmanagedType.Interface)] IWebView2ProcessFailedEventArgs args);
+		void Invoke([In, MarshalAs(UnmanagedType.Interface)] IWebView2WebView webview, [In, MarshalAs(UnmanagedType.Interface)] IWebView2ProcessFailedEventArgs args);
 	}
 }

@@ -15,6 +15,6 @@ namespace MtrDev.WebView2.Interop
 	{
 
         //		void Invoke([In] IWebView2WebView webview, [In] IWebView2WebMessageReceivedEventArgs args);
-        void Invoke([In] IWebView2WebView3 webview, [In] IWebView2WebMessageReceivedEventArgs args);
+        void Invoke([In] IWebView2WebView webview, [In] IWebView2WebMessageReceivedEventArgs args);
     }
 }

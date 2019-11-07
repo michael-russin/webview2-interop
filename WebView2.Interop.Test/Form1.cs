@@ -12,6 +12,9 @@ using MtrDev.WebView2.Interop.Test.Args;
 using MtrDev.WebView2.Interop.Test.Handlers;
 using System.Diagnostics;
 using MtrDev.WebView2.Interop.Test;
+using System.Reflection;
+using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace WebView2.Interop.Test
 {
@@ -22,7 +25,7 @@ namespace WebView2.Interop.Test
             InitializeComponent();
         }
 
-        private IWebView2WebView3 _webView;
+        private IWebView2WebView4 _webView;
         private IWebView2Environment2 _environment2;
         private string _browserVersion;
 
@@ -30,9 +33,7 @@ namespace WebView2.Interop.Test
         {
             CreateWebViewCompletedHandler viewCompleteHandler = new CreateWebViewCompletedHandler((viewArgs) =>
             {
-                _webView = viewArgs.WebView;
-
-                IWebView2WebView wv = (IWebView2WebView)_webView;
+                _webView = (IWebView2WebView4)viewArgs.WebView;
 
                 BrowserCreated();
 
@@ -79,9 +80,15 @@ namespace WebView2.Interop.Test
             AddPermissionHandler();
             AddTitleChangedHandler();
             AddProcessFailedHandler();
-            AddResourceRequestedHandler();
+            //AddResourceRequestedHandler();
             AddScriptDialogHandler();
             AddNewWindowHandler();
+            AddWebMessageHandler();
+
+            // Enable listening for security events to update secure icon
+            _webView.CallDevToolsProtocolMethod("Security.enable", "{}", null);
+
+            AddDevToolsProtocolMethodHandler("Security.securityStateChanged");
 
             UpdateUi();
         }
@@ -91,6 +98,7 @@ namespace WebView2.Interop.Test
             textBoxProcessId.Text = _webView.BrowserProcessId.ToString();
             textBoxZoomFactor.Text = _webView.ZoomFactor.ToString();
             textBoxVersion.Text = _browserVersion;
+            labelSource.Text = _webView.Source;
             buttonGoForward.Enabled = _webView.CanGoForward;
             buttonGoBack.Enabled = _webView.CanGoBack;
         }
@@ -239,6 +247,27 @@ namespace WebView2.Interop.Test
             }
         }
 
+        private EventRegistrationToken _devToolsProtocol;
+
+        private void AddDevToolsProtocolMethodHandler(string eventName)
+        {
+            if (_devToolsProtocol.value <= 0)
+            {
+                DevToolsProtocolEventReceivedEventHandler handler = new DevToolsProtocolEventReceivedEventHandler(eventName, OnDevToolsProtocolEventReceived);
+                _webView.add_DevToolsProtocolEventReceived(eventName, handler, out _devToolsProtocol);
+            }
+        }
+
+        private void RemoveDevToolsProtocolMethodHandler(string eventName)
+        {
+            if (_devToolsProtocol.value > 0)
+            {
+                _webView.remove_DevToolsProtocolEventReceived(eventName, _devToolsProtocol);
+                _devToolsProtocol.value = 0;
+            }
+        }
+
+
         private EventRegistrationToken _titleChangedToken;
 
         private void AddTitleChangedHandler()
@@ -288,10 +317,10 @@ namespace WebView2.Interop.Test
                 WebResourceRequestedEventHandler handler = new WebResourceRequestedEventHandler(OnResourceRequested);
                 string[] filter = new string[1];
                 filter[0] = "*";
-                int [] context = new int[1] {
-                    (int)WEBVIEW2_WEB_RESOURCE_CONTEXT.WEBVIEW2_WEB_RESOURCE_CONTEXT_ALL
+                WEBVIEW2_WEB_RESOURCE_CONTEXT[] context = new WEBVIEW2_WEB_RESOURCE_CONTEXT[1] {
+                    WEBVIEW2_WEB_RESOURCE_CONTEXT.WEBVIEW2_WEB_RESOURCE_CONTEXT_ALL
                 };
-                _webView.add_WebResourceRequested(filter, context, (ulong)filter.Length, handler, out _resourceRequestedToken);
+                _webView.add_WebResourceRequested(ref filter[0], ref context[0], (ulong)filter.Length, handler, out _resourceRequestedToken);
             }
         }
 
@@ -344,6 +373,27 @@ namespace WebView2.Interop.Test
             }
         }
 
+        private EventRegistrationToken _webMessageToken;
+
+        private void AddWebMessageHandler()
+        {
+            if (_webMessageToken.value <= 0)
+            {
+                WebMessageReceivedEventHandler handler = new WebMessageReceivedEventHandler(OnWebMessageRecieved);
+                _webView.add_WebMessageReceived(handler, out _webMessageToken);
+            }
+        }
+
+        private void RemoveWebMessageHandler()
+        {
+            if (_webMessageToken.value > 0)
+            {
+                _webView.remove_WebMessageReceived(_webMessageToken);
+                _webMessageToken.value = 0;
+            }
+        }
+
+
         private void OnScriptDialogOpeningEvent(ScriptDialogOpeningEventArgs args)
         {
             AddMessage("ScriptDialogOpeningEventArgs : " + args);
@@ -360,6 +410,17 @@ namespace WebView2.Interop.Test
             PopupWindow popup = new PopupWindow(_environment2, args);
             popup.Owner = this;
             popup.Show();
+        }
+
+        private void OnWebMessageRecieved(WebMessageReceivedEventArgs args)
+        {
+            AddMessage("WebMessageReceivedEventArgs : " + args);
+        }
+
+
+        private void OnDevToolsProtocolEventReceived(DevToolsProtocolEventReceivedEventArgs args)
+        {
+            AddMessage("DevToolsProtocolEventReceivedEventArgs : " + args);
         }
 
 
@@ -405,8 +466,9 @@ namespace WebView2.Interop.Test
         }
 
 
-        private void OnZoomChanged(ZoomFactorCompletedEventArgs obj)
+        private void OnZoomChanged(ZoomFactorCompletedEventArgs args)
         {
+            AddMessage("ZoomFactorCompletedEventArgs : " + args);
             UpdateUi();
         }
 
@@ -596,6 +658,96 @@ namespace WebView2.Interop.Test
         private void buttonDelNewWindow_Click(object sender, EventArgs e)
         {
             RemoveNewWindow();
+        }
+
+        private void buttonNavigateHtml_Click(object sender, EventArgs e)
+        {
+            string page = "<!DOCTYPE html><html><head><meta charset = 'UTF-8'><title>Loaded from a string</title></head>" +
+                "<body><p>Hi I'm a dot net string</p></body></html>";
+            _webView.NavigateToString(page);
+        }
+
+        private void buttonSetFocus_Click(object sender, EventArgs e)
+        {
+            _webView.MoveFocus(WEBVIEW2_MOVE_FOCUS_REASON.WEBVIEW2_MOVE_FOCUS_REASON_PROGRAMMATIC);
+        }
+
+        private void buttonClearCache_Click(object sender, EventArgs e)
+        {
+            CallDevToolsProtocolMethodCompletedHandler handler = new CallDevToolsProtocolMethodCompletedHandler("Network.clearBrowserCache", OnDevToolProtocolComplete);
+            CallDevToolsProtocolMethodCompletedHandler handler2 = new CallDevToolsProtocolMethodCompletedHandler("Network.clearBrowserCookies", OnDevToolProtocolComplete);
+            _webView.CallDevToolsProtocolMethod("Network.clearBrowserCache", "{}", handler);
+            _webView.CallDevToolsProtocolMethod("Network.clearBrowserCookies", "{}", handler2);
+        }
+
+        private void OnDevToolProtocolComplete(CallDevToolsProtocolMethodCompletedEventArgs args)
+        {
+            AddMessage("CallDevToolsProtocolMethodCompletedEventArgs : " + args);
+        }
+
+        private void buttonAddDevProtocol_Click(object sender, EventArgs e)
+        {
+            AddDevToolsProtocolMethodHandler("Security.securityStateChanged");
+        }
+
+        private void buttonRemoveDevProtocol_Click(object sender, EventArgs e)
+        {
+            RemoveDevToolsProtocolMethodHandler("Security.securityStateChanged");
+        }
+
+        string GetFullPathFor(string relativePath)
+        {
+            var location = new Uri(Assembly.GetEntryAssembly().GetName().CodeBase);
+            string fulllName = new FileInfo(location.AbsolutePath).Directory.FullName;
+
+            return Path.Combine(fulllName, relativePath);
+        }
+
+        private void buttonMessageTest_Click(object sender, EventArgs e)
+        {
+            string controlsPath = GetFullPathFor("Content\\MessageTest.html");
+            _webView.Navigate(controlsPath);
+        }
+
+        private void buttonPostJSON_Click(object sender, EventArgs e)
+        {
+            JObject jObject = new JObject();
+            jObject.Add("message", JToken.FromObject(100));
+            jObject.Add("args", JToken.FromObject("{}"));
+
+            string json = jObject.ToString();
+
+            _webView.PostWebMessageAsJson(json);
+        }
+
+        private void buttonPostString_Click(object sender, EventArgs e)
+        {
+            _webView.PostWebMessageAsString("I'm a string");
+        }
+
+        private void buttonAddWebMessage_Click(object sender, EventArgs e)
+        {
+            AddWebMessageHandler();
+        }
+
+        private void buttonRemoveWebMessage_Click(object sender, EventArgs e)
+        {
+            RemoveWebMessageHandler();
+        }
+
+        private void buttonClose_Click(object sender, EventArgs e)
+        {
+            _webView.Close();
+        }
+
+        private void buttonStop_Click(object sender, EventArgs e)
+        {
+            _webView.Stop();
+        }
+
+        private void buttonDevTools_Click(object sender, EventArgs e)
+        {
+            _webView.OpenDevToolsWindow();
         }
     }
 }

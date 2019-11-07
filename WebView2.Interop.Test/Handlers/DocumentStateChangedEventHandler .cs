@@ -11,7 +11,7 @@ namespace MtrDev.WebView2.Interop.Test.Handlers
         {
         }
 
-        public void Invoke(IWebView2WebView3 webview, IWebView2DocumentStateChangedEventArgs args)
+        public void Invoke(IWebView2WebView webview, IWebView2DocumentStateChangedEventArgs args)
         {
             DocumentStateChangedEventArgs eventArgs = new DocumentStateChangedEventArgs(args);
             Callback.Invoke(eventArgs);

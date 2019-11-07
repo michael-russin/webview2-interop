@@ -17,7 +17,7 @@ namespace MtrDev.WebView2.Interop.Test.Handlers
             _callback = callback;
         }
 
-        public void Invoke(IWebView2WebView3 webview, IWebView2NavigationCompletedEventArgs args)
+        public void Invoke(IWebView2WebView webview, IWebView2NavigationCompletedEventArgs args)
         {
             NavigationCompletedEventArgs completedArgs = new NavigationCompletedEventArgs(args);
             _callback(completedArgs);

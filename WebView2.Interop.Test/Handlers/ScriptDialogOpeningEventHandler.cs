@@ -10,7 +10,7 @@ namespace MtrDev.WebView2.Interop.Test.Handlers
         {
         }
 
-        public void Invoke(IWebView2WebView3 webview, IWebView2ScriptDialogOpeningEventArgs args)
+        public void Invoke(IWebView2WebView webview, IWebView2ScriptDialogOpeningEventArgs args)
         {
             ScriptDialogOpeningEventArgs eventArgs = new ScriptDialogOpeningEventArgs(args);
             Callback.Invoke(eventArgs);

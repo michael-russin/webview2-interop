@@ -1,7 +1,8 @@
 ﻿using System;
 using MtrDev.WebView2.Interop;
+using MtrDev.WebView2.Interop.Test.Args;
 
-namespace MtrDev.WinForms.Handlers
+namespace MtrDev.WebView2.Interop.Test.Handlers
 {
     public class WebMessageReceivedEventHandler : IWebView2WebMessageReceivedEventHandler
     {
@@ -12,7 +13,7 @@ namespace MtrDev.WinForms.Handlers
             _callback = callback;
         }
 
-        public void Invoke(IWebView2WebView3 webview, IWebView2WebMessageReceivedEventArgs args)
+        public void Invoke(IWebView2WebView webview, IWebView2WebMessageReceivedEventArgs args)
         {
             WebMessageReceivedEventArgs eventArgs = new WebMessageReceivedEventArgs(args);
             _callback.Invoke(eventArgs);

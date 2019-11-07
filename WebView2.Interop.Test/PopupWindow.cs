@@ -27,7 +27,7 @@ namespace MtrDev.WebView2.Interop.Test
         }
 
         public IWebView2Environment2 Environment { get; set; }
-        public IWebView2WebView3 WebView { get; private set; }
+        public IWebView2WebView4 WebView { get; private set; }
         public IWebView2Deferral Deferral { get; set; }
 
         internal NewWindowRequestedEventArgs Args { get; set; }
@@ -36,7 +36,7 @@ namespace MtrDev.WebView2.Interop.Test
         {
             CreateWebViewCompletedHandler viewCompleteHandler = new CreateWebViewCompletedHandler((viewArgs) =>
             {
-                WebView = viewArgs.WebView;
+                WebView = (IWebView2WebView4)viewArgs.WebView;
 
                 WebView.Bounds = new tagRECT()
                 {
@@ -45,8 +45,10 @@ namespace MtrDev.WebView2.Interop.Test
                     right = Bounds.Width,
                     bottom = Bounds.Height
                 };
-                IWebView2WebView wv = (IWebView2WebView)WebView;
-                Args.NewWindow = wv;
+                IWebView2WebView wv;
+                Args.get_NewWindow(out wv);
+                wv = (IWebView2WebView)WebView;
+                Args.put_NewWindow(wv);
                 Args.Handled = true;
                 Deferral.Complete();
             });

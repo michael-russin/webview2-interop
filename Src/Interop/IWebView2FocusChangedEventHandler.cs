@@ -14,6 +14,6 @@ namespace MtrDev.WebView2.Interop
 	public interface IWebView2FocusChangedEventHandler
 	{
 		
-		void Invoke([In] IWebView2WebView3 webview, [In, MarshalAs(UnmanagedType.IUnknown)] object args);
+		void Invoke([In] IWebView2WebView webview, [In, MarshalAs(UnmanagedType.IUnknown)] object args);
 	}
 }

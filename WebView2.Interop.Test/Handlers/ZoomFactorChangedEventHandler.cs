@@ -14,7 +14,7 @@ namespace MtrDev.WebView2.Interop.Test.Handlers
         }
 
 
-        public void Invoke(IWebView2WebView3 webview, object args)
+        public void Invoke(IWebView2WebView webview, object args)
         {
             ZoomFactorCompletedEventArgs eventArgs = new ZoomFactorCompletedEventArgs(args);
             _callback.Invoke(eventArgs);

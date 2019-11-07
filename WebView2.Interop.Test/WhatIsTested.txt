@@ -1,14 +1,14 @@
-﻿IWebView2WebView3
+﻿IWebView2WebView
 ==================================================
-IWebView2Settings Settings { get; }
+YES  IWebView2Settings Settings { get; }
 
-string Source { get; }
+YES  string Source { get; }
 
 YES  void Navigate([In, MarshalAs(UnmanagedType.LPWStr)] string uri);
 
-void MoveFocus([In] WEBVIEW2_MOVE_FOCUS_REASON reason);
+YES  void MoveFocus([In] WEBVIEW2_MOVE_FOCUS_REASON reason);
 
-        void NavigateToString([In, MarshalAs(UnmanagedType.LPWStr)] string htmlContent);
+YES  void NavigateToString([In, MarshalAs(UnmanagedType.LPWStr)] string htmlContent);
 
 YES  void add_NavigationStarting([In] IWebView2NavigationStartingEventHandler eventHandler, out EventRegistrationToken token);
 
@@ -74,21 +74,21 @@ YES  double ZoomFactor { get; set; }
 
 YES  bool IsVisible  { get; set; }
 
-        void PostWebMessageAsJson([In, MarshalAs(UnmanagedType.LPWStr)] string webMessageAsJson);
+YES  void PostWebMessageAsJson([In, MarshalAs(UnmanagedType.LPWStr)] string webMessageAsJson);
 
-        void PostWebMessageAsString([In, MarshalAs(UnmanagedType.LPWStr)] string webMessageAsString);
+YES  void PostWebMessageAsString([In, MarshalAs(UnmanagedType.LPWStr)] string webMessageAsString);
 
-        void add_WebMessageReceived([In] IWebView2WebMessageReceivedEventHandler handler, out EventRegistrationToken token);
+YES  void add_WebMessageReceived([In] IWebView2WebMessageReceivedEventHandler handler, out EventRegistrationToken token);
 
-        void remove_WebMessageReceived([In] EventRegistrationToken token);
+YES  void remove_WebMessageReceived([In] EventRegistrationToken token);
     
-        void Close();
+YES  void Close();
 
-        void CallDevToolsProtocolMethod([In, MarshalAs(UnmanagedType.LPWStr)] string methodName, [In, MarshalAs(UnmanagedType.LPWStr)] string parametersAsJson, IWebView2CallDevToolsProtocolMethodCompletedHandler handler);
+YES  void CallDevToolsProtocolMethod([In, MarshalAs(UnmanagedType.LPWStr)] string methodName, [In, MarshalAs(UnmanagedType.LPWStr)] string parametersAsJson, IWebView2CallDevToolsProtocolMethodCompletedHandler handler);
 
-        void add_DevToolsProtocolEventReceived([In, MarshalAs(UnmanagedType.LPWStr)] string eventName, IWebView2DevToolsProtocolEventReceivedEventHandler handler, out EventRegistrationToken token);
+YES  void add_DevToolsProtocolEventReceived([In, MarshalAs(UnmanagedType.LPWStr)] string eventName, IWebView2DevToolsProtocolEventReceivedEventHandler handler, out EventRegistrationToken token);
 
-        void remove_DevToolsProtocolEventReceived([In, MarshalAs(UnmanagedType.LPWStr)]string eventName, EventRegistrationToken token);
+YES  void remove_DevToolsProtocolEventReceived([In, MarshalAs(UnmanagedType.LPWStr)]string eventName, EventRegistrationToken token);
 
 YES  uint BrowserProcessId { get; }
 
@@ -100,7 +100,10 @@ YES  void GoBack();
 
 YES  void GoForward();
 
-        void Stop();
+IWebView3WebView
+==================================================
+
+YES  void Stop();
 
         void add_NewWindowRequested([In] IWebView2NewWindowRequestedEventHandler eventHandler, out EventRegistrationToken token);
 
@@ -111,5 +114,32 @@ YES  void add_DocumentTitleChanged([In] IWebView2DocumentTitleChangedEventHandle
 YES  void remove_DocumentTitleChanged([In] EventRegistrationToken token);
 
 YES  void DocumentTitle([MarshalAs(UnmanagedType.LPWStr)] out string title);
-    }
-}
+
+IWebView4WebView
+==================================================
+        void AddRemoteObject([In, MarshalAs(UnmanagedType.LPWStr)] string name, [In] ref object @object);
+
+        void RemoveRemoteObject([In, MarshalAs(UnmanagedType.LPWStr)] string name);
+
+YES  void OpenDevToolsWindow();
+
+        void add_AcceleratorKeyPressed([In] IWebView2AcceleratorKeyPressedEventHandler eventHandler, out EventRegistrationToken token);
+
+        void remove_AcceleratorKeyPressed([In] EventRegistrationToken token);
+
+
+IWebView2Environment
+==================================================
+YES  void CreateWebView([In] IntPtr parentWindow, [In] IWebView2CreateWebViewCompletedHandler handler);
+
+     void CreateWebResourceResponse(IStream Content, int StatusCode, [In, MarshalAs(UnmanagedType.LPWStr)] string ReasonPhrase, 
+ 
+IWebView2Environment2
+==================================================
+YES  string BrowserVersionInfo { get; }
+
+IWebView2Environment3
+==================================================
+		void add_NewVersionAvailable([In] IWebView2NewVersionAvailableEventHandler eventHandler, out EventRegistrationToken token);
+
+        void remove_NewVersionAvailable([In] EventRegistrationToken token);

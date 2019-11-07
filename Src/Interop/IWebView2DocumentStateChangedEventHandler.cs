@@ -14,6 +14,6 @@ namespace MtrDev.WebView2.Interop
 	public interface IWebView2DocumentStateChangedEventHandler
 	{
 		
-		void Invoke([In, MarshalAs(UnmanagedType.Interface)] IWebView2WebView3 webview, [In, MarshalAs(UnmanagedType.Interface)] IWebView2DocumentStateChangedEventArgs args);
+		void Invoke([In, MarshalAs(UnmanagedType.Interface)] IWebView2WebView webview, [In, MarshalAs(UnmanagedType.Interface)] IWebView2DocumentStateChangedEventArgs args);
 	}
 }

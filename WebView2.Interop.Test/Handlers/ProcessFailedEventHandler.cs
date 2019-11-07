@@ -10,7 +10,7 @@ namespace MtrDev.WebView2.Interop.Test.Handlers
         {
         }
 
-        public void Invoke(IWebView2WebView3 webview, IWebView2ProcessFailedEventArgs args)
+        public void Invoke(IWebView2WebView webview, IWebView2ProcessFailedEventArgs args)
         {
             ProcessFailedEventArgs eventArgs = new ProcessFailedEventArgs(args);
             Callback.Invoke(eventArgs);

@@ -14,7 +14,7 @@ namespace MtrDev.WebView2.Interop.Test.Handlers
         {
         }
 
-        public void Invoke(IWebView2WebView3 webview, IWebView2WebResourceRequestedEventArgs args)
+        public void Invoke(IWebView2WebView webview, IWebView2WebResourceRequestedEventArgs args)
         {
             System.Diagnostics.Debug.WriteLine("hi");
 //            WebResourceRequestedEventArgs eventArgs = new WebResourceRequestedEventArgs(args);

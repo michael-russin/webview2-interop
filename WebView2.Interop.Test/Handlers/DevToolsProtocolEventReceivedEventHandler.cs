@@ -1,7 +1,8 @@
 ﻿using System;
 using MtrDev.WebView2.Interop;
+using MtrDev.WebView2.Interop.Test.Args;
 
-namespace MtrDev.WinForms.Handlers
+namespace MtrDev.WebView2.Interop.Test.Handlers
 {
     internal class DevToolsProtocolEventReceivedEventHandler : HandlerBase<DevToolsProtocolEventReceivedEventArgs>,
         IWebView2DevToolsProtocolEventReceivedEventHandler

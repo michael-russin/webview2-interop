@@ -10,9 +10,9 @@ namespace MtrDev.WebView2.Interop.Test.Args
     internal class CreateWebViewCompletedEventArgs
     {
         public int Result;
-        public IWebView2WebView3 WebView;
+        public IWebView2WebView WebView;
 
-        internal CreateWebViewCompletedEventArgs(int result, IWebView2WebView3 webView)
+        internal CreateWebViewCompletedEventArgs(int result, IWebView2WebView webView)
         {
             Result = result;
             WebView = webView;

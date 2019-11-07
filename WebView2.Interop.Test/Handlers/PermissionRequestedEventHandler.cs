@@ -11,7 +11,7 @@ namespace MtrDev.WebView2.Interop.Test.Handlers
         {
         }
 
-        public void Invoke(IWebView2WebView3 webview, IWebView2PermissionRequestedEventArgs args)
+        public void Invoke(IWebView2WebView webview, IWebView2PermissionRequestedEventArgs args)
         {
             PermissionRequestedEventArgs eventArgs = new PermissionRequestedEventArgs(args);
             Callback.Invoke(eventArgs);

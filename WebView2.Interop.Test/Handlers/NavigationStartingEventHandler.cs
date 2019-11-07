@@ -12,7 +12,7 @@ namespace MtrDev.WebView2.Interop.Test.Handlers
         {
         }
 
-        public void Invoke(IWebView2WebView3 webview, IWebView2NavigationStartingEventArgs args)
+        public void Invoke(IWebView2WebView webview, IWebView2NavigationStartingEventArgs args)
         {
             NavigationStartingEventArgs completedArgs = new NavigationStartingEventArgs(args);
             Callback(completedArgs);

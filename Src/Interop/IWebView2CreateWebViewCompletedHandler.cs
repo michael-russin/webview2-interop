@@ -14,6 +14,6 @@ namespace MtrDev.WebView2.Interop
 	public interface IWebView2CreateWebViewCompletedHandler
 	{
 		
-		void Invoke(int result, IWebView2WebView3 webview);
+		void Invoke(int result, IWebView2WebView webview);
 	}
 }

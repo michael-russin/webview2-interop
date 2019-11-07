@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\Src\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,7 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Args\AddScriptToExecuteOnDocumentCreatedCompletedEventArgs.cs" />
+    <Compile Include="Args\CallDevToolsProtocolMethodCompletedEventArgs.cs" />
     <Compile Include="Args\CreateWebViewCompletedEventArgs.cs" />
+    <Compile Include="Args\DevToolsProtocolEventReceivedEventArgs.cs" />
     <Compile Include="Args\DocumentStateChangedEventArgs.cs" />
     <Compile Include="Args\DocumentTitleChangedEventArgs.cs" />
     <Compile Include="Args\EnvironmentCreatedEventArgs.cs" />
@@ -61,6 +66,7 @@
     <Compile Include="Args\NewWindowRequestedEventArgs.cs" />
     <Compile Include="Args\PermissionRequestedEventArgs.cs" />
     <Compile Include="Args\ProcessFailedEventArgs.cs" />
+    <Compile Include="Args\WebMessageReceivedEventArgs.cs" />
     <Compile Include="Args\WebResourceRequestedEventArgs.cs" />
     <Compile Include="Args\ZoomFactorCompletedEventArgs.cs" />
     <Compile Include="Form1.cs">
@@ -70,7 +76,9 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Handlers\AddScriptToExecuteOnDocumentCreatedCompletedHandler.cs" />
+    <Compile Include="Handlers\CallDevToolsProtocolMethodCompletedHandler.cs" />
     <Compile Include="Handlers\CreateWebViewCompletedHandler.cs" />
+    <Compile Include="Handlers\DevToolsProtocolEventReceivedEventHandler.cs" />
     <Compile Include="Handlers\DocumentStateChangedEventHandler .cs" />
     <Compile Include="Handlers\DocumentTitleChangedEventHandler.cs" />
     <Compile Include="Handlers\EnvironmentCompletedHandler.cs" />
@@ -84,6 +92,7 @@
     <Compile Include="Handlers\PermissionRequestedEventHandler.cs" />
     <Compile Include="Handlers\ProcessFailedEventHandler.cs" />
     <Compile Include="Handlers\ScriptDialogOpeningEventHandler.cs" />
+    <Compile Include="Handlers\WebMessageReceivedEventHandler.cs" />
     <Compile Include="Handlers\WebResourceRequestedEventHandler.cs" />
     <Compile Include="Handlers\ZoomFactorChangedEventHandler.cs" />
     <Compile Include="PopupWindow.cs">
@@ -132,14 +141,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Args\ScriptDialogOpeningEventArgs.cs" />
+    <Content Include="Content\MessageTest.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="WhatIsTested.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\Src\packages\Microsoft.Web.WebView2.0.8.270\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\Src\packages\Microsoft.Web.WebView2.0.8.270\build\Microsoft.Web.WebView2.targets')" />
+  <Import Project="..\Src\packages\Microsoft.Web.WebView2.0.8.314\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\Src\packages\Microsoft.Web.WebView2.0.8.314\build\Microsoft.Web.WebView2.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\Src\packages\Microsoft.Web.WebView2.0.8.270\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\Src\packages\Microsoft.Web.WebView2.0.8.270\build\Microsoft.Web.WebView2.targets'))" />
+    <Error Condition="!Exists('..\Src\packages\Microsoft.Web.WebView2.0.8.314\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\Src\packages\Microsoft.Web.WebView2.0.8.314\build\Microsoft.Web.WebView2.targets'))" />
   </Target>
 </Project>

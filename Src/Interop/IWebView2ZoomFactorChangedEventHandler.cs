@@ -14,6 +14,6 @@ namespace MtrDev.WebView2.Interop
 	public interface IWebView2ZoomFactorChangedEventHandler
 	{
 		
-		void Invoke([In, MarshalAs(UnmanagedType.Interface)] IWebView2WebView3 webview, [In, MarshalAs(UnmanagedType.Interface)] object args);
+		void Invoke([In, MarshalAs(UnmanagedType.Interface)] IWebView2WebView webview, [In, MarshalAs(UnmanagedType.Interface)] object args);
 	}
 }

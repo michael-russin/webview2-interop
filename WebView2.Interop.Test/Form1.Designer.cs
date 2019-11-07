@@ -53,20 +53,34 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxTitle = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonAddWebMessage = new System.Windows.Forms.Button();
+            this.buttonAddDevProtocol = new System.Windows.Forms.Button();
+            this.buttonAddNewWindow = new System.Windows.Forms.Button();
+            this.buttonAddStartScript = new System.Windows.Forms.Button();
+            this.button1AddScriptDialog = new System.Windows.Forms.Button();
             this.buttonAddProcessFailed = new System.Windows.Forms.Button();
             this.buttonAddTitleChanged = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.buttonRemoveWebMessage = new System.Windows.Forms.Button();
+            this.buttonRemoveDevProtocol = new System.Windows.Forms.Button();
+            this.buttonDelNewWindow = new System.Windows.Forms.Button();
+            this.buttonDeleteStartScript = new System.Windows.Forms.Button();
+            this.buttonDelScriptDialog = new System.Windows.Forms.Button();
             this.buttonRemoveProcessFailed = new System.Windows.Forms.Button();
             this.buttonDelTitleHandler = new System.Windows.Forms.Button();
             this.buttonKill = new System.Windows.Forms.Button();
             this.buttonAlert = new System.Windows.Forms.Button();
-            this.button1AddScriptDialog = new System.Windows.Forms.Button();
-            this.buttonDelScriptDialog = new System.Windows.Forms.Button();
-            this.buttonAddStartScript = new System.Windows.Forms.Button();
-            this.buttonDeleteStartScript = new System.Windows.Forms.Button();
             this.buttonExecScript = new System.Windows.Forms.Button();
-            this.buttonAddNewWindow = new System.Windows.Forms.Button();
-            this.buttonDelNewWindow = new System.Windows.Forms.Button();
+            this.buttonNavigateHtml = new System.Windows.Forms.Button();
+            this.labelSource = new System.Windows.Forms.Label();
+            this.buttonSetFocus = new System.Windows.Forms.Button();
+            this.buttonClearCache = new System.Windows.Forms.Button();
+            this.buttonMessageTest = new System.Windows.Forms.Button();
+            this.buttonPostJSON = new System.Windows.Forms.Button();
+            this.buttonPostString = new System.Windows.Forms.Button();
+            this.buttonClose = new System.Windows.Forms.Button();
+            this.buttonStop = new System.Windows.Forms.Button();
+            this.buttonDevTools = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -82,7 +96,7 @@
             // buttonVisible
             // 
             this.buttonVisible.Enabled = false;
-            this.buttonVisible.Location = new System.Drawing.Point(840, 129);
+            this.buttonVisible.Location = new System.Drawing.Point(854, 117);
             this.buttonVisible.Name = "buttonVisible";
             this.buttonVisible.Size = new System.Drawing.Size(98, 23);
             this.buttonVisible.TabIndex = 1;
@@ -93,7 +107,7 @@
             // labelProcessId
             // 
             this.labelProcessId.AutoSize = true;
-            this.labelProcessId.Location = new System.Drawing.Point(724, 13);
+            this.labelProcessId.Location = new System.Drawing.Point(666, 13);
             this.labelProcessId.Name = "labelProcessId";
             this.labelProcessId.Size = new System.Drawing.Size(57, 13);
             this.labelProcessId.TabIndex = 2;
@@ -101,16 +115,16 @@
             // 
             // textBoxProcessId
             // 
-            this.textBoxProcessId.Location = new System.Drawing.Point(787, 6);
+            this.textBoxProcessId.Location = new System.Drawing.Point(727, 7);
             this.textBoxProcessId.Name = "textBoxProcessId";
             this.textBoxProcessId.ReadOnly = true;
-            this.textBoxProcessId.Size = new System.Drawing.Size(100, 20);
+            this.textBoxProcessId.Size = new System.Drawing.Size(67, 20);
             this.textBoxProcessId.TabIndex = 3;
             // 
             // buttonGoBack
             // 
             this.buttonGoBack.Enabled = false;
-            this.buttonGoBack.Location = new System.Drawing.Point(840, 159);
+            this.buttonGoBack.Location = new System.Drawing.Point(854, 147);
             this.buttonGoBack.Name = "buttonGoBack";
             this.buttonGoBack.Size = new System.Drawing.Size(98, 23);
             this.buttonGoBack.TabIndex = 4;
@@ -121,7 +135,7 @@
             // buttonGoForward
             // 
             this.buttonGoForward.Enabled = false;
-            this.buttonGoForward.Location = new System.Drawing.Point(840, 189);
+            this.buttonGoForward.Location = new System.Drawing.Point(854, 177);
             this.buttonGoForward.Name = "buttonGoForward";
             this.buttonGoForward.Size = new System.Drawing.Size(98, 23);
             this.buttonGoForward.TabIndex = 5;
@@ -132,7 +146,7 @@
             // buttonReload
             // 
             this.buttonReload.Enabled = false;
-            this.buttonReload.Location = new System.Drawing.Point(840, 219);
+            this.buttonReload.Location = new System.Drawing.Point(854, 207);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(98, 23);
             this.buttonReload.TabIndex = 6;
@@ -161,7 +175,7 @@
             // 
             // buttonAddNavHandlers
             // 
-            this.buttonAddNavHandlers.Location = new System.Drawing.Point(10, 30);
+            this.buttonAddNavHandlers.Location = new System.Drawing.Point(10, 19);
             this.buttonAddNavHandlers.Name = "buttonAddNavHandlers";
             this.buttonAddNavHandlers.Size = new System.Drawing.Size(112, 23);
             this.buttonAddNavHandlers.TabIndex = 9;
@@ -171,7 +185,7 @@
             // 
             // buttonRemoveNAvHandlers
             // 
-            this.buttonRemoveNAvHandlers.Location = new System.Drawing.Point(15, 30);
+            this.buttonRemoveNAvHandlers.Location = new System.Drawing.Point(15, 19);
             this.buttonRemoveNAvHandlers.Name = "buttonRemoveNAvHandlers";
             this.buttonRemoveNAvHandlers.Size = new System.Drawing.Size(112, 23);
             this.buttonRemoveNAvHandlers.TabIndex = 10;
@@ -182,7 +196,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(727, 62);
+            this.label1.Location = new System.Drawing.Point(837, 38);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(34, 13);
             this.label1.TabIndex = 11;
@@ -190,7 +204,7 @@
             // 
             // textBoxZoomFactor
             // 
-            this.textBoxZoomFactor.Location = new System.Drawing.Point(789, 62);
+            this.textBoxZoomFactor.Location = new System.Drawing.Point(877, 36);
             this.textBoxZoomFactor.Name = "textBoxZoomFactor";
             this.textBoxZoomFactor.ReadOnly = true;
             this.textBoxZoomFactor.Size = new System.Drawing.Size(100, 20);
@@ -199,7 +213,7 @@
             // buttonZoom
             // 
             this.buttonZoom.Enabled = false;
-            this.buttonZoom.Location = new System.Drawing.Point(840, 249);
+            this.buttonZoom.Location = new System.Drawing.Point(671, 217);
             this.buttonZoom.Name = "buttonZoom";
             this.buttonZoom.Size = new System.Drawing.Size(98, 23);
             this.buttonZoom.TabIndex = 13;
@@ -210,7 +224,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(724, 36);
+            this.label2.Location = new System.Drawing.Point(668, 36);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(42, 13);
             this.label2.TabIndex = 14;
@@ -218,7 +232,7 @@
             // 
             // textBoxVersion
             // 
-            this.textBoxVersion.Location = new System.Drawing.Point(789, 33);
+            this.textBoxVersion.Location = new System.Drawing.Point(727, 33);
             this.textBoxVersion.Name = "textBoxVersion";
             this.textBoxVersion.ReadOnly = true;
             this.textBoxVersion.Size = new System.Drawing.Size(100, 20);
@@ -226,7 +240,7 @@
             // 
             // buttonDeletFocusHandlers
             // 
-            this.buttonDeletFocusHandlers.Location = new System.Drawing.Point(15, 59);
+            this.buttonDeletFocusHandlers.Location = new System.Drawing.Point(15, 48);
             this.buttonDeletFocusHandlers.Name = "buttonDeletFocusHandlers";
             this.buttonDeletFocusHandlers.Size = new System.Drawing.Size(112, 23);
             this.buttonDeletFocusHandlers.TabIndex = 17;
@@ -236,7 +250,7 @@
             // 
             // buttonAddFocusHandler
             // 
-            this.buttonAddFocusHandler.Location = new System.Drawing.Point(10, 59);
+            this.buttonAddFocusHandler.Location = new System.Drawing.Point(10, 48);
             this.buttonAddFocusHandler.Name = "buttonAddFocusHandler";
             this.buttonAddFocusHandler.Size = new System.Drawing.Size(112, 23);
             this.buttonAddFocusHandler.TabIndex = 16;
@@ -255,7 +269,7 @@
             // 
             // buttonDelPermissionHandler
             // 
-            this.buttonDelPermissionHandler.Location = new System.Drawing.Point(15, 88);
+            this.buttonDelPermissionHandler.Location = new System.Drawing.Point(15, 77);
             this.buttonDelPermissionHandler.Name = "buttonDelPermissionHandler";
             this.buttonDelPermissionHandler.Size = new System.Drawing.Size(112, 23);
             this.buttonDelPermissionHandler.TabIndex = 20;
@@ -265,7 +279,7 @@
             // 
             // buttonAddPermissionHandler
             // 
-            this.buttonAddPermissionHandler.Location = new System.Drawing.Point(10, 88);
+            this.buttonAddPermissionHandler.Location = new System.Drawing.Point(10, 77);
             this.buttonAddPermissionHandler.Name = "buttonAddPermissionHandler";
             this.buttonAddPermissionHandler.Size = new System.Drawing.Size(112, 23);
             this.buttonAddPermissionHandler.TabIndex = 19;
@@ -286,7 +300,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(730, 88);
+            this.label3.Location = new System.Drawing.Point(683, 62);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(27, 13);
             this.label3.TabIndex = 21;
@@ -294,7 +308,7 @@
             // 
             // textBoxTitle
             // 
-            this.textBoxTitle.Location = new System.Drawing.Point(789, 89);
+            this.textBoxTitle.Location = new System.Drawing.Point(727, 59);
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.ReadOnly = true;
             this.textBoxTitle.Size = new System.Drawing.Size(100, 20);
@@ -302,6 +316,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.buttonAddWebMessage);
+            this.groupBox1.Controls.Add(this.buttonAddDevProtocol);
             this.groupBox1.Controls.Add(this.buttonAddNewWindow);
             this.groupBox1.Controls.Add(this.buttonAddStartScript);
             this.groupBox1.Controls.Add(this.button1AddScriptDialog);
@@ -310,16 +326,66 @@
             this.groupBox1.Controls.Add(this.buttonAddNavHandlers);
             this.groupBox1.Controls.Add(this.buttonAddFocusHandler);
             this.groupBox1.Controls.Add(this.buttonAddPermissionHandler);
-            this.groupBox1.Location = new System.Drawing.Point(661, 290);
+            this.groupBox1.Location = new System.Drawing.Point(661, 255);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(133, 262);
+            this.groupBox1.Size = new System.Drawing.Size(133, 309);
             this.groupBox1.TabIndex = 23;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "ADD";
             // 
+            // buttonAddWebMessage
+            // 
+            this.buttonAddWebMessage.Location = new System.Drawing.Point(10, 280);
+            this.buttonAddWebMessage.Name = "buttonAddWebMessage";
+            this.buttonAddWebMessage.Size = new System.Drawing.Size(112, 23);
+            this.buttonAddWebMessage.TabIndex = 26;
+            this.buttonAddWebMessage.Text = "Web Message";
+            this.buttonAddWebMessage.UseVisualStyleBackColor = true;
+            this.buttonAddWebMessage.Click += new System.EventHandler(this.buttonAddWebMessage_Click);
+            // 
+            // buttonAddDevProtocol
+            // 
+            this.buttonAddDevProtocol.Location = new System.Drawing.Point(8, 251);
+            this.buttonAddDevProtocol.Name = "buttonAddDevProtocol";
+            this.buttonAddDevProtocol.Size = new System.Drawing.Size(112, 23);
+            this.buttonAddDevProtocol.TabIndex = 25;
+            this.buttonAddDevProtocol.Text = "Dev Protocol";
+            this.buttonAddDevProtocol.UseVisualStyleBackColor = true;
+            this.buttonAddDevProtocol.Click += new System.EventHandler(this.buttonAddDevProtocol_Click);
+            // 
+            // buttonAddNewWindow
+            // 
+            this.buttonAddNewWindow.Location = new System.Drawing.Point(10, 222);
+            this.buttonAddNewWindow.Name = "buttonAddNewWindow";
+            this.buttonAddNewWindow.Size = new System.Drawing.Size(112, 23);
+            this.buttonAddNewWindow.TabIndex = 24;
+            this.buttonAddNewWindow.Text = "New Window";
+            this.buttonAddNewWindow.UseVisualStyleBackColor = true;
+            this.buttonAddNewWindow.Click += new System.EventHandler(this.buttonAddNewWindow_Click);
+            // 
+            // buttonAddStartScript
+            // 
+            this.buttonAddStartScript.Location = new System.Drawing.Point(10, 193);
+            this.buttonAddStartScript.Name = "buttonAddStartScript";
+            this.buttonAddStartScript.Size = new System.Drawing.Size(112, 23);
+            this.buttonAddStartScript.TabIndex = 23;
+            this.buttonAddStartScript.Text = "Start Script";
+            this.buttonAddStartScript.UseVisualStyleBackColor = true;
+            this.buttonAddStartScript.Click += new System.EventHandler(this.buttonAddStartScript_Click);
+            // 
+            // button1AddScriptDialog
+            // 
+            this.button1AddScriptDialog.Location = new System.Drawing.Point(10, 164);
+            this.button1AddScriptDialog.Name = "button1AddScriptDialog";
+            this.button1AddScriptDialog.Size = new System.Drawing.Size(112, 23);
+            this.button1AddScriptDialog.TabIndex = 22;
+            this.button1AddScriptDialog.Text = "Script Dialog";
+            this.button1AddScriptDialog.UseVisualStyleBackColor = true;
+            this.button1AddScriptDialog.Click += new System.EventHandler(this.button1AddScriptDialog_Click);
+            // 
             // buttonAddProcessFailed
             // 
-            this.buttonAddProcessFailed.Location = new System.Drawing.Point(10, 146);
+            this.buttonAddProcessFailed.Location = new System.Drawing.Point(10, 135);
             this.buttonAddProcessFailed.Name = "buttonAddProcessFailed";
             this.buttonAddProcessFailed.Size = new System.Drawing.Size(112, 23);
             this.buttonAddProcessFailed.TabIndex = 21;
@@ -329,7 +395,7 @@
             // 
             // buttonAddTitleChanged
             // 
-            this.buttonAddTitleChanged.Location = new System.Drawing.Point(10, 117);
+            this.buttonAddTitleChanged.Location = new System.Drawing.Point(10, 106);
             this.buttonAddTitleChanged.Name = "buttonAddTitleChanged";
             this.buttonAddTitleChanged.Size = new System.Drawing.Size(112, 23);
             this.buttonAddTitleChanged.TabIndex = 20;
@@ -339,6 +405,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.buttonRemoveWebMessage);
+            this.groupBox2.Controls.Add(this.buttonRemoveDevProtocol);
             this.groupBox2.Controls.Add(this.buttonDelNewWindow);
             this.groupBox2.Controls.Add(this.buttonDeleteStartScript);
             this.groupBox2.Controls.Add(this.buttonDelScriptDialog);
@@ -347,16 +415,66 @@
             this.groupBox2.Controls.Add(this.buttonRemoveNAvHandlers);
             this.groupBox2.Controls.Add(this.buttonDeletFocusHandlers);
             this.groupBox2.Controls.Add(this.buttonDelPermissionHandler);
-            this.groupBox2.Location = new System.Drawing.Point(825, 290);
+            this.groupBox2.Location = new System.Drawing.Point(825, 255);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(140, 262);
+            this.groupBox2.Size = new System.Drawing.Size(140, 309);
             this.groupBox2.TabIndex = 24;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "DELETE";
             // 
+            // buttonRemoveWebMessage
+            // 
+            this.buttonRemoveWebMessage.Location = new System.Drawing.Point(15, 277);
+            this.buttonRemoveWebMessage.Name = "buttonRemoveWebMessage";
+            this.buttonRemoveWebMessage.Size = new System.Drawing.Size(112, 23);
+            this.buttonRemoveWebMessage.TabIndex = 27;
+            this.buttonRemoveWebMessage.Text = "Web Message";
+            this.buttonRemoveWebMessage.UseVisualStyleBackColor = true;
+            this.buttonRemoveWebMessage.Click += new System.EventHandler(this.buttonRemoveWebMessage_Click);
+            // 
+            // buttonRemoveDevProtocol
+            // 
+            this.buttonRemoveDevProtocol.Location = new System.Drawing.Point(15, 251);
+            this.buttonRemoveDevProtocol.Name = "buttonRemoveDevProtocol";
+            this.buttonRemoveDevProtocol.Size = new System.Drawing.Size(112, 23);
+            this.buttonRemoveDevProtocol.TabIndex = 26;
+            this.buttonRemoveDevProtocol.Text = "Dev Protocol";
+            this.buttonRemoveDevProtocol.UseVisualStyleBackColor = true;
+            this.buttonRemoveDevProtocol.Click += new System.EventHandler(this.buttonRemoveDevProtocol_Click);
+            // 
+            // buttonDelNewWindow
+            // 
+            this.buttonDelNewWindow.Location = new System.Drawing.Point(15, 222);
+            this.buttonDelNewWindow.Name = "buttonDelNewWindow";
+            this.buttonDelNewWindow.Size = new System.Drawing.Size(112, 23);
+            this.buttonDelNewWindow.TabIndex = 25;
+            this.buttonDelNewWindow.Text = "New Window";
+            this.buttonDelNewWindow.UseVisualStyleBackColor = true;
+            this.buttonDelNewWindow.Click += new System.EventHandler(this.buttonDelNewWindow_Click);
+            // 
+            // buttonDeleteStartScript
+            // 
+            this.buttonDeleteStartScript.Location = new System.Drawing.Point(15, 193);
+            this.buttonDeleteStartScript.Name = "buttonDeleteStartScript";
+            this.buttonDeleteStartScript.Size = new System.Drawing.Size(112, 23);
+            this.buttonDeleteStartScript.TabIndex = 24;
+            this.buttonDeleteStartScript.Text = "Start Script";
+            this.buttonDeleteStartScript.UseVisualStyleBackColor = true;
+            this.buttonDeleteStartScript.Click += new System.EventHandler(this.buttonDeleteStartScript_Click);
+            // 
+            // buttonDelScriptDialog
+            // 
+            this.buttonDelScriptDialog.Location = new System.Drawing.Point(15, 164);
+            this.buttonDelScriptDialog.Name = "buttonDelScriptDialog";
+            this.buttonDelScriptDialog.Size = new System.Drawing.Size(112, 23);
+            this.buttonDelScriptDialog.TabIndex = 23;
+            this.buttonDelScriptDialog.Text = "Script Dialog";
+            this.buttonDelScriptDialog.UseVisualStyleBackColor = true;
+            this.buttonDelScriptDialog.Click += new System.EventHandler(this.buttonDelScriptDialog_Click);
+            // 
             // buttonRemoveProcessFailed
             // 
-            this.buttonRemoveProcessFailed.Location = new System.Drawing.Point(15, 146);
+            this.buttonRemoveProcessFailed.Location = new System.Drawing.Point(15, 135);
             this.buttonRemoveProcessFailed.Name = "buttonRemoveProcessFailed";
             this.buttonRemoveProcessFailed.Size = new System.Drawing.Size(112, 23);
             this.buttonRemoveProcessFailed.TabIndex = 22;
@@ -366,7 +484,7 @@
             // 
             // buttonDelTitleHandler
             // 
-            this.buttonDelTitleHandler.Location = new System.Drawing.Point(15, 117);
+            this.buttonDelTitleHandler.Location = new System.Drawing.Point(15, 106);
             this.buttonDelTitleHandler.Name = "buttonDelTitleHandler";
             this.buttonDelTitleHandler.Size = new System.Drawing.Size(112, 23);
             this.buttonDelTitleHandler.TabIndex = 21;
@@ -376,9 +494,9 @@
             // 
             // buttonKill
             // 
-            this.buttonKill.Location = new System.Drawing.Point(894, 2);
+            this.buttonKill.Location = new System.Drawing.Point(800, 3);
             this.buttonKill.Name = "buttonKill";
-            this.buttonKill.Size = new System.Drawing.Size(75, 23);
+            this.buttonKill.Size = new System.Drawing.Size(42, 23);
             this.buttonKill.TabIndex = 25;
             this.buttonKill.Text = "Kill";
             this.buttonKill.UseVisualStyleBackColor = true;
@@ -394,46 +512,6 @@
             this.buttonAlert.UseVisualStyleBackColor = true;
             this.buttonAlert.Click += new System.EventHandler(this.buttonAlert_Click);
             // 
-            // button1AddScriptDialog
-            // 
-            this.button1AddScriptDialog.Location = new System.Drawing.Point(10, 175);
-            this.button1AddScriptDialog.Name = "button1AddScriptDialog";
-            this.button1AddScriptDialog.Size = new System.Drawing.Size(112, 23);
-            this.button1AddScriptDialog.TabIndex = 22;
-            this.button1AddScriptDialog.Text = "Script Dialog";
-            this.button1AddScriptDialog.UseVisualStyleBackColor = true;
-            this.button1AddScriptDialog.Click += new System.EventHandler(this.button1AddScriptDialog_Click);
-            // 
-            // buttonDelScriptDialog
-            // 
-            this.buttonDelScriptDialog.Location = new System.Drawing.Point(15, 175);
-            this.buttonDelScriptDialog.Name = "buttonDelScriptDialog";
-            this.buttonDelScriptDialog.Size = new System.Drawing.Size(112, 23);
-            this.buttonDelScriptDialog.TabIndex = 23;
-            this.buttonDelScriptDialog.Text = "Script Dialog";
-            this.buttonDelScriptDialog.UseVisualStyleBackColor = true;
-            this.buttonDelScriptDialog.Click += new System.EventHandler(this.buttonDelScriptDialog_Click);
-            // 
-            // buttonAddStartScript
-            // 
-            this.buttonAddStartScript.Location = new System.Drawing.Point(10, 204);
-            this.buttonAddStartScript.Name = "buttonAddStartScript";
-            this.buttonAddStartScript.Size = new System.Drawing.Size(112, 23);
-            this.buttonAddStartScript.TabIndex = 23;
-            this.buttonAddStartScript.Text = "Start Script";
-            this.buttonAddStartScript.UseVisualStyleBackColor = true;
-            this.buttonAddStartScript.Click += new System.EventHandler(this.buttonAddStartScript_Click);
-            // 
-            // buttonDeleteStartScript
-            // 
-            this.buttonDeleteStartScript.Location = new System.Drawing.Point(15, 204);
-            this.buttonDeleteStartScript.Name = "buttonDeleteStartScript";
-            this.buttonDeleteStartScript.Size = new System.Drawing.Size(112, 23);
-            this.buttonDeleteStartScript.TabIndex = 24;
-            this.buttonDeleteStartScript.Text = "Start Script";
-            this.buttonDeleteStartScript.UseVisualStyleBackColor = true;
-            this.buttonDeleteStartScript.Click += new System.EventHandler(this.buttonDeleteStartScript_Click);
-            // 
             // buttonExecScript
             // 
             this.buttonExecScript.Location = new System.Drawing.Point(671, 128);
@@ -444,31 +522,119 @@
             this.buttonExecScript.UseVisualStyleBackColor = true;
             this.buttonExecScript.Click += new System.EventHandler(this.buttonExecScript_Click);
             // 
-            // buttonAddNewWindow
+            // buttonNavigateHtml
             // 
-            this.buttonAddNewWindow.Location = new System.Drawing.Point(10, 233);
-            this.buttonAddNewWindow.Name = "buttonAddNewWindow";
-            this.buttonAddNewWindow.Size = new System.Drawing.Size(112, 23);
-            this.buttonAddNewWindow.TabIndex = 24;
-            this.buttonAddNewWindow.Text = "New Window";
-            this.buttonAddNewWindow.UseVisualStyleBackColor = true;
-            this.buttonAddNewWindow.Click += new System.EventHandler(this.buttonAddNewWindow_Click);
+            this.buttonNavigateHtml.Location = new System.Drawing.Point(195, 38);
+            this.buttonNavigateHtml.Name = "buttonNavigateHtml";
+            this.buttonNavigateHtml.Size = new System.Drawing.Size(75, 23);
+            this.buttonNavigateHtml.TabIndex = 28;
+            this.buttonNavigateHtml.Text = "Nav Html";
+            this.buttonNavigateHtml.UseVisualStyleBackColor = true;
+            this.buttonNavigateHtml.Click += new System.EventHandler(this.buttonNavigateHtml_Click);
             // 
-            // buttonDelNewWindow
+            // labelSource
             // 
-            this.buttonDelNewWindow.Location = new System.Drawing.Point(15, 233);
-            this.buttonDelNewWindow.Name = "buttonDelNewWindow";
-            this.buttonDelNewWindow.Size = new System.Drawing.Size(112, 23);
-            this.buttonDelNewWindow.TabIndex = 25;
-            this.buttonDelNewWindow.Text = "New Window";
-            this.buttonDelNewWindow.UseVisualStyleBackColor = true;
-            this.buttonDelNewWindow.Click += new System.EventHandler(this.buttonDelNewWindow_Click);
+            this.labelSource.Location = new System.Drawing.Point(-2, 532);
+            this.labelSource.Name = "labelSource";
+            this.labelSource.Size = new System.Drawing.Size(647, 14);
+            this.labelSource.TabIndex = 29;
+            this.labelSource.Text = "labelSource";
+            // 
+            // buttonSetFocus
+            // 
+            this.buttonSetFocus.Location = new System.Drawing.Point(671, 158);
+            this.buttonSetFocus.Name = "buttonSetFocus";
+            this.buttonSetFocus.Size = new System.Drawing.Size(75, 23);
+            this.buttonSetFocus.TabIndex = 30;
+            this.buttonSetFocus.Text = "Set Focus";
+            this.buttonSetFocus.UseVisualStyleBackColor = true;
+            this.buttonSetFocus.Click += new System.EventHandler(this.buttonSetFocus_Click);
+            // 
+            // buttonClearCache
+            // 
+            this.buttonClearCache.Location = new System.Drawing.Point(671, 188);
+            this.buttonClearCache.Name = "buttonClearCache";
+            this.buttonClearCache.Size = new System.Drawing.Size(75, 23);
+            this.buttonClearCache.TabIndex = 31;
+            this.buttonClearCache.Text = "Clear Cache";
+            this.buttonClearCache.UseVisualStyleBackColor = true;
+            this.buttonClearCache.Click += new System.EventHandler(this.buttonClearCache_Click);
+            // 
+            // buttonMessageTest
+            // 
+            this.buttonMessageTest.Location = new System.Drawing.Point(277, 38);
+            this.buttonMessageTest.Name = "buttonMessageTest";
+            this.buttonMessageTest.Size = new System.Drawing.Size(75, 23);
+            this.buttonMessageTest.TabIndex = 32;
+            this.buttonMessageTest.Text = "Message";
+            this.buttonMessageTest.UseVisualStyleBackColor = true;
+            this.buttonMessageTest.Click += new System.EventHandler(this.buttonMessageTest_Click);
+            // 
+            // buttonPostJSON
+            // 
+            this.buttonPostJSON.Location = new System.Drawing.Point(671, 99);
+            this.buttonPostJSON.Name = "buttonPostJSON";
+            this.buttonPostJSON.Size = new System.Drawing.Size(75, 23);
+            this.buttonPostJSON.TabIndex = 33;
+            this.buttonPostJSON.Text = "Post JSON";
+            this.buttonPostJSON.UseVisualStyleBackColor = true;
+            this.buttonPostJSON.Click += new System.EventHandler(this.buttonPostJSON_Click);
+            // 
+            // buttonPostString
+            // 
+            this.buttonPostString.Location = new System.Drawing.Point(752, 99);
+            this.buttonPostString.Name = "buttonPostString";
+            this.buttonPostString.Size = new System.Drawing.Size(75, 23);
+            this.buttonPostString.TabIndex = 34;
+            this.buttonPostString.Text = "Post String";
+            this.buttonPostString.UseVisualStyleBackColor = true;
+            this.buttonPostString.Click += new System.EventHandler(this.buttonPostString_Click);
+            // 
+            // buttonClose
+            // 
+            this.buttonClose.Location = new System.Drawing.Point(849, 3);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(48, 23);
+            this.buttonClose.TabIndex = 35;
+            this.buttonClose.Text = "Close";
+            this.buttonClose.UseVisualStyleBackColor = true;
+            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
+            // 
+            // buttonStop
+            // 
+            this.buttonStop.Location = new System.Drawing.Point(903, 4);
+            this.buttonStop.Name = "buttonStop";
+            this.buttonStop.Size = new System.Drawing.Size(57, 24);
+            this.buttonStop.TabIndex = 36;
+            this.buttonStop.Text = "Stop";
+            this.buttonStop.UseVisualStyleBackColor = true;
+            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
+            // 
+            // buttonDevTools
+            // 
+            this.buttonDevTools.Location = new System.Drawing.Point(877, 67);
+            this.buttonDevTools.Name = "buttonDevTools";
+            this.buttonDevTools.Size = new System.Drawing.Size(75, 23);
+            this.buttonDevTools.TabIndex = 37;
+            this.buttonDevTools.Text = "Dev Tools";
+            this.buttonDevTools.UseVisualStyleBackColor = true;
+            this.buttonDevTools.Click += new System.EventHandler(this.buttonDevTools_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(977, 683);
+            this.Controls.Add(this.buttonDevTools);
+            this.Controls.Add(this.buttonStop);
+            this.Controls.Add(this.buttonClose);
+            this.Controls.Add(this.buttonPostString);
+            this.Controls.Add(this.buttonPostJSON);
+            this.Controls.Add(this.buttonMessageTest);
+            this.Controls.Add(this.buttonClearCache);
+            this.Controls.Add(this.buttonSetFocus);
+            this.Controls.Add(this.labelSource);
+            this.Controls.Add(this.buttonNavigateHtml);
             this.Controls.Add(this.buttonExecScript);
             this.Controls.Add(this.buttonAlert);
             this.Controls.Add(this.buttonKill);
@@ -543,6 +709,20 @@
         private System.Windows.Forms.Button buttonExecScript;
         private System.Windows.Forms.Button buttonAddNewWindow;
         private System.Windows.Forms.Button buttonDelNewWindow;
+        private System.Windows.Forms.Button buttonNavigateHtml;
+        private System.Windows.Forms.Label labelSource;
+        private System.Windows.Forms.Button buttonSetFocus;
+        private System.Windows.Forms.Button buttonClearCache;
+        private System.Windows.Forms.Button buttonAddDevProtocol;
+        private System.Windows.Forms.Button buttonRemoveDevProtocol;
+        private System.Windows.Forms.Button buttonMessageTest;
+        private System.Windows.Forms.Button buttonPostJSON;
+        private System.Windows.Forms.Button buttonPostString;
+        private System.Windows.Forms.Button buttonAddWebMessage;
+        private System.Windows.Forms.Button buttonRemoveWebMessage;
+        private System.Windows.Forms.Button buttonClose;
+        private System.Windows.Forms.Button buttonStop;
+        private System.Windows.Forms.Button buttonDevTools;
     }
 }
 

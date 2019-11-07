@@ -10,7 +10,7 @@ namespace MtrDev.WebView2.Interop.Test.Handlers
         {
         }
 
-        public void Invoke(IWebView2WebView3 webview, IWebView2NewWindowRequestedEventArgs args)
+        public void Invoke(IWebView2WebView webview, IWebView2NewWindowRequestedEventArgs args)
         {
             NewWindowRequestedEventArgs eventArgs = new NewWindowRequestedEventArgs(args);
             Callback.Invoke(eventArgs);

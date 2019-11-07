@@ -21,6 +21,7 @@ namespace MtrDev.WebView2.Interop
         {
             [return: MarshalAs(UnmanagedType.LPWStr)]
             get;
+            [param: MarshalAs(UnmanagedType.LPWStr)]
             set;
         }
 
@@ -32,6 +33,7 @@ namespace MtrDev.WebView2.Interop
         {
             [return: MarshalAs(UnmanagedType.LPWStr)]
             get;
+            [param: MarshalAs(UnmanagedType.LPWStr)]
             set;
         }
 
