@@ -2,7 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Russinsoft.WebView2.Interop
+namespace MtrDev.WebView2.Interop
 {
     /// <summary>
     /// Event args for the NewWindowRequested event. The event is fired when content
@@ -32,9 +32,9 @@ namespace Russinsoft.WebView2.Interop
         [DispId(1610678273)]
         IWebView2WebView NewWindow
         {
-
+            [return:MarshalAs(UnmanagedType.Interface)]
             get;
-
+            [param: MarshalAs(UnmanagedType.Interface)]
             set;
         }
 

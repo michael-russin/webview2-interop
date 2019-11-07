@@ -2,7 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Russinsoft.WebView2.Interop
+namespace MtrDev.WebView2.Interop
 {
 #pragma warning disable CS0108
 
@@ -15,9 +15,9 @@ namespace Russinsoft.WebView2.Interop
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IWebView2Environment2 : IWebView2Environment
 	{
-        void CreateWebView([In] IntPtr parentWindow, [In]IWebView2CreateWebViewCompletedHandler handler);
+        new void CreateWebView([In] IntPtr parentWindow, [In]IWebView2CreateWebViewCompletedHandler handler);
 
-        void CreateWebResourceResponse(IStream Content, int StatusCode, [In, MarshalAs(UnmanagedType.LPWStr)] string ReasonPhrase, [In, MarshalAs(UnmanagedType.LPWStr)] string Headers, ref IWebView2WebResourceResponse Response);
+        new void CreateWebResourceResponse(IStream Content, int StatusCode, [In, MarshalAs(UnmanagedType.LPWStr)] string ReasonPhrase, [In, MarshalAs(UnmanagedType.LPWStr)] string Headers, ref IWebView2WebResourceResponse Response);
 
         /// <summary>
         /// The browser version info of the current IWebView2Environment,

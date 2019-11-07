@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Russinsoft.WebView2
+namespace MtrDev.WebView2
 {
     internal static class ExternDll
     {

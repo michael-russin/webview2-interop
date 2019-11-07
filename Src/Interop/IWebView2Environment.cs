@@ -2,7 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Russinsoft.WebView2.Interop
+namespace MtrDev.WebView2.Interop
 {
     /// <summary>
     /// This represents the WebView2 Environment. WebViews created from an

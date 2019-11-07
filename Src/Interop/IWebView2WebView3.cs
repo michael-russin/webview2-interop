@@ -2,7 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Russinsoft.WebView2.Interop
+namespace MtrDev.WebView2.Interop
 {
 #pragma warning disable CS0108
 
@@ -60,7 +60,11 @@ namespace Russinsoft.WebView2.Interop
 
         void remove_LostFocus([In] EventRegistrationToken token);
 
-        void add_WebResourceRequested([In, MarshalAs(UnmanagedType.LPWStr)] ref string urlFilter, ref WEBVIEW2_WEB_RESOURCE_CONTEXT resourceContextFilter, ulong filterLength, IWebView2WebResourceRequestedEventHandler eventHandler, out EventRegistrationToken token);
+        void add_WebResourceRequested([In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPWStr)] ref string[] urlFilter,
+                                       [In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.I4)] int[] resourceContextFilter,
+                                       [In] ulong filterLength,
+                                       [In] IWebView2WebResourceRequestedEventHandler eventHandler,
+                                       out EventRegistrationToken token);
 
         void remove_WebResourceRequested(EventRegistrationToken token);
 

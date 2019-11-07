@@ -1,6 +1,6 @@
 using System;
 
-namespace Russinsoft.WebView2.Interop
+namespace MtrDev.WebView2.Interop
 {
     /// <summary>
     /// Kind of process failure used in the IWebView2ProcessFailedEventHandler interface.

@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Russinsoft.WebView2.Interop
+namespace MtrDev.WebView2.Interop
 {
 	[StructLayout(LayoutKind.Explicit)]
 	public struct __MIDL_IWinTypes_0009

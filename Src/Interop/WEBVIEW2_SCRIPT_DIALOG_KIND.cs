@@ -1,6 +1,6 @@
 using System;
 
-namespace Russinsoft.WebView2.Interop
+namespace MtrDev.WebView2.Interop
 {
     /// <summary>
     /// Kind of JavaScript dialog used in the IWebView2ScriptDialogOpeningEventHandler

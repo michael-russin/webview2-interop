@@ -1,6 +1,6 @@
 using System;
 
-namespace Russinsoft.WebView2.Interop
+namespace MtrDev.WebView2.Interop
 {
     /// <summary>
     /// Error status values for web navigations.

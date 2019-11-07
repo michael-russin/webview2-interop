@@ -2,7 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Russinsoft.WebView2.Interop
+namespace MtrDev.WebView2.Interop
 {
     /// <summary>
     /// Checked
@@ -16,20 +16,20 @@ namespace Russinsoft.WebView2.Interop
 		[DispId(1610678272)]
 		IWebView2WebResourceRequest Request
 		{
-			
+			[return:MarshalAs(UnmanagedType.Interface)]
 			get;
 		}
 
 		[DispId(1610678273)]
 		IWebView2WebResourceResponse Response
 		{
-			
-			get;
-			
-			set;
+            [return: MarshalAs(UnmanagedType.Interface)]
+            get;
+
+            [param: MarshalAs(UnmanagedType.Interface)]
+            set;
 		}
 
-		
-		IWebView2Deferral GetDeferral();
+        IWebView2Deferral GetDeferral();
 	}
 }

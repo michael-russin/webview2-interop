@@ -1,6 +1,6 @@
 using System;
 
-namespace Russinsoft.WebView2.Interop
+namespace MtrDev.WebView2.Interop
 {
 	public struct __MIDL___MIDL_itf_webview22Elibrary_formatted_0007_0001_0001
 	{

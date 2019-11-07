@@ -4,6 +4,8 @@ VisualStudioVersion = 15.0.26020.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebView2.Interop", "WebView2.Interop.csproj", "{411A56C5-8D28-427E-A558-EB88E4751E45}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebView2.Interop.Test", "..\WebView2.Interop.Test\WebView2.Interop.Test.csproj", "{6BBE195C-9C5E-40DC-A9C6-0B6877827794}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,14 @@ Global
 		{411A56C5-8D28-427E-A558-EB88E4751E45}.Release|Any CPU.Build.0 = Release|Any CPU
 		{411A56C5-8D28-427E-A558-EB88E4751E45}.Release|x86.ActiveCfg = Release|x86
 		{411A56C5-8D28-427E-A558-EB88E4751E45}.Release|x86.Build.0 = Release|x86
+		{6BBE195C-9C5E-40DC-A9C6-0B6877827794}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BBE195C-9C5E-40DC-A9C6-0B6877827794}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BBE195C-9C5E-40DC-A9C6-0B6877827794}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6BBE195C-9C5E-40DC-A9C6-0B6877827794}.Debug|x86.Build.0 = Debug|Any CPU
+		{6BBE195C-9C5E-40DC-A9C6-0B6877827794}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BBE195C-9C5E-40DC-A9C6-0B6877827794}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BBE195C-9C5E-40DC-A9C6-0B6877827794}.Release|x86.ActiveCfg = Release|Any CPU
+		{6BBE195C-9C5E-40DC-A9C6-0B6877827794}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

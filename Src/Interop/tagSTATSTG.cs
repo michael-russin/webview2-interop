@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Russinsoft.WebView2.Interop
+namespace MtrDev.WebView2.Interop
 {
 	public struct tagSTATSTG
 	{
@@ -21,7 +21,7 @@ namespace Russinsoft.WebView2.Interop
 
 		public uint grfLocksSupported;
 
-		[ComAliasName("Russinsoft.WebView2.Interop.GUID")]
+		[ComAliasName("MtrDev.WebView2.Interop.GUID")]
 		public GUID clsid;
 
 		public uint grfStateBits;

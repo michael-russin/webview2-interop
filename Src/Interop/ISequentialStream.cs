@@ -2,7 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Russinsoft.WebView2.Interop
+namespace MtrDev.WebView2.Interop
 {
 	[Guid("0C733A30-2A1C-11CE-ADE5-00AA0044773D")]
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

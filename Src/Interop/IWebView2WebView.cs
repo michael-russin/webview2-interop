@@ -2,7 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Russinsoft.WebView2.Interop
+namespace MtrDev.WebView2.Interop
 {    /// <summary>
      /// Checked
      /// </summary>
@@ -200,7 +200,11 @@ namespace Russinsoft.WebView2.Interop
         /// <param name="filterLength"></param>
         /// <param name="eventHandler"></param>
         /// <param name="token"></param>
-        void add_WebResourceRequested([In, MarshalAs(UnmanagedType.LPWStr)] ref string urlFilter, ref WEBVIEW2_WEB_RESOURCE_CONTEXT resourceContextFilter, ulong filterLength, IWebView2WebResourceRequestedEventHandler eventHandler, out EventRegistrationToken token);
+        void add_WebResourceRequested([In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPWStr)] ref string[] urlFilter,
+                                       [In, MarshalAs(UnmanagedType.LPArray, ArraySubType=UnmanagedType.I4)] int[] resourceContextFilter,
+                                       [In] ulong filterLength,
+                                       [In] IWebView2WebResourceRequestedEventHandler eventHandler,
+                                       out EventRegistrationToken token);
 
         /// <summary>
         /// Remove an event handler previously added with add_WebResourceRequested.

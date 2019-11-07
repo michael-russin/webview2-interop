@@ -2,7 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Russinsoft.WebView2.Interop
+namespace MtrDev.WebView2.Interop
 {
     /// <summary>
     /// An HTTP request used with the WebResourceRequested event.
@@ -47,10 +47,11 @@ namespace Russinsoft.WebView2.Interop
         [DispId(1610678276)]
 		IStream Content
 		{
-			
+			[return:MarshalAs(UnmanagedType.Interface)]
 			get;
-			
-			set;
+
+            [param: MarshalAs(UnmanagedType.Interface)]
+            set;
 		}
 
         /// <summary>
@@ -58,8 +59,9 @@ namespace Russinsoft.WebView2.Interop
         /// </summary>
 		[DispId(1610678278)]
 		IWebView2HttpRequestHeaders Headers
-		{			
-			get;
+		{
+            [return: MarshalAs(UnmanagedType.Interface)]
+            get;
 		}
 	}
 }

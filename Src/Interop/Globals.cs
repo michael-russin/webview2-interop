@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Russinsoft.WebView2.Interop
+namespace MtrDev.WebView2.Interop
 {
     public class Globals
     {
@@ -58,9 +58,10 @@ namespace Russinsoft.WebView2.Interop
         /// <param name="versionInfo"></param>
         /// <returns></returns>
         [DllImport(ExternDll.WebView2Loader, SetLastError = true)]
-        public static extern int GetWebView2BrowserVersionInfo(            [In, MarshalAs(UnmanagedType.LPWStr)]
+        public static extern int GetWebView2BrowserVersionInfo(
+            [In, MarshalAs(UnmanagedType.LPWStr)]
             string browserExecutableFolder,
             [MarshalAs(UnmanagedType.LPWStr)]
-            string versionInfo);
+            out string versionInfo);
     }
 }

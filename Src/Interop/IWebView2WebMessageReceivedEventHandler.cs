@@ -2,7 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Russinsoft.WebView2.Interop
+namespace MtrDev.WebView2.Interop
 {
     /// <summary>
     /// Checked
@@ -13,7 +13,8 @@ namespace Russinsoft.WebView2.Interop
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	public interface IWebView2WebMessageReceivedEventHandler
 	{
-		
-		void Invoke([In] IWebView2WebView webview, [In] IWebView2WebMessageReceivedEventArgs args);
-	}
+
+        //		void Invoke([In] IWebView2WebView webview, [In] IWebView2WebMessageReceivedEventArgs args);
+        void Invoke([In] IWebView2WebView3 webview, [In] IWebView2WebMessageReceivedEventArgs args);
+    }
 }
