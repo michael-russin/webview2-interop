@@ -49,10 +49,8 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <ItemGroup />
   <ItemGroup>
     <Compile Include="ExternDll.cs" />
-    <Compile Include="Interop\CallDevToolsProtocolMethodCompletedEventArgs.cs" />
     <Compile Include="Interop\Globals.cs" />
     <Compile Include="Interop\IWebView2AcceleratorKeyPressedEventArgs.cs" />
     <Compile Include="Interop\IWebView2AcceleratorKeyPressedEventHandler.cs" />
@@ -323,6 +321,63 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Wrapper\EventArgs\AcceleratorKeyPressedEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\AddScriptToExecuteOnDocumentCreatedCompletedEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\CallDevToolsProtocolMethodCompletedEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\CreateWebViewCompletedEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\DevToolsProtocolEventReceivedEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\DocumentStateChangedEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\DocumentTitleChangedEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\EnvironmentCreatedEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\ExecuteScriptCompletedEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\FocusChangedEventEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\MoveFocusRequestedEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\NavigationCompletedEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\NavigationStartingEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\NewVersionAvailableEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\NewWindowRequestedEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\PermissionRequestedEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\ProcessFailedEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\ScriptDialogOpeningEventArgs .cs" />
+    <Compile Include="Wrapper\EventArgs\WebMessageReceivedEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\WebResourceRequestedEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\ZoomFactorCompletedEventArgs.cs" />
+    <Compile Include="Wrapper\Handlers\AcceleratorKeyPressedEventHandler.cs" />
+    <Compile Include="Wrapper\Handlers\AddScriptToExecuteOnDocumentCreatedCompletedHandler.cs" />
+    <Compile Include="Wrapper\Handlers\CallDevToolsProtocolMethodCompletedHandler.cs" />
+    <Compile Include="Wrapper\Handlers\CapturePreviewCompletedHandler .cs" />
+    <Compile Include="Wrapper\Handlers\CreateWebViewCompletedHandler.cs" />
+    <Compile Include="Wrapper\Handlers\DevToolProtocol.cs" />
+    <Compile Include="Wrapper\Handlers\DevToolsProtocolEventReceivedEventHandler.cs" />
+    <Compile Include="Wrapper\Handlers\DocumentStateChangedEventHandler .cs" />
+    <Compile Include="Wrapper\Handlers\DocumentTitleChangedEventHandler.cs" />
+    <Compile Include="Wrapper\Handlers\EnvironmentCompletedHandler.cs" />
+    <Compile Include="Wrapper\Handlers\ExecuteScriptCompletedHandler.cs" />
+    <Compile Include="Wrapper\Handlers\FocusChangedEventHandler.cs" />
+    <Compile Include="Wrapper\Handlers\HandlerBase.cs" />
+    <Compile Include="Wrapper\Handlers\MoveFocusRequestedEventHandler.cs" />
+    <Compile Include="Wrapper\Handlers\NavigationCompletedEventHandler.cs" />
+    <Compile Include="Wrapper\Handlers\NavigationStartingEventHandler.cs" />
+    <Compile Include="Wrapper\Handlers\NewVersionAvailableEventHandler.cs" />
+    <Compile Include="Wrapper\Handlers\NewWindowRequestedEventHandler.cs" />
+    <Compile Include="Wrapper\Handlers\PermissionRequestedEventHandler.cs" />
+    <Compile Include="Wrapper\Handlers\ProcessFailedEventHandler.cs" />
+    <Compile Include="Wrapper\Handlers\ScriptDialogOpeningEventHandler.cs" />
+    <Compile Include="Wrapper\Handlers\WebMessageReceivedEventHandler.cs" />
+    <Compile Include="Wrapper\Handlers\WebResourceRequestedEventHandler.cs" />
+    <Compile Include="Wrapper\Handlers\ZoomFactorChangedEventHandler.cs" />
+    <Compile Include="Wrapper\WebView2Deferral.cs" />
+    <Compile Include="Wrapper\WebView2Environment.cs" />
+    <Compile Include="Wrapper\WebView2HttpRequestHeaderCollection.cs" />
+    <Compile Include="Wrapper\WebView2HttpResponseHeaderCollection.cs" />
+    <Compile Include="Wrapper\WebView2Loader.cs" />
+    <Compile Include="Wrapper\WebView2Settings.cs" />
+    <Compile Include="Wrapper\WebView2WebResourceRequest.cs" />
+    <Compile Include="Wrapper\WebView2WebResourceResponse.cs" />
+    <Compile Include="Wrapper\WebView2WebView.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

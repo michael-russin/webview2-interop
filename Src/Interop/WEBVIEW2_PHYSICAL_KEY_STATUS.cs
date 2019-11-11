@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
 namespace MtrDev.WebView2.Interop
 {
+    [StructLayout(LayoutKind.Sequential)]
     public struct WEBVIEW2_PHYSICAL_KEY_STATUS
     {
         public uint RepeatCount;

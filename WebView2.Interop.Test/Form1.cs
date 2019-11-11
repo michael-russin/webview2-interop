@@ -8,13 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MtrDev.WebView2.Interop.Test.Args;
-using MtrDev.WebView2.Interop.Test.Handlers;
 using System.Diagnostics;
 using MtrDev.WebView2.Interop.Test;
 using System.Reflection;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using MtrDev.WebView2.Wrapper;
+using MtrDev.WebView2.Wrapper.Handlers;
 
 namespace WebView2.Interop.Test
 {
@@ -25,26 +25,19 @@ namespace WebView2.Interop.Test
             InitializeComponent();
         }
 
-        private IWebView2WebView4 _webView;
-        private IWebView2Environment2 _environment2;
+        private WebView2WebView _webView;
         private string _browserVersion;
+        private WebView2Environment _environment;
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            CreateWebViewCompletedHandler viewCompleteHandler = new CreateWebViewCompletedHandler((viewArgs) =>
+            Action<CreateWebViewCompletedEventArgs> viewCompleteHandler = new Action<CreateWebViewCompletedEventArgs>((viewArgs) =>
             {
-                _webView = (IWebView2WebView4)viewArgs.WebView;
+                _webView = viewArgs.WebView;
 
                 BrowserCreated();
 
-
-                _webView.Bounds = new tagRECT()
-                {
-                    top = 0,
-                    left = 0,
-                    right = panelBrowser.Bounds.Width,
-                    bottom = panelBrowser.Bounds.Height
-                };
+                _webView.Bounds = new Rectangle(new Point(0, 0), new Size(panelBrowser.Bounds.Width, panelBrowser.Bounds.Height));
 
                 _webView.Navigate(textBoxUrl.Text);
             });
@@ -52,12 +45,10 @@ namespace WebView2.Interop.Test
 
             EnvironmentCompletedHandler envHandler = new EnvironmentCompletedHandler((envArgs) =>
             {
-                IWebView2Environment environment = envArgs.WebViewEnvironment;
-                IWebView2Environment2 environment2 = (IWebView2Environment2)environment;
-                _browserVersion = environment2.BrowserVersionInfo;
-                _environment2 = environment2;
+                _environment = envArgs.WebViewEnvironment;
+                _browserVersion = _environment.BrowserVersionInfo;
 
-                environment.CreateWebView(this.panelBrowser.Handle, viewCompleteHandler);
+                _environment.CreateWebView(this.panelBrowser.Handle, viewCompleteHandler);
             });
 
             //string canary = @"C:\Users\u0041266\AppData\Local\Microsoft\Edge SXS\Application\80.0.320.0";
@@ -84,6 +75,7 @@ namespace WebView2.Interop.Test
             AddScriptDialogHandler();
             AddNewWindowHandler();
             AddWebMessageHandler();
+            AddAcceleratorKeyHandler();
 
             // Enable listening for security events to update secure icon
             _webView.CallDevToolsProtocolMethod("Security.enable", "{}", null);
@@ -103,216 +95,204 @@ namespace WebView2.Interop.Test
             buttonGoBack.Enabled = _webView.CanGoBack;
         }
 
-        EventRegistrationToken _startingToken;
-        EventRegistrationToken _navCompletedToken;
-        EventRegistrationToken _documentStateChangedToken;
-        EventRegistrationToken _frameNavigationStartingToken;
+        long _startingToken;
+        long _navCompletedToken;
+        long _documentStateChangedToken;
+        long _frameNavigationStartingToken;
 
         private void AddNavigationHandlers()
         {
-            if (_startingToken.value <= 0)
+            if (_startingToken <= 0)
             {
-                NavigationStartingEventHandler startingHandler = new NavigationStartingEventHandler(OnNavigationStarting);
-                _webView.add_NavigationStarting(startingHandler, out _startingToken);
+                _startingToken = _webView.RegisterNavigationStarting(OnNavigationStarting);
             }
-            if (_documentStateChangedToken.value <= 0)
+            if (_documentStateChangedToken <= 0)
             {
-                DocumentStateChangedEventHandler stateHandler = new DocumentStateChangedEventHandler(OnDocumentStateChanged);
-                _webView.add_DocumentStateChanged(stateHandler, out _documentStateChangedToken);
+                _documentStateChangedToken = _webView.RegisterDocumentStateChanged(OnDocumentStateChanged);
             }
-            if (_navCompletedToken.value <= 0)
+            if (_navCompletedToken <= 0)
             {
-                WebView2NavigationCompletedEventHandler completeHandler = new WebView2NavigationCompletedEventHandler(OnNavigationCompleted);
-                _webView.add_NavigationCompleted(completeHandler, out _navCompletedToken);
+                _navCompletedToken = _webView.RegisterNavigationCompleted(OnNavigationCompleted);
             }
 
-            if (_frameNavigationStartingToken.value <=0 )
+            if (_frameNavigationStartingToken <=0 )
             {
-                NavigationStartingEventHandler startingHandler = new NavigationStartingEventHandler(OnFrameNavigationStarting);
-                _webView.add_FrameNavigationStarting(startingHandler, out _frameNavigationStartingToken);
+                _frameNavigationStartingToken = _webView.RegisterFrameNavigationStarting(OnFrameNavigationStarting);
             }
         }
 
         private void RemoveNavigationHandlers()
         {
-            if (_startingToken.value > 0)
+            if (_startingToken > 0)
             {
-                _webView.remove_NavigationStarting(_startingToken);
-                _startingToken.value = 0;
+                _webView.UnregisterNavigationStarting(_startingToken);
+                _startingToken = 0;
             }
 
-            if (_documentStateChangedToken.value > 0)
+            if (_documentStateChangedToken> 0)
             {
-                _webView.remove_DocumentStateChanged(_documentStateChangedToken);
-                _documentStateChangedToken.value = 0;
+                _webView.UnregisterDocumentStateChanged(_documentStateChangedToken);
+                _documentStateChangedToken = 0;
             }
 
-            if (_navCompletedToken.value > 0)
+            if (_navCompletedToken > 0)
             {
-                _webView.remove_NavigationCompleted(_navCompletedToken);
-                _navCompletedToken.value = 0;
+                _webView.UnregisterNavigationCompleted(_navCompletedToken);
+                _navCompletedToken = 0;
             }
 
-            if (_frameNavigationStartingToken.value > 0)
+            if (_frameNavigationStartingToken > 0)
             {
-                _webView.remove_FrameNavigationStarting(_frameNavigationStartingToken);
-                _frameNavigationStartingToken.value = 0;
+                _webView.UnregisterFrameNavigationStarting(_frameNavigationStartingToken);
+                _frameNavigationStartingToken = 0;
             }
         }
 
-        private EventRegistrationToken _zoomChangedToken;
+        private long _zoomChangedToken;
 
         private void AddZoomHandler()
         {
-            if (_zoomChangedToken.value <= 0)
+            if (_zoomChangedToken <= 0)
             {
-                ZoomFactorChangedEventHandler zoomHandler = new ZoomFactorChangedEventHandler(OnZoomChanged);
-                _webView.add_ZoomFactorChanged(zoomHandler, out _zoomChangedToken);
+                _zoomChangedToken = _webView.RegisterZoomFactorChanged(OnZoomChanged);
             }
         }
 
         private void RemoveZoomHandlers()
         {
-            if (_zoomChangedToken.value > 0)
+            if (_zoomChangedToken > 0)
             {
-                _webView.remove_ZoomFactorChanged(_zoomChangedToken);
-                _zoomChangedToken.value = 0;
+                _webView.UnregisterZoomFactorChanged(_zoomChangedToken);
+                _zoomChangedToken = 0;
             }
         }
 
-        private EventRegistrationToken _moveFocusRequestedToken;
-        private EventRegistrationToken _lostFocusToken;
-        private EventRegistrationToken _gotFocusToken;
+        private long _moveFocusRequestedToken;
+        private long _lostFocusToken;
+        private long _gotFocusToken;
 
 
         private void AddFocusHandler()
         {
-            if (_moveFocusRequestedToken.value <= 0)
+            if (_moveFocusRequestedToken <= 0)
             {
-                MoveFocusRequestedEventHandler moveHandler = new MoveFocusRequestedEventHandler(OnMoveFocusRequested);
-                _webView.add_MoveFocusRequested(moveHandler, out _moveFocusRequestedToken);
+                _moveFocusRequestedToken = _webView.RegisterMoveFocusRequested(OnMoveFocusRequested);
             }
 
-            if (_lostFocusToken.value <= 0)
+            if (_lostFocusToken <= 0)
             {
-                FocusChangedEventHandler focusLostHandler = new FocusChangedEventHandler(OnLostFocus);
-                _webView.add_LostFocus(focusLostHandler, out _lostFocusToken);
+                _lostFocusToken = _webView.RegisterLostFocus(OnLostFocus);
             }
 
-            if (_gotFocusToken.value <= 0)
+            if (_gotFocusToken <= 0)
             {
-                FocusChangedEventHandler focusGotHandler = new FocusChangedEventHandler(OnGotFocus);
-                _webView.add_GotFocus(focusGotHandler, out _gotFocusToken);
+                _gotFocusToken = _webView.RegisterGotFocus(OnGotFocus);
             }
         }
 
         private void RemoveFocusHandler()
         {
-            if (_moveFocusRequestedToken.value > 0)
+            if (_moveFocusRequestedToken > 0)
             {
-                _webView.remove_MoveFocusRequested(_moveFocusRequestedToken);
-                _moveFocusRequestedToken.value = 0;
+                _webView.UnregisterMoveFocusRequested(_moveFocusRequestedToken);
+                _moveFocusRequestedToken = 0;
             }
 
-            if (_lostFocusToken.value > 0)
+            if (_lostFocusToken > 0)
             {
-                _webView.remove_LostFocus(_lostFocusToken);
-                _lostFocusToken.value = 0;
+                _webView.UnregisterLostFocus(_lostFocusToken);
+                _lostFocusToken = 0;
             }
 
-            if (_gotFocusToken.value > 0)
+            if (_gotFocusToken > 0)
             {
-                _webView.remove_GotFocus(_gotFocusToken);
-                _gotFocusToken.value = 0;
+                _webView.UnregisterGotFocus(_gotFocusToken);
+                _gotFocusToken = 0;
             }
         }
 
-        private EventRegistrationToken _permissionRequestedToken;
+        private long _permissionRequestedToken;
 
         private void AddPermissionHandler()
         {
-            if (_permissionRequestedToken.value <= 0)
+            if (_permissionRequestedToken <= 0)
             {
-                PermissionRequestedEventHandler permissionHandler = new PermissionRequestedEventHandler(OnPermissionRequested);
-                _webView.add_PermissionRequested(permissionHandler, out _permissionRequestedToken);
+                _permissionRequestedToken = _webView.RegisterPermissionRequested(OnPermissionRequested);
             }
         }
 
         private void RemovePermissionHandler()
         {
-            if (_permissionRequestedToken.value > 0)
+            if (_permissionRequestedToken > 0)
             {
-                _webView.remove_PermissionRequested(_permissionRequestedToken);
-                _permissionRequestedToken.value = 0;
+                _webView.UnregisterPermissionRequested(_permissionRequestedToken);
+                _permissionRequestedToken = 0;
             }
         }
 
-        private EventRegistrationToken _devToolsProtocol;
+        private long _devToolsProtocol;
 
         private void AddDevToolsProtocolMethodHandler(string eventName)
         {
-            if (_devToolsProtocol.value <= 0)
+            if (_devToolsProtocol <= 0)
             {
-                DevToolsProtocolEventReceivedEventHandler handler = new DevToolsProtocolEventReceivedEventHandler(eventName, OnDevToolsProtocolEventReceived);
-                _webView.add_DevToolsProtocolEventReceived(eventName, handler, out _devToolsProtocol);
+                _devToolsProtocol = _webView.RegisterDevToolsProtocolEventReceived(eventName, OnDevToolsProtocolEventReceived);
             }
         }
 
         private void RemoveDevToolsProtocolMethodHandler(string eventName)
         {
-            if (_devToolsProtocol.value > 0)
+            if (_devToolsProtocol > 0)
             {
-                _webView.remove_DevToolsProtocolEventReceived(eventName, _devToolsProtocol);
-                _devToolsProtocol.value = 0;
+                _webView.UnregisterDevToolsProtocolEventReceived(_devToolsProtocol);
+                _devToolsProtocol = 0;
             }
         }
 
 
-        private EventRegistrationToken _titleChangedToken;
+        private long _titleChangedToken;
 
         private void AddTitleChangedHandler()
         {
-            if (_titleChangedToken.value <= 0)
+            if (_titleChangedToken <= 0)
             {
-                DocumentTitleChangedEventHandler handler = new DocumentTitleChangedEventHandler(OnDocumentTitleChanged);
-                _webView.add_DocumentTitleChanged(handler, out _titleChangedToken);
+                _titleChangedToken = _webView.RegisterDocumentTitledChanged(OnDocumentTitleChanged);
             }
         }
 
         private void RemoveTitleChangedHandler()
         {
-            if (_titleChangedToken.value > 0)
+            if (_titleChangedToken > 0)
             {
-                _webView.remove_DocumentTitleChanged(_titleChangedToken);
-                _titleChangedToken.value = 0;
+                _webView.UnregisterDocumentTitledChanged(_titleChangedToken);
+                _titleChangedToken = 0;
             }
         }
 
-        private EventRegistrationToken _processFailedToken;
+        private long _processFailedToken;
 
         private void AddProcessFailedHandler()
         {
-            if (_processFailedToken.value <= 0)
+            if (_processFailedToken <= 0)
             {
-                ProcessFailedEventHandler handler = new ProcessFailedEventHandler(OnProcessFailed);
-                _webView.add_ProcessFailed(handler, out _processFailedToken);
+                _processFailedToken = _webView.RegisterProcessFailed(OnProcessFailed);
             }
         }
 
         private void RemoveProcessFailedHandler()
         {
-            if (_processFailedToken.value > 0)
+            if (_processFailedToken > 0)
             {
-                _webView.remove_ProcessFailed(_processFailedToken);
-                _processFailedToken.value = 0;
+                _webView.UnregisterProcessFailed(_processFailedToken);
+                _processFailedToken = 0;
             }
         }
 
-        private EventRegistrationToken _resourceRequestedToken;
+        private long _resourceRequestedToken;
 
         private void AddResourceRequestedHandler()
         {
-            if (_resourceRequestedToken.value <= 0)
+            if (_resourceRequestedToken <= 0)
             {
                 WebResourceRequestedEventHandler handler = new WebResourceRequestedEventHandler(OnResourceRequested);
                 string[] filter = new string[1];
@@ -320,76 +300,90 @@ namespace WebView2.Interop.Test
                 WEBVIEW2_WEB_RESOURCE_CONTEXT[] context = new WEBVIEW2_WEB_RESOURCE_CONTEXT[1] {
                     WEBVIEW2_WEB_RESOURCE_CONTEXT.WEBVIEW2_WEB_RESOURCE_CONTEXT_ALL
                 };
-                _webView.add_WebResourceRequested(ref filter[0], ref context[0], (ulong)filter.Length, handler, out _resourceRequestedToken);
+                _resourceRequestedToken = _webView.RegisterWebResourceRequested(ref filter[0], ref context[0], OnResourceRequested);
             }
         }
 
         private void RemoveResourceRequestedHandler()
         {
-            if (_resourceRequestedToken.value > 0)
+            if (_resourceRequestedToken > 0)
             {
-                _webView.remove_WebResourceRequested(_resourceRequestedToken);
-                _resourceRequestedToken.value = 0;
+                _webView.UnregisterWebResourceRequested(_resourceRequestedToken);
+                _resourceRequestedToken = 0;
             }
         }
 
-        private EventRegistrationToken _scriptDialogToken;
+        private long _scriptDialogToken;
 
         private void AddScriptDialogHandler()
         {
-            if (_scriptDialogToken.value <= 0)
+            if (_scriptDialogToken <= 0)
             {
-                ScriptDialogOpeningEventHandler handler = new ScriptDialogOpeningEventHandler(OnScriptDialogOpeningEvent);
-
-                _webView.add_ScriptDialogOpening(handler, out _scriptDialogToken);
+                _scriptDialogToken = _webView.RegisterScriptDialogOpening(OnScriptDialogOpeningEvent);
             }
         }
         private void RemoveScriptDialogHandler()
         {
-            if (_scriptDialogToken.value > 0)
+            if (_scriptDialogToken > 0)
             {
-                _webView.remove_ScriptDialogOpening(_scriptDialogToken);
-                _scriptDialogToken.value = 0;
+                _webView.UnregisterScriptDialogOpening(_scriptDialogToken);
+                _scriptDialogToken = 0;
             }
         }
 
-        private EventRegistrationToken _newWindowToken;
+        private long _newWindowToken;
 
         private void AddNewWindowHandler()
         {
-            if (_newWindowToken.value <= 0)
+            if (_newWindowToken <= 0)
             {
-                NewWindowRequestedEventHandler handler = new NewWindowRequestedEventHandler(OnNewWindowRequested);
-                _webView.add_NewWindowRequested(handler, out _newWindowToken);
+                _newWindowToken = _webView.RegisterNewWindowRequested(OnNewWindowRequested);
             }
         }
 
         private void RemoveNewWindow()
         {
-            if (_newWindowToken.value > 0)
+            if (_newWindowToken > 0)
             {
-                _webView.remove_NewWindowRequested(_newWindowToken);
-                _newWindowToken.value = 0;
+                _webView.UnregisterNewWindowRequested(_newWindowToken);
+                _newWindowToken = 0;
             }
         }
 
-        private EventRegistrationToken _webMessageToken;
+        private long _webMessageToken;
 
         private void AddWebMessageHandler()
         {
-            if (_webMessageToken.value <= 0)
+            if (_webMessageToken <= 0)
             {
-                WebMessageReceivedEventHandler handler = new WebMessageReceivedEventHandler(OnWebMessageRecieved);
-                _webView.add_WebMessageReceived(handler, out _webMessageToken);
+                _webMessageToken = _webView.RegisterWebMessageReceived(OnWebMessageRecieved);
             }
         }
 
         private void RemoveWebMessageHandler()
         {
-            if (_webMessageToken.value > 0)
+            if (_webMessageToken > 0)
             {
-                _webView.remove_WebMessageReceived(_webMessageToken);
-                _webMessageToken.value = 0;
+                _webView.UnregisterWebMessageReceived(_webMessageToken);
+                _webMessageToken = 0;
+            }
+        }
+
+        private long _acceleratorKeyToken;
+        private void AddAcceleratorKeyHandler()
+        {
+            if (_acceleratorKeyToken <= 0)
+            {
+                _acceleratorKeyToken = _webView.RegisterAcceleratorKeyPressed(OnAcceleratorKeyPressed);
+            }
+        }
+
+        private void RemoveAcceleratorKeyHandler()
+        {
+            if (_acceleratorKeyToken > 0)
+            {
+                _webView.UnregisterAcceleratorKeyPressed(_acceleratorKeyToken);
+                _acceleratorKeyToken = 0;
             }
         }
 
@@ -403,11 +397,17 @@ namespace WebView2.Interop.Test
             }
         }
 
+        private void OnAcceleratorKeyPressed(AcceleratorKeyPressedEventArgs args)
+        {
+            AddMessage("AcceleratorKeyPressedEventArgs : " + args);
+        }
+
+
         private void OnNewWindowRequested(NewWindowRequestedEventArgs args)
         {
             AddMessage("NewWindowRequestedEventArgs : " + args);
 
-            PopupWindow popup = new PopupWindow(_environment2, args);
+            PopupWindow popup = new PopupWindow(_environment, args);
             popup.Owner = this;
             popup.Show();
         }
@@ -439,8 +439,7 @@ namespace WebView2.Interop.Test
         private void OnDocumentTitleChanged(DocumentTitleChangedEventArgs args)
         {
             AddMessage("DocumentTitleChangedEventArgs : " + args);
-            string title;
-            _webView.DocumentTitle(out title);
+            string title = args.Title;
             textBoxTitle.Text = title;
         }
 
@@ -621,8 +620,7 @@ namespace WebView2.Interop.Test
         {
             if (string.IsNullOrEmpty(_scriptId))
             {
-                AddScriptToExecuteOnDocumentCreatedCompletedHandler handler = new AddScriptToExecuteOnDocumentCreatedCompletedHandler(OnAddScriptToExecute);
-                _webView.AddScriptToExecuteOnDocumentCreated("console.log('the page was loaded')", handler);
+                _webView.AddScriptToExecuteOnDocumentCreated("console.log('the page was loaded')", OnAddScriptToExecute);
             }
         }
 
@@ -641,8 +639,7 @@ namespace WebView2.Interop.Test
 
         private void buttonExecScript_Click(object sender, EventArgs e)
         {
-            ExecuteScriptCompletedHandler handler = new ExecuteScriptCompletedHandler(OnScriptExecuted);
-            _webView.ExecuteScript("console.log('testing execute script')", handler);
+            _webView.ExecuteScript("console.log('testing execute script')", OnScriptExecuted);
         }
 
         private void OnScriptExecuted(ExecuteScriptCompletedEventArgs args)
@@ -674,10 +671,8 @@ namespace WebView2.Interop.Test
 
         private void buttonClearCache_Click(object sender, EventArgs e)
         {
-            CallDevToolsProtocolMethodCompletedHandler handler = new CallDevToolsProtocolMethodCompletedHandler("Network.clearBrowserCache", OnDevToolProtocolComplete);
-            CallDevToolsProtocolMethodCompletedHandler handler2 = new CallDevToolsProtocolMethodCompletedHandler("Network.clearBrowserCookies", OnDevToolProtocolComplete);
-            _webView.CallDevToolsProtocolMethod("Network.clearBrowserCache", "{}", handler);
-            _webView.CallDevToolsProtocolMethod("Network.clearBrowserCookies", "{}", handler2);
+            _webView.CallDevToolsProtocolMethod("Network.clearBrowserCache", "{}", OnDevToolProtocolComplete);
+            _webView.CallDevToolsProtocolMethod("Network.clearBrowserCookies", "{}", OnDevToolProtocolComplete);
         }
 
         private void OnDevToolProtocolComplete(CallDevToolsProtocolMethodCompletedEventArgs args)
