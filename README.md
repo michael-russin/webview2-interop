@@ -11,7 +11,8 @@ Finally if you're looking for a Windows Forms control you can just drag and drop
 
 ## Installing / Getting started
 
-Build with Visual Stdio 2017 or 2019
+* Microsoft Edge (Chromium) installed on a supported OS.
+* Visual Stdio 2017 or 2019 with C# and desktop development set up
 
 ### Initial Configuration
 
