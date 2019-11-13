@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/michael-russin/webview2-interop</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Interop based off Microsoft WebView2 release 0.8.270</releaseNotes>
+    <copyright>Copyright 2019</copyright>
+    <tags>WebView2 Interop Edge Chromium</tags>
+    <dependencies>
+      <dependency id="Microsoft.Web.WebView2" version="[0.8.270]" />
+    </dependencies>		
+  </metadata>
+  <!--files>
+    <file src="bin\Release\*.*" target="lib\net461" />
+  </files -->  
+</package>
