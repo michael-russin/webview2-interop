@@ -29,18 +29,18 @@ namespace MtrDev.WebView2.Interop
         /// webview should not be navigated. If the NewWindow is set, its top level
         /// window will return as the opened WindowProxy.
         /// </summary>
-        //[DispId(1610678273)]
-        //IWebView2WebView NewWindow
-        //{
-        //    //[return:MarshalAs(UnmanagedType.Interface)]
-        //    get;
-        //    //[param: MarshalAs(UnmanagedType.Interface)]
-        //    set;
-        //}
+        [DispId(1610678273)]
+        IWebView2WebView NewWindow
+        {
+            [param: MarshalAs(UnmanagedType.Interface)]
+            set;
+            [return: MarshalAs(UnmanagedType.Interface)]
+            get;
+        }
 
-        void put_NewWindow([In] IWebView2WebView newWindow);
-        /// Gets the new window.
-        void get_NewWindow([Out]out IWebView2WebView newWindow);
+        //void put_NewWindow([In] IWebView2WebView newWindow);
+        ///// Gets the new window.
+        //void get_NewWindow([Out]out IWebView2WebView newWindow);
 
         /// <summary>
         /// Sets whether the NewWindowRequestedEvent is handled by host. If this is false
@@ -53,11 +53,11 @@ namespace MtrDev.WebView2.Interop
         [DispId(1610678275)]
 		bool Handled
 		{
-            [return: MarshalAs(UnmanagedType.Bool)]
-            get;
             [param: MarshalAs(UnmanagedType.Bool)]
             set;
-		}
+            [return: MarshalAs(UnmanagedType.Bool)]
+            get;
+        }
 
         /// <summary>
         /// IsUserInitiated is true when the new window request was initiated through a user gesture

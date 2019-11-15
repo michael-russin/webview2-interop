@@ -30,25 +30,33 @@ namespace MtrDev.WebView2.Wrapper
     public class NewWindowRequestedEventArgs : EventArgs, IWebView2NewWindowRequestedEventArgs
     {
         private IWebView2NewWindowRequestedEventArgs _args;
+        private bool _windowSet;
 
         internal NewWindowRequestedEventArgs(IWebView2NewWindowRequestedEventArgs args)
         {
             _args = args;
+            _windowSet = false;
         }
 
         public bool Handled { get => _args.Handled; set => _args.Handled = value; }
 
         public bool IsUserInitiated => _args.IsUserInitiated;
 
-        //public IWebView2WebView NewWindow { get => _args.NewWindow; set => _args.NewWindow = value; }
-        public void put_NewWindow(IWebView2WebView newWindow)
+
+        public IWebView2WebView NewWindow
         {
-            _args.put_NewWindow(newWindow);
-        }
-        /// Gets the new window.
-        public void get_NewWindow(out IWebView2WebView newWindow)
-        {
-            _args.get_NewWindow(out newWindow);
+            get
+            {
+                // this seems to crash if NewWindow wasn't set already. 
+                if (!_windowSet)
+                    return null;
+                return _args.NewWindow;
+            }
+            set
+            {
+                _windowSet = true;
+                _args.NewWindow = value;
+            }
         }
 
         public string Uri => _args.Uri;

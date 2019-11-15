@@ -44,6 +44,14 @@ namespace MtrDev.WebView2.Wrapper
             _webview = (IWebView2WebView4)webview;
         }
 
+        public IWebView2WebView InnerWebView2WebView
+        {
+            get
+            {
+                return _webview;
+            }
+        }
+
         #region IWebView2WebView
         /// <summary>
         /// Wrapper around IWebView2Settings object contains various modifiable settings for the running WebView.
