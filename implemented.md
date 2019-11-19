@@ -5,25 +5,25 @@ Below are tables of what functionality is currently supported in the interop cod
 
 |WebView2 Native| WebView2WebView class | Notes|
 |---|---|---|
-|get_Settings | Settings {get;}   |   |
-|get_Source | Source  {get;}|   |
-|Navigate(LPWSTR url) | Navigate(string url)  |   |
+|get_Settings | Settings {get;}   | Working  |
+|get_Source | Source  {get;}| Working  |
+|Navigate(LPWSTR url) | Navigate(string url)  | Working  |
 |MoveFocus(WEBVIEW2_MOVE_FOCUS_REASON reason)| MoveFocus(WEBVIEW2_MOVE_FOCUS_REASON reason)  |  |
-|NavigateToString(LPCWSTR htmlContent)| NavigateToString(string htmlContent)  |   |
-|add_NavigationStarting| RegisterNavigationStarting(Action<NavigationStartingEventArgs> callback)  |  |
-|remove_NavigationStarting| UnregisterNavigationStarting(long)  |  |
-|add_DocumentStateChanged| long RegisterDocumentStateChanged(Action<DocumentStateChangedEventArgs> callback) event |  |
-|remove_DocumentStateChanged| void UnregisterDocumentStateChanged(long token) |  |
-|add_NavigationCompleted| RegisterNavigationCompleted(Action<NavigationCompletedEventArgs> callback) |  |
-|remove_NavigationCompleted| UnregisterNavigationCompleted(long token) |  |
-|add_FrameNavigationStarting| RegisterFrameNavigationStarting(Action<NavigationStartingEventArgs> callback)  |  |
-|remove_FrameNavigationStarting| UnregisterFrameNavigationStarting(long token)  |  |
+|NavigateToString(LPCWSTR htmlContent)| NavigateToString(string htmlContent)  | Working  |
+|add_NavigationStarting| RegisterNavigationStarting(Action<NavigationStartingEventArgs> callback)  | Working |
+|remove_NavigationStarting| UnregisterNavigationStarting(long)  | Working |
+|add_DocumentStateChanged| long RegisterDocumentStateChanged(Action<DocumentStateChangedEventArgs> callback) event | Working |
+|remove_DocumentStateChanged| void UnregisterDocumentStateChanged(long token) | Working |
+|add_NavigationCompleted| RegisterNavigationCompleted(Action<NavigationCompletedEventArgs> callback) | Working |
+|remove_NavigationCompleted| UnregisterNavigationCompleted(long token) | Working |
+|add_FrameNavigationStarting| RegisterFrameNavigationStarting(Action<NavigationStartingEventArgs> callback)  | Working |
+|remove_FrameNavigationStarting| UnregisterFrameNavigationStarting(long token)  | Working |
 |add_MoveFocusRequested| RegisterMoveFocusRequested(Action<MoveFocusRequestedEventArgs> callback) |  |
 |remove_MoveFocusRequested| UnregisterMoveFocusRequested(long token) |  |
-|add_GotFocus| RegisterGotFocus(Action<FocusChangedEventEventArgs> callback) |  |
-|remove_GotFocus| UnregisterGotFocus(long token) |  |
-|add_LostFocus| RegisterLostFocus(Action<FocusChangedEventEventArgs> callback)  |  |
-|remove_LostFocus| UnregisterLostFocus(long token)  |  |
+|add_GotFocus| RegisterGotFocus(Action<FocusChangedEventEventArgs> callback) | Working |
+|remove_GotFocus| UnregisterGotFocus(long token) | Working |
+|add_LostFocus| RegisterLostFocus(Action<FocusChangedEventEventArgs> callback)  | Working |
+|remove_LostFocus| UnregisterLostFocus(long token)  | Working |
 |add_WebResourceRequested|  | Not working currently  |
 |remove_WebResourceRequested|  | Not working currently |
 |add_ScriptDialogOpening| RegisterScriptDialogOpening(Action<ScriptDialogOpeningEventArgs> callback)   |  |
@@ -39,25 +39,25 @@ Below are tables of what functionality is currently supported in the interop cod
 |ExecuteScript | ExecuteScript(string javaScript, Action<ExecuteScriptCompletedEventArgs> callback) |  |
 |CapturePreview|   | Not implemented yet |
 |Reload | Reload()  |  |
-|get_Bounds| Bounds {get;} |  |
-|put_Bounds| Bounds {set;} |  |
-|get_ZoomFactor| ZoomFactor {get;}  |  |
-|put_ZoomFactor|  ZoomFactor {set;} |  |
-|get_IsVisible| IsVisible {get;}  |  |
-|put_IsVisible| IsVisible {set;} |  |
-|PostWebMessageAsJson | PostWebMessageAsJson(string webMessageAsJson) |  |
-|PostWebMessageAsString | PostWebMessageAsString(string webMessageAsString)  |  |
-|add_WebMessageReceived | RegisterWebMessageReceived(Action<WebMessageReceivedEventArgs> callback) |  |
-|remove_WebMessageReceived | UnregisterWebMessageReceived(long token) |  |
-|Close | Close() |  |
+|get_Bounds| Bounds {get;} | Working |
+|put_Bounds| Bounds {set;} | Working |
+|get_ZoomFactor| ZoomFactor {get;}  | Working |
+|put_ZoomFactor|  ZoomFactor {set;} | Working |
+|get_IsVisible| IsVisible {get;}  | Working |
+|put_IsVisible| IsVisible {set;} | Working |
+|PostWebMessageAsJson | PostWebMessageAsJson(string webMessageAsJson) | Working |
+|PostWebMessageAsString | PostWebMessageAsString(string webMessageAsString)  | Working |
+|add_WebMessageReceived | RegisterWebMessageReceived(Action<WebMessageReceivedEventArgs> callback) | Working |
+|remove_WebMessageReceived | UnregisterWebMessageReceived(long token) | Working  |
+|Close | Close() | Working |
 |CallDevToolsProtocolMethod | CallDevToolsProtocolMethod(string methodName, string parametersAsJson) |  |
 |add_DevToolsProtocolEventReceived | RegisterDevToolsProtocolEventReceived(string eventName, Action<DevToolsProtocolEventReceivedEventArgs> callback) |  |
 |remove_DevToolsProtocolEventReceived| UnregisterDevToolsProtocolEventReceived(long token) |  |
-|get_BrowserProcessId | BrowserProcessId {get;}  |  |
-|get_CanGoBack| CanGoBack {get;} |  |
-|get_CanGoForward| CanGoForward {get;}  |  |
-|GoBack| GoBack()  |  |
-|GoForward| GoForward() |  |
+|get_BrowserProcessId | BrowserProcessId {get;}  | Working |
+|get_CanGoBack| CanGoBack {get;} | Working |
+|get_CanGoForward| CanGoForward {get;}  | Working |
+|GoBack| GoBack()  | Working |
+|GoForward| GoForward() | Working |
 
 ### IWebView2WebView3
 
@@ -77,6 +77,6 @@ Below are tables of what functionality is currently supported in the interop cod
 |---|---|---|
 |AddRemoteObject|  | Not implemented yet |
 |RemoveRemoteObject|  | Not implemented yet |
-|OpenDevToolsWindow| OpenDevToolsWindow()  | |
-|add_AcceleratorKeyPressed| RegisterAcceleratorKeyPressed(Action<AcceleratorKeyPressedEventArgs> callback)  | |
-|remove_AcceleratorKeyPressed| UnregisterAcceleratorKeyPressed(long token)  | |
+|OpenDevToolsWindow| OpenDevToolsWindow()  | Working |
+|add_AcceleratorKeyPressed| RegisterAcceleratorKeyPressed(Action<AcceleratorKeyPressedEventArgs> callback)  | Working |
+|remove_AcceleratorKeyPressed| UnregisterAcceleratorKeyPressed(long token)  | Working |
