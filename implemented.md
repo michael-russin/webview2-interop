@@ -28,8 +28,8 @@ Below are tables of what functionality is currently supported in the interop cod
 |remove_WebResourceRequested|  | Not working currently |
 |add_ScriptDialogOpening| RegisterScriptDialogOpening(Action<ScriptDialogOpeningEventArgs> callback)   |  |
 |remove_ScriptDialogOpening| UnregisterScriptDialogOpening(long token)   |  |
-|add_ZoomFactorChanged| RegisterZoomFactorChanged(Action<ZoomFactorCompletedEventArgs> callback)  |  |
-|remove_ZoomFactorChanged| UnregisterZoomFactorChanged(long token)  |  |
+|add_ZoomFactorChanged| RegisterZoomFactorChanged(Action<ZoomFactorCompletedEventArgs> callback)  | Working |
+|remove_ZoomFactorChanged| UnregisterZoomFactorChanged(long token)  | Working |
 |add_PermissionRequested| RegisterPermissionRequested(Action<PermissionRequestedEventArgs> callback)|  |
 |remove_PermissionRequested| UnregisterPermissionRequested(long token)|  |
 |add_ProcessFailed| RegisterProcessFailed(Action<ProcessFailedEventArgs> callback) |  |
