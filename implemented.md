@@ -64,11 +64,11 @@ Below are tables of what functionality is currently supported in the interop cod
 |IWebView2WebView3 Native|WebView2WebView class| Notes |
 |---|---|---|
 |Stop | Stop() | |
-|add_NewWindowRequested| RegisterNewWindowRequested(Action<NewWindowRequestedEventArgs> callback) | Event fires but crash when setting popup window |
-|remove_NewWindowRequested| UnregisterNewWindowRequested(long token) | |
-|add_DocumentTitleChanged| RegisterDocumentTitledChanged(Action<DocumentTitleChangedEventArgs> callback) | |
-|remove_DocumentTitleChanged| UnregisterDocumentTitledChanged(long token) | |
-|get_DocumentTitle| DocumentTitle {get;} | |
+|add_NewWindowRequested| RegisterNewWindowRequested(Action<NewWindowRequestedEventArgs> callback) | Working |
+|remove_NewWindowRequested| UnregisterNewWindowRequested(long token) | Working |
+|add_DocumentTitleChanged| RegisterDocumentTitledChanged(Action<DocumentTitleChangedEventArgs> callback) | Working |
+|remove_DocumentTitleChanged| UnregisterDocumentTitledChanged(long token) | Working |
+|get_DocumentTitle| DocumentTitle {get;} | Working |
 
 
 ### IWebView2WebView4
