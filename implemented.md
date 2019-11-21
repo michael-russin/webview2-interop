@@ -8,7 +8,7 @@ Below are tables of what functionality is currently supported in the interop cod
 |get_Settings | Settings {get;}   | Working  |
 |get_Source | Source  {get;}| Working  |
 |Navigate(LPWSTR url) | Navigate(string url)  | Working  |
-|MoveFocus(WEBVIEW2_MOVE_FOCUS_REASON reason)| MoveFocus(WEBVIEW2_MOVE_FOCUS_REASON reason)  |  |
+|MoveFocus(WEBVIEW2_MOVE_FOCUS_REASON reason)| MoveFocus(WEBVIEW2_MOVE_FOCUS_REASON reason)  | Working |
 |NavigateToString(LPCWSTR htmlContent)| NavigateToString(string htmlContent)  | Working  |
 |add_NavigationStarting| RegisterNavigationStarting(Action<NavigationStartingEventArgs> callback)  | Working |
 |remove_NavigationStarting| UnregisterNavigationStarting(long)  | Working |
