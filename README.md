@@ -34,6 +34,7 @@ If you'd like to contribute, please fork the repository and use a feature
 branch. Please let me know of any issues you run into.
 
 ## Links
+- Nuget download: https://www.nuget.org/packages/MtrDev.WebView2.Interop/
 - Project homepage: https://github.com/michael-russin/webview2-interop
 - Repository: https://github.com/michael-russin/webview2-interop
 - Issue tracker: https://github.com/michael-russin/webview2-interop/issues
