@@ -24,6 +24,7 @@
 #endregion
 
 using System;
+using System.Runtime.InteropServices.ComTypes;
 using MtrDev.WebView2.Interop;
 
 namespace MtrDev.WebView2.Wrapper

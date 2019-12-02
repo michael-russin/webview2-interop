@@ -28,6 +28,7 @@ using MtrDev.WebView2.Wrapper.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 
 namespace MtrDev.WebView2.Wrapper
 {
@@ -632,9 +633,11 @@ namespace MtrDev.WebView2.Wrapper
         /// <param name="imageFormat"></param>
         /// <param name="imageStream"></param>
         /// <param name="handler"></param>
-        public void CapturePreview(WEBVIEW2_CAPTURE_PREVIEW_IMAGE_FORMAT imageFormat, IStream imageStream, IWebView2CapturePreviewCompletedHandler handler)
+        public void CapturePreview(WEBVIEW2_CAPTURE_PREVIEW_IMAGE_FORMAT imageFormat, Stream imageStream, Action<CapturePreviewCompletedArgs> callback)
         {
-            throw new NotImplementedException();
+            ManagedIStream stream = new ManagedIStream(imageStream);
+            CapturePreviewCompletedHandler callbackHandler = new CapturePreviewCompletedHandler(callback);
+            _webview.CapturePreview(imageFormat, stream, callbackHandler);
         }
 
         /// <summary>

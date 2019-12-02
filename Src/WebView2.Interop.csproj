@@ -324,6 +324,7 @@
     <Compile Include="Wrapper\EventArgs\AcceleratorKeyPressedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\AddScriptToExecuteOnDocumentCreatedCompletedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\CallDevToolsProtocolMethodCompletedEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\CapturePreviewCompletedArgs.cs" />
     <Compile Include="Wrapper\EventArgs\CreateWebViewCompletedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\DevToolsProtocolEventReceivedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\DocumentStateChangedEventArgs.cs" />
@@ -366,6 +367,7 @@
     <Compile Include="Wrapper\Handlers\WebMessageReceivedEventHandler.cs" />
     <Compile Include="Wrapper\Handlers\WebResourceRequestedEventHandler.cs" />
     <Compile Include="Wrapper\Handlers\ZoomFactorChangedEventHandler.cs" />
+    <Compile Include="Wrapper\ManagedIStream.cs" />
     <Compile Include="Wrapper\WebView2Deferral.cs" />
     <Compile Include="Wrapper\WebView2Environment.cs" />
     <Compile Include="Wrapper\WebView2HttpRequestHeaderCollection.cs" />

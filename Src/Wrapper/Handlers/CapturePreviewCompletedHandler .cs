@@ -27,11 +27,17 @@ using MtrDev.WebView2.Interop;
 
 namespace MtrDev.WebView2.Wrapper.Handlers
 {
-    public class CapturePreviewCompletedHandler : IWebView2CapturePreviewCompletedHandler
+    public class CapturePreviewCompletedHandler : HandlerBase<CapturePreviewCompletedArgs>, IWebView2CapturePreviewCompletedHandler
     {
+        public CapturePreviewCompletedHandler(Action<CapturePreviewCompletedArgs> callback) : base(callback)
+        {
+        }
+
         public void Invoke(int result)
         {
-            throw new NotImplementedException();
+            CapturePreviewCompletedArgs eventArgs = new CapturePreviewCompletedArgs(result);
+
+            Callback.Invoke(eventArgs);
         }
     }
 }

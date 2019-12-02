@@ -27,6 +27,7 @@ using MtrDev.WebView2.Interop;
 using MtrDev.WebView2.Wrapper.Handlers;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace MtrDev.WebView2.Wrapper
 {

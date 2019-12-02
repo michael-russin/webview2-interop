@@ -8,10 +8,10 @@ namespace MtrDev.WebView2.Interop
 
     [Guid("0000000C-0000-0000-C000-000000000046")]
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	public interface IStream : ISequentialStream
+	public interface __IStream : __ISequentialStream
 	{
 		
-		void Clone(out IStream ppstm);
+		void Clone(out __IStream ppstm);
 
 		
 		void Commit([In] uint grfCommitFlags);
@@ -20,7 +20,7 @@ namespace MtrDev.WebView2.Interop
 		void LockRegion([In] _ULARGE_INTEGER libOffset, [In] _ULARGE_INTEGER cb, [In] uint dwLockType);
 
 		
-		void RemoteCopyTo([In] IStream pstm, [In] _ULARGE_INTEGER cb, out _ULARGE_INTEGER pcbRead, out _ULARGE_INTEGER pcbWritten);
+		void RemoteCopyTo([In] __IStream pstm, [In] _ULARGE_INTEGER cb, out _ULARGE_INTEGER pcbRead, out _ULARGE_INTEGER pcbWritten);
 
 		
 		void RemoteRead(out byte pv, [In] uint cb, out uint pcbRead);
