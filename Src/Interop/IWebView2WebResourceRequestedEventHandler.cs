@@ -21,6 +21,6 @@ namespace MtrDev.WebView2.Interop
         /// <param name="webview"></param>
         /// <param name="args"></param>
         void Invoke([In] IWebView2WebView webview, 
-                    [In] IWebView2WebResourceRequestedEventArgs args);
+                    [In] IWebView2WebResourceRequestedEventArgs2 args);
 	}
 }

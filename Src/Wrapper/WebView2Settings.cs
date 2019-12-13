@@ -68,16 +68,16 @@ namespace MtrDev.WebView2.Wrapper
             set => _settings.AreDevToolsEnabled = value;
         }
 
-        /// Controls if fullscreen is allowed for the WebView.
-        /// When it is allowed, web content such as a video element in the WebView
-        /// is allowed to be displayed full screen.
-        /// When it is not allowed, such element will fill the WebView bounds when
-        /// the element requests full screen.
-        /// It is true by default.
-        public bool IsFullscreenAllowed
+        /// <summary>
+        /// This setting is deprecated and will always return false. That means
+        /// elements in the WebView will only fill the WebView bounds. This property
+        /// will then be completely removed. Please listen to the
+        /// ContainsFullScreenElementChanged event instead.
+        /// </summary>
+        public bool IsFullscreenAllowed_deprecated
         {
-            get => _settings.IsFullscreenAllowed;
-            set => _settings.IsFullscreenAllowed = value;
+            get { return false; }
+            set { }
         }
 
         /// <summary>

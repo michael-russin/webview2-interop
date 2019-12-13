@@ -38,11 +38,11 @@ namespace MtrDev.WebView2.Wrapper
     /// </summary>
     public class WebView2WebView 
     {
-        private IWebView2WebView4 _webview;
+        private IWebView2WebView5 _webview;
 
         internal WebView2WebView(IWebView2WebView webview)
         {
-            _webview = (IWebView2WebView4)webview;
+            _webview = (IWebView2WebView5)webview;
         }
 
         public IWebView2WebView InnerWebView2WebView
@@ -364,49 +364,6 @@ namespace MtrDev.WebView2.Wrapper
             _webview.remove_LostFocus(registrationToken);
         }
 
-
-        private IDictionary<long, Action<WebResourceRequestedEventArgs>> _webResourceRequestedEventDictionary =
-            new Dictionary<long, Action<WebResourceRequestedEventArgs>>();
-
-        /// <summary>
-        /// Add an event handler for the WebResourceRequested event.
-        /// Fires when the WebView has performs any HTTP request.
-        /// Use urlFilter to pass in a list with size filterLength of urls to listen
-        /// for. Each url entry also supports wildcards: '*' matches zero or more
-        /// characters, and '?' matches exactly one character. For each urlFilter
-        /// entry, provide a matching resourceContextFilter as a bit vector
-        /// representing the types of resources for which WebResourceRequested should
-        /// fire.
-        /// If filterLength is 0, the event will fire for all network requests.
-        /// The supported resource contexts are:
-        /// Document, Stylesheet, Image, Media, Font, Script, XHR, Fetch.
-        /// </summary>
-        /// <param name="urlFilter"></param>
-        /// <param name="resourceContextFilter"></param>
-        /// <param name="callback"></param>
-        /// <returns></returns>
-        public long RegisterWebResourceRequested(ref string urlFilter, ref WEBVIEW2_WEB_RESOURCE_CONTEXT resourceContextFilter, Action<WebResourceRequestedEventArgs> callback)
-        {
-            WebResourceRequestedEventHandler completedHandler = new WebResourceRequestedEventHandler(callback);
-
-            EventRegistrationToken token;
-            uint filterLength = (uint)urlFilter.Length;
-            _webview.add_WebResourceRequested(ref urlFilter, ref resourceContextFilter, filterLength, completedHandler, out token);
-            _webResourceRequestedEventDictionary.Add(token.value, callback);
-            return token.value;
-        }
-
-        /// <summary>
-        /// Remove an event handler previously added with RegisterWebResourceRequested
-        /// </summary>
-        /// <param name="token"></param>
-        public void UnregisterWebResourceRequested(long token)
-        {
-            _webResourceRequestedEventDictionary.Remove(token);
-            EventRegistrationToken registrationToken = new EventRegistrationToken();
-            registrationToken.value = token;
-            _webview.remove_WebResourceRequested(registrationToken);
-        }
 
         private IDictionary<long, Action<ScriptDialogOpeningEventArgs>> _scriptDialogOpeningCallbacks =
             new Dictionary<long, Action<ScriptDialogOpeningEventArgs>>();
@@ -1123,5 +1080,121 @@ namespace MtrDev.WebView2.Wrapper
         }
 
         #endregion
+
+        #region IWebView2WebView5
+
+
+        private IDictionary<long, Action<ContainsFullScreenElementChangedEventArgs>> _containsFullScreenElementChangedDictionary =
+            new Dictionary<long, Action<ContainsFullScreenElementChangedEventArgs>>();
+
+        /// <summary>
+        /// Notifies when the ContainsFullScreenElement property changes. This means
+        /// that an HTML element inside the WebView is entering fullscreen to the size
+        /// of the WebView or leaving fullscreen.
+        /// This event is useful when, for example, a video element requests to go
+        /// fullscreen. The listener of ContainsFullScreenElementChanged can then
+        /// resize the WebView in response.
+        /// </summary>
+        /// <param name="callback"></param>
+        public long RegisterContainsFullScreenElementChanged(Action<ContainsFullScreenElementChangedEventArgs> callback)
+        {
+            ContainsFullScreenElementChangedEventHandler completedHandler = new ContainsFullScreenElementChangedEventHandler(callback);
+
+            EventRegistrationToken token;
+            _webview.add_ContainsFullScreenElementChanged(completedHandler, out token);
+            _containsFullScreenElementChangedDictionary.Add(token.value, callback);
+            return token.value;
+        }
+
+        /// <summary>
+        /// Remove an event handler previously added with RegisterContainsFullScreenElementChanged.
+        /// </summary>
+        /// <param name="token"></param>
+        public void UndegisterContainsFullScreenElementChanged(long token)
+        {
+            _containsFullScreenElementChangedDictionary.Remove(token);
+
+            EventRegistrationToken registrationToken = new EventRegistrationToken()
+            {
+                value = token
+            };
+            _webview.remove_ContainsFullScreenElementChanged(registrationToken);
+        }
+
+        public bool ContainsFullScreenElement
+        {
+            get => _webview.ContainsFullScreenElement;
+        }
+
+
+        private IDictionary<long, Action<WebResourceRequestedEventArgs>> _webResourceRequestedEventDictionary =
+            new Dictionary<long, Action<WebResourceRequestedEventArgs>>();
+
+        /// <summary>
+        /// Add an event handler for the WebResourceRequested event.
+        /// Fires when the WebView has performs any HTTP request.
+        /// Use urlFilter to pass in a list with size filterLength of urls to listen
+        /// for. Each url entry also supports wildcards: '*' matches zero or more
+        /// characters, and '?' matches exactly one character. For each urlFilter
+        /// entry, provide a matching resourceContextFilter as a bit vector
+        /// representing the types of resources for which WebResourceRequested should
+        /// fire.
+        /// If filterLength is 0, the event will fire for all network requests.
+        /// The supported resource contexts are:
+        /// Document, Stylesheet, Image, Media, Font, Script, XHR, Fetch.
+        /// </summary>
+        /// <param name="urlFilter"></param>
+        /// <param name="resourceContextFilter"></param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        public long RegisterWebResourceRequested(Action<WebResourceRequestedEventArgs> callback)
+        {
+            WebResourceRequestedEventHandler completedHandler = new WebResourceRequestedEventHandler(callback);
+
+            EventRegistrationToken token;
+            _webview.add_WebResourceRequested(completedHandler, out token);
+            _webResourceRequestedEventDictionary.Add(token.value, callback);
+            return token.value;
+        }
+
+        /// <summary>
+        /// Remove an event handler previously added with RegisterWebResourceRequested
+        /// </summary>
+        /// <param name="token"></param>
+        public void UnregisterWebResourceRequested(long token)
+        {
+            _webResourceRequestedEventDictionary.Remove(token);
+            EventRegistrationToken registrationToken = new EventRegistrationToken();
+            registrationToken.value = token;
+            _webview.remove_WebResourceRequested(registrationToken);
+        }
+
+        /// <summary>
+        /// Adds a URI and resource context filter to the WebResourceRequested event.
+        /// URI parameter can be a wildcard string ('': zero or more, '?': exactly one). 
+        /// nullptr is equivalent to L"".
+        /// See WEBVIEW2_WEB_RESOURCE_CONTEXT enum for description of resource context filters.
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <param name="resourceContext"></param>
+        public void AddWebResourceRequestedFilter(string uri, WEBVIEW2_WEB_RESOURCE_CONTEXT resourceContext)
+        {
+            _webview.AddWebResourceRequestedFilter(uri, resourceContext);
+        }
+
+        /// <summary>
+        /// Removes a matching WebResource filter that was previously added for the 
+        /// WebResourceRequested event. If the same filter was added multiple times, then it
+        /// will need to be removed as many times as it was added for the removal to be
+        /// effective. Returns E_INVALIDARG for a filter that was never added.
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <param name="resourceContext"></param>
+        public void RemoveWebResourceRequestedFilter(string uri, WEBVIEW2_WEB_RESOURCE_CONTEXT resourceContext)
+        {
+            _webview.RemoveWebResourceRequestedFilter(uri, resourceContext);
+        }
+
+        #endregion IWebView2WebView5
     }
 }

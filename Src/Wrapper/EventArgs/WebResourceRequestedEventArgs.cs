@@ -29,10 +29,10 @@ namespace MtrDev.WebView2.Wrapper
 {
     public class WebResourceRequestedEventArgs : EventArgs
     {
-        private IWebView2WebResourceRequestedEventArgs _args;
+        private IWebView2WebResourceRequestedEventArgs2 _args;
         private WebView2WebResourceResponse _webResponse;
 
-        internal WebResourceRequestedEventArgs(IWebView2WebResourceRequestedEventArgs args)
+        internal WebResourceRequestedEventArgs(IWebView2WebResourceRequestedEventArgs2 args)
         {
             _args = args;
             _webResponse = new WebView2WebResourceResponse(_args.Response);
@@ -46,7 +46,21 @@ namespace MtrDev.WebView2.Wrapper
         public WebView2WebResourceResponse Response
         {
             get { return _webResponse; }
-            set { _args.Response = _webResponse._response; }
+        }
+
+        public void SetResponse(WebView2WebResourceResponse response)
+        {
+            _args.Response = response.InternalWebView2WebResourceResponse;
+        }
+
+        public WEBVIEW2_WEB_RESOURCE_CONTEXT ResourceContext
+        {
+            get
+            {
+                WEBVIEW2_WEB_RESOURCE_CONTEXT context = WEBVIEW2_WEB_RESOURCE_CONTEXT.WEBVIEW2_WEB_RESOURCE_CONTEXT_ALL;
+                _args.resourceContext(ref context);
+                return context;
+            }
         }
 
         public WebView2Deferral GetDeferral()
@@ -56,7 +70,7 @@ namespace MtrDev.WebView2.Wrapper
 
         public override string ToString()
         {
-            return string.Format("Request = {0}, Response= {1}", Request, Response);
+            return string.Format("ResourceContext = {0}, Request = {1}, Response= {2}", ResourceContext, Request, Response);
         }
     }
 }

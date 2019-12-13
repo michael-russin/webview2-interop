@@ -1,20 +1,21 @@
-using System;
-using System.Runtime.CompilerServices;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MtrDev.WebView2.Interop
 {
-//#pragma warning disable CS0108
-
     /// <summary>
     /// Checked
     /// </summary>
     [ComVisible(true),
      ComImport,
      InterfaceType(ComInterfaceType.InterfaceIsIUnknown),
-     Guid("A16A5FF1-C23B-4489-8752-8568A1BED09C")]
-    public interface IWebView2WebView3 : IWebView2WebView
+     Guid("E55144F5-A16F-43D8-9580-1E5227152EDF")]
+    public interface IWebView2WebView5 : IWebView2WebView4
     {
         // Properties
         [DispId(1610678272)]
@@ -156,7 +157,7 @@ namespace MtrDev.WebView2.Interop
         /// <summary>
         /// Stop all navigations and pending resource fetches
         /// </summary>
-        void Stop();
+        new void Stop();
 
         /// <summary>
         /// Add an event handler for the NewWindowRequested event.
@@ -166,13 +167,13 @@ namespace MtrDev.WebView2.Interop
         /// </summary>
         /// <param name="eventHandler"></param>
         /// <param name="token"></param>
-        void add_NewWindowRequested([In] IWebView2NewWindowRequestedEventHandler eventHandler, out EventRegistrationToken token);
+        new void add_NewWindowRequested([In] IWebView2NewWindowRequestedEventHandler eventHandler, out EventRegistrationToken token);
 
         /// <summary>
         /// Remove an event handler previously added with add_NewWindowRequested.
         /// </summary>
         /// <param name="token"></param>
-        void remove_NewWindowRequested([In] EventRegistrationToken token);
+        new void remove_NewWindowRequested([In] EventRegistrationToken token);
 
         /// <summary>
         /// Add an event handler for the DocumentTitleChanged event.
@@ -180,13 +181,13 @@ namespace MtrDev.WebView2.Interop
         /// </summary>
         /// <param name="eventHandler"></param>
         /// <param name="token"></param>
-        void add_DocumentTitleChanged([In] IWebView2DocumentTitleChangedEventHandler eventHandler, out EventRegistrationToken token);
+        new void add_DocumentTitleChanged([In] IWebView2DocumentTitleChangedEventHandler eventHandler, out EventRegistrationToken token);
 
         /// <summary>
         /// Remove an event handler previously added with add_DocumentTitleChanged.
         /// </summary>
         /// <param name="token"></param>
-        void remove_DocumentTitleChanged([In] EventRegistrationToken token);
+        new void remove_DocumentTitleChanged([In] EventRegistrationToken token);
 
         /// <summary>
         /// The title for the current top level document.
@@ -194,6 +195,47 @@ namespace MtrDev.WebView2.Interop
         /// of the top level document is used.
         /// </summary>
         /// <param name="title"></param>
-        void DocumentTitle([MarshalAs(UnmanagedType.LPWStr)] out string title);
+        new void DocumentTitle([MarshalAs(UnmanagedType.LPWStr)] out string title);
+
+        new void AddRemoteObject([In, MarshalAs(UnmanagedType.LPWStr)] string name, [In] ref object @object);
+
+        /// <summary>
+        /// Remove the host object specified by the name so that it is no longer
+        /// accessible from JavaScript code in the WebView.
+        /// While new access attempts will be denied, if the object is already
+        /// obtained by JavaScript code in the WebView, the JavaScript code will
+        /// continue to have access to that object.
+        /// Calling this method for a name that is already removed or never added will
+        /// fail.
+        /// </summary>
+        /// <param name="name"></param>
+        new void RemoveRemoteObject([In, MarshalAs(UnmanagedType.LPWStr)] string name);
+
+        /// <summary>
+        /// Opens the DevTools window for the current document in the WebView.
+        /// Does nothing if called when the DevTools window is already open
+        /// </summary>
+        new void OpenDevToolsWindow();
+
+        new void add_AcceleratorKeyPressed([In] IWebView2AcceleratorKeyPressedEventHandler eventHandler, out EventRegistrationToken token);
+
+        new void remove_AcceleratorKeyPressed([In] EventRegistrationToken token);
+
+        void add_ContainsFullScreenElementChanged([In] IWebView2ContainsFullScreenElementChangedEventHandler eventHandler, out EventRegistrationToken token);
+
+        void remove_ContainsFullScreenElementChanged([In] EventRegistrationToken token);
+
+        [DispId(1610874882)]
+        bool ContainsFullScreenElement
+        {
+            [return: MarshalAs(UnmanagedType.Bool)]
+            get;
+        }
+
+        void add_WebResourceRequested([In] IWebView2WebResourceRequestedEventHandler eventHandler, out EventRegistrationToken token);
+
+        void AddWebResourceRequestedFilter([In, MarshalAs(UnmanagedType.LPWStr)] string uri, [In] WEBVIEW2_WEB_RESOURCE_CONTEXT resourceContext);
+
+        void RemoveWebResourceRequestedFilter([In, MarshalAs(UnmanagedType.LPWStr)] string uri, [In] WEBVIEW2_WEB_RESOURCE_CONTEXT resourceContext);
     }
 }

@@ -62,7 +62,15 @@ namespace MtrDev.WebView2.Interop
 
         new void remove_LostFocus([In] EventRegistrationToken token);
 
-        new void add_WebResourceRequested([In] ref string urlFilter,
+        /// <summary>
+        /// This API will be deprecated, please use the new add_WebResourceRequested API.
+        /// </summary>
+        /// <param name="urlFilter"></param>
+        /// <param name="resourceContextFilter"></param>
+        /// <param name="filterLength"></param>
+        /// <param name="eventHandler"></param>
+        /// <param name="token"></param>
+        new void add_WebResourceRequested_deprecated([In] ref string urlFilter,
                 [In] ref WEBVIEW2_WEB_RESOURCE_CONTEXT resourceContextFilter,
                 [In][ComAliasName("WebView2.ULONG_PTR")] ulong filterLength,
                 [In] IWebView2WebResourceRequestedEventHandler eventHandler, out EventRegistrationToken token);

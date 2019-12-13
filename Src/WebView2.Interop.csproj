@@ -54,11 +54,14 @@
     <Compile Include="Interop\Globals.cs" />
     <Compile Include="Interop\IWebView2AcceleratorKeyPressedEventArgs.cs" />
     <Compile Include="Interop\IWebView2AcceleratorKeyPressedEventHandler.cs" />
+    <Compile Include="Interop\IWebView2ContainsFullScreenElementChangedEventHandler.cs" />
     <Compile Include="Interop\IWebView2Environment3.cs" />
     <Compile Include="Interop\IWebView2NewVersionAvailableEventArgs.cs" />
     <Compile Include="Interop\IWebView2NewVersionAvailableEventHandler.cs" />
     <Compile Include="Interop\IWebView2Settings2.cs" />
+    <Compile Include="Interop\IWebView2WebResourceRequestedEventArgs2.cs" />
     <Compile Include="Interop\IWebView2WebView4.cs" />
+    <Compile Include="Interop\IWebView2WebView5.cs" />
     <Compile Include="Interop\WEBVIEW2_KEY_EVENT_TYPE.cs" />
     <Compile Include="Interop\WEBVIEW2_PHYSICAL_KEY_STATUS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -325,6 +328,7 @@
     <Compile Include="Wrapper\EventArgs\AddScriptToExecuteOnDocumentCreatedCompletedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\CallDevToolsProtocolMethodCompletedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\CapturePreviewCompletedArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\ContainsFullScreenElementChangedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\CreateWebViewCompletedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\DevToolsProtocolEventReceivedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\DocumentStateChangedEventArgs.cs" />
@@ -347,6 +351,7 @@
     <Compile Include="Wrapper\Handlers\AddScriptToExecuteOnDocumentCreatedCompletedHandler.cs" />
     <Compile Include="Wrapper\Handlers\CallDevToolsProtocolMethodCompletedHandler.cs" />
     <Compile Include="Wrapper\Handlers\CapturePreviewCompletedHandler .cs" />
+    <Compile Include="Wrapper\Handlers\ContainsFullScreenElementChangedEventHandler.cs" />
     <Compile Include="Wrapper\Handlers\CreateWebViewCompletedHandler.cs" />
     <Compile Include="Wrapper\Handlers\DevToolProtocol.cs" />
     <Compile Include="Wrapper\Handlers\DevToolsProtocolEventReceivedEventHandler.cs" />

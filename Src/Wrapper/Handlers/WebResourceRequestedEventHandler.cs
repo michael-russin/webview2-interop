@@ -37,7 +37,8 @@ namespace MtrDev.WebView2.Wrapper.Handlers
         {
         }
 
-        public void Invoke(IWebView2WebView webview, IWebView2WebResourceRequestedEventArgs args)
+        //public void Invoke(IWebView2WebView webview, IWebView2WebResourceRequestedEventArgs args)
+        public void Invoke(IWebView2WebView webview, IWebView2WebResourceRequestedEventArgs2 args)
         {
             WebResourceRequestedEventArgs eventArgs = new WebResourceRequestedEventArgs(args);
             Callback.Invoke(eventArgs);

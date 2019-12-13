@@ -42,6 +42,39 @@ namespace MtrDev.WebView2.Interop
         /// <summary>
         /// Filter fetch requests
         /// </summary>
-        WEBVIEW2_WEB_RESOURCE_CONTEXT_FETCH = 8
+        WEBVIEW2_WEB_RESOURCE_CONTEXT_FETCH = 8,
+
+        /// <summary>
+        /// TextTrack resources
+        /// </summary>
+        WEBVIEW2_WEB_RESOURCE_CONTEXT_TEXT_TRACK = 9,
+        /// <summary>
+        /// EventSource API communication
+        /// </summary>
+        WEBVIEW2_WEB_RESOURCE_CONTEXT_EVENT_SOURCE = 10,
+        /// <summary>
+        /// WebSocket API communication
+        /// </summary>        
+        WEBVIEW2_WEB_RESOURCE_CONTEXT_WEBSOCKET = 11,
+        /// <summary>
+        /// Web App Manifests
+        /// </summary>
+        WEBVIEW2_WEB_RESOURCE_CONTEXT_MANIFEST = 12,
+        /// <summary>
+        /// Signed HTTP Exchanges
+        /// </summary>
+        WEBVIEW2_WEB_RESOURCE_CONTEXT_SIGNED_EXCHANGE = 13,
+        /// <summary>
+        /// Ping requests
+        /// </summary>
+        WEBVIEW2_WEB_RESOURCE_CONTEXT_PING = 14,
+        /// <summary>
+        /// CSP Violation Reports
+        /// </summary>        
+        WEBVIEW2_WEB_RESOURCE_CONTEXT_CSP_VIOLATION_REPORT = 15,
+        /// <summary>
+        /// Other resources
+        /// </summary>
+        WEBVIEW2_WEB_RESOURCE_CONTEXT_OTHER = 16
     }
 }

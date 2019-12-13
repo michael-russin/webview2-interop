@@ -38,6 +38,8 @@ namespace MtrDev.WebView2.Wrapper
             _response = response;
         }
 
+        internal IWebView2WebResourceResponse InternalWebView2WebResourceResponse { get { return _response; } }
+
         public IStream Content
         {
             get { return _response.Content; }

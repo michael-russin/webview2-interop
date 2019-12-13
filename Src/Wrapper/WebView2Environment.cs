@@ -48,14 +48,18 @@ namespace MtrDev.WebView2.Wrapper
         /// For information on other parameters see IWebView2WebResourceResponse.
         ///
         /// </summary>
-        /// <param name="Content"></param>
-        /// <param name="StatusCode"></param>
-        /// <param name="ReasonPhrase"></param>
-        /// <param name="Headers"></param>
-        /// <param name="Response"></param>
-        public void CreateWebResourceResponse(IStream Content, int StatusCode, string ReasonPhrase, string Headers, ref IWebView2WebResourceResponse Response)
+        /// <param name="content"></param>
+        /// <param name="statusCode"></param>
+        /// <param name="reasonPhrase"></param>
+        /// <param name="headers"></param>
+        /// <param name="response"></param>
+        public WebView2WebResourceResponse CreateWebResourceResponse(IStream content, int statusCode, string reasonPhrase, string headers)
         {
-            throw new NotImplementedException();
+            IWebView2WebResourceResponse response = null;
+            _environment.CreateWebResourceResponse(content, statusCode, reasonPhrase, headers, ref response);
+
+            WebView2WebResourceResponse wrappedResonse = new WebView2WebResourceResponse(response);
+            return wrappedResonse;
         }
 
         /// <summary>

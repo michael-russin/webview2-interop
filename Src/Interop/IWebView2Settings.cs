@@ -74,16 +74,24 @@ namespace MtrDev.WebView2.Interop
 		}
 
         /// <summary>
-        /// Controls if fullscreen is allowed for the WebView.
+        /// TODO: remove this for the next breaking change:
+        /// https://microsoft.visualstudio.com/Edge/_workitems/edit/20699378
+        ///
+        /// This setting is deprecated and will always return false. That means
+        /// elements in the WebView will only fill the WebView bounds. This property
+        /// will then be completely removed. Please listen to the
+        /// ContainsFullScreenElementChanged event instead.
+        ///
+        /// Controls if fullscreen is allowed for elements in the WebView.
         /// When it is allowed, web content such as a video element in the WebView
         /// is allowed to be displayed full screen.
         /// When it is not allowed, such element will fill the WebView bounds when
         /// the element requests full screen.
-        /// It is true by default.
+        /// It is true by default.        
         /// </summary>
         [DispId(1610678278)]
-		bool IsFullscreenAllowed
-		{
+		bool IsFullscreenAllowed_deprecated
+        {
             [return: MarshalAs(UnmanagedType.Bool)]
             get;
             [param: MarshalAs(UnmanagedType.Bool)]

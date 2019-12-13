@@ -184,24 +184,14 @@ namespace MtrDev.WebView2.Interop
         void remove_LostFocus([In] EventRegistrationToken token);
 
         /// <summary>
-        /// Add an event handler for the WebResourceRequested event.
-        /// Fires when the WebView has performs any HTTP request.
-        /// Use urlFilter to pass in a list with size filterLength of urls to listen
-        /// for. Each url entry also supports wildcards: '*' matches zero or more
-        /// characters, and '?' matches exactly one character. For each urlFilter
-        /// entry, provide a matching resourceContextFilter as a bit vector
-        /// representing the types of resources for which WebResourceRequested should
-        /// fire.
-        /// If filterLength is 0, the event will fire for all network requests.
-        /// The supported resource contexts are:
-        /// Document, Stylesheet, Image, Media, Font, Script, XHR, Fetch.
+        /// This API will be deprecated, please use the new add_WebResourceRequested API.
         /// </summary>
         /// <param name="urlFilter"></param>
         /// <param name="resourceContextFilter"></param>
         /// <param name="filterLength"></param>
         /// <param name="eventHandler"></param>
         /// <param name="token"></param>
-        void add_WebResourceRequested([In] ref string urlFilter, 
+        void add_WebResourceRequested_deprecated([In] ref string urlFilter, 
                 [In] ref WEBVIEW2_WEB_RESOURCE_CONTEXT resourceContextFilter, 
                 [In][ComAliasName("WebView2.ULONG_PTR")] ulong filterLength, 
                 [In] IWebView2WebResourceRequestedEventHandler eventHandler, out EventRegistrationToken token);
