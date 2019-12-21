@@ -1110,7 +1110,7 @@ namespace MtrDev.WebView2.Wrapper
         /// Remove an event handler previously added with RegisterContainsFullScreenElementChanged.
         /// </summary>
         /// <param name="token"></param>
-        public void UndegisterContainsFullScreenElementChanged(long token)
+        public void UnRegisterContainsFullScreenElementChanged(long token)
         {
             _containsFullScreenElementChangedDictionary.Remove(token);
 
