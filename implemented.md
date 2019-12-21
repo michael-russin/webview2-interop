@@ -24,8 +24,8 @@ Below are tables of what functionality is currently supported in the interop cod
 |remove_GotFocus| UnregisterGotFocus(long token) | Working |
 |add_LostFocus| RegisterLostFocus(Action<FocusChangedEventEventArgs> callback)  | Working |
 |remove_LostFocus| UnregisterLostFocus(long token)  | Working |
-|add_WebResourceRequested|  | Not working currently  |
-|remove_WebResourceRequested|  | Not working currently |
+|add_WebResourceRequested| Depreciated  | Depreciated see IWebViewWebView5  |
+|remove_WebResourceRequested| UnregisterWebResourceRequested(long token) | Working |
 |add_ScriptDialogOpening| RegisterScriptDialogOpening(Action<ScriptDialogOpeningEventArgs> callback)   | Working |
 |remove_ScriptDialogOpening| UnregisterScriptDialogOpening(long token)   | Working |
 |add_ZoomFactorChanged| RegisterZoomFactorChanged(Action<ZoomFactorCompletedEventArgs> callback)  | Working |
@@ -37,7 +37,7 @@ Below are tables of what functionality is currently supported in the interop cod
 |AddScriptToExecuteOnDocumentCreated | AddScriptToExecuteOnDocumentCreated(string javaScript, Action<AddScriptToExecuteOnDocumentCreatedCompletedEventArgs> callback)  | Working |
 |RemoveScriptToExecuteOnDocumentCreated| RemoveScriptToExecuteOnDocumentCreated(string id)  | Working |
 |ExecuteScript | ExecuteScript(string javaScript, Action<ExecuteScriptCompletedEventArgs> callback) | Working |
-|CapturePreview|   | Not implemented yet |
+|CapturePreview| CapturePreview(imageFormat, Stream imageStream, Action<CapturePreviewCompletedArgs> callback)  | Working |
 |Reload | Reload()  | Working  |
 |get_Bounds| Bounds {get;} | Working |
 |put_Bounds| Bounds {set;} | Working |
@@ -73,10 +73,21 @@ Below are tables of what functionality is currently supported in the interop cod
 
 ### IWebView2WebView4
 
-|IWebView2WebView4 Native|WebVeiw2Control|Tested|
+|IWebView2WebView4 Native| WebView2WebView class |Tested|
 |---|---|---|
 |AddRemoteObject|  | Not implemented yet |
 |RemoveRemoteObject|  | Not implemented yet |
 |OpenDevToolsWindow| OpenDevToolsWindow()  | Working |
 |add_AcceleratorKeyPressed| RegisterAcceleratorKeyPressed(Action<AcceleratorKeyPressedEventArgs> callback)  | Working |
 |remove_AcceleratorKeyPressed| UnregisterAcceleratorKeyPressed(long token)  | Working |
+  
+### IWebView2WebView5
+
+|IWebView2WebView5 Native| WebView2WebView class |Tested|
+|---|---|---|
+|add_ContainsFullScreenElementChanged| RegisterContainsFullScreenElementChanged(Action<ContainsFullScreenElementChangedEventArgs> callback) | Working |
+|remove_ContainsFullScreenElementChanged| UnRegisterContainsFullScreenElementChanged(long token)  | Working |
+|ContainsFullScreenElement| ContainsFullScreenElement {get;} | Working |
+|add_WebResourceRequested| RegisterWebResourceRequested(Action<WebResourceRequestedEventArgs> callback)  | Working |
+|AddWebResourceRequestedFilter| AddWebResourceRequestedFilter(string uri, WEBVIEW2_WEB_RESOURCE_CONTEXT resourceContext)  | Working |
+|RemoveWebResourceRequestedFilter| RemoveWebResourceRequestedFilter(string uri, WEBVIEW2_WEB_RESOURCE_CONTEXT resourceContext)  | Working |
