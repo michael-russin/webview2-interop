@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyVersion("0.8.355.0")]
+[assembly: AssemblyVersion("0.8.355.3")]
 [assembly: Guid("A4B17755-18D0-4FE3-B81E-E758DB965F9D")]
 //[assembly: ImportedFromTypeLib("WebView2")]
 [assembly: TypeLibVersion(1, 0)]

@@ -29,6 +29,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace MtrDev.WebView2.Wrapper
 {
@@ -1003,7 +1004,26 @@ namespace MtrDev.WebView2.Wrapper
         #endregion
 
         #region IWebView2WebView4
-        // HRESULT AddRemoteObject([in] LPCWSTR name, [in] VARIANT* object);
+        public void AddRemoteObject(string name, ref object remoteObject)
+        {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentNullException("name");
+
+            // Check if the remote object supports IDispatch
+            try
+            {
+                // Make sure this guy has an IDispatch
+                IntPtr pdisp = Marshal.GetIDispatchForObject(remoteObject);
+
+                // If we got here without throwing an exception, the QI for IDispatch succeeded.
+                Marshal.Release(pdisp);
+            }
+            catch(Exception ex)
+            {
+                throw new InvalidComObjectException("The remote object doesn't support IDispatch interface.", ex);
+            }
+            _webview.AddRemoteObject(name, remoteObject);
+        }
 
         /// Remove the host object specified by the name so that it is no longer
         /// accessible from JavaScript code in the WebView.
@@ -1012,7 +1032,10 @@ namespace MtrDev.WebView2.Wrapper
         /// continue to have access to that object.
         /// Calling this method for a name that is already removed or never added will
         /// fail.
-        //HRESULT RemoveRemoteObject([in] LPCWSTR name);
+        public void RemoveRemoteObject(string name)
+        {
+            _webview.RemoveRemoteObject(name);
+        }
 
         /// Opens the DevTools window for the current document in the WebView.
         /// Does nothing if called when the DevTools window is already open

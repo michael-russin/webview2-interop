@@ -61,7 +61,14 @@ namespace MtrDev.WebView2.Wrapper
         public void SetHeader(string name, string value)
         {
             _httpHeaders.SetHeader(name, value);
-            _headerNameValues.Add(name, value);
+            if (_headerNameValues.ContainsKey(name))
+            {
+                _headerNameValues[name] = value;
+            }
+            else
+            {
+                _headerNameValues.Add(name, value);
+            }
         }
 
         public void Remove(string name)
