@@ -75,8 +75,8 @@ Below are tables of what functionality is currently supported in the interop cod
 
 |IWebView2WebView4 Native| WebView2WebView class |Tested|
 |---|---|---|
-|AddRemoteObject|  | Not implemented yet |
-|RemoveRemoteObject|  | Not implemented yet |
+|AddRemoteObject|  | Working |
+|RemoveRemoteObject|  | Working |
 |OpenDevToolsWindow| OpenDevToolsWindow()  | Working |
 |add_AcceleratorKeyPressed| RegisterAcceleratorKeyPressed(Action<AcceleratorKeyPressedEventArgs> callback)  | Working |
 |remove_AcceleratorKeyPressed| UnregisterAcceleratorKeyPressed(long token)  | Working |
