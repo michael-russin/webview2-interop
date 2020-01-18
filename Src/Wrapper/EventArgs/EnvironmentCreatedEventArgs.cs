@@ -32,7 +32,10 @@ namespace MtrDev.WebView2.Wrapper
         internal EnvironmentCreatedEventArgs(int result, IWebView2Environment webViewEnvironment)
         {
             Result = result;
-            WebViewEnvironment = new WebView2Environment(webViewEnvironment);
+            if (webViewEnvironment != null)
+            {
+                WebViewEnvironment = new WebView2Environment(webViewEnvironment);
+            }
         }
 
         public int Result
