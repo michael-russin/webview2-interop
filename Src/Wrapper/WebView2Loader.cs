@@ -54,6 +54,12 @@ namespace MtrDev.WebView2.Wrapper
                 userDataFolder,
                 additionalBrowserArguments,
                 handler);
+
+            if(hr != 0 && callback !=null)
+            {
+                EnvironmentCreatedEventArgs args = new EnvironmentCreatedEventArgs(hr, null);
+                callback.Invoke(args);
+            }
             return hr;
         }
 
@@ -66,6 +72,11 @@ namespace MtrDev.WebView2.Wrapper
         {
             EnvironmentCompletedHandler handler = new EnvironmentCompletedHandler(callback);
             int hr = Globals.CreateWebView2Environment(handler);
+            if (hr != 0 && callback != null)
+            {
+                EnvironmentCreatedEventArgs args = new EnvironmentCreatedEventArgs(hr, null);
+                callback.Invoke(args);
+            }
             return hr;
         }
 
