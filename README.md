@@ -26,7 +26,8 @@ This is the section where you would document those requirements.
 * Interop classes for the WebView2
 * Wrapper classes around WebView2 interfaces
 
-Checked [here](./implemented.md) to see what is implemented and working.
+* If you are using 0.9.430 check [here](./implemented0.9.430.md) to see what is implemented and working.
+* If you are using 0.8.355 or below check [here](./implemented.md) to see what is implemented and working.
 
 ## Contributing
 
