@@ -27,13 +27,13 @@ using MtrDev.WebView2.Interop;
 
 namespace MtrDev.WebView2.Wrapper.Handlers
 {
-    public class NewWindowRequestedEventHandler : HandlerBase<NewWindowRequestedEventArgs>, IWebView2NewWindowRequestedEventHandler
+    public class NewWindowRequestedEventHandler : HandlerBase<NewWindowRequestedEventArgs>, ICoreWebView2NewWindowRequestedEventHandler
     {
         public NewWindowRequestedEventHandler(Action<NewWindowRequestedEventArgs> callback) : base(callback)
         {
         }
 
-        public void Invoke(IWebView2WebView webview, IWebView2NewWindowRequestedEventArgs args)
+        public void Invoke(ICoreWebView2 webview, ICoreWebView2NewWindowRequestedEventArgs args)
         {
             NewWindowRequestedEventArgs eventArgs = new NewWindowRequestedEventArgs(args);
             Callback.Invoke(eventArgs);

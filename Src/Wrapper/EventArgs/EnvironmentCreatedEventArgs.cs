@@ -29,7 +29,7 @@ namespace MtrDev.WebView2.Wrapper
 {
     public class EnvironmentCreatedEventArgs : EventArgs
     {
-        internal EnvironmentCreatedEventArgs(int result, IWebView2Environment webViewEnvironment)
+        internal EnvironmentCreatedEventArgs(int result, ICoreWebView2Environment webViewEnvironment)
         {
             Result = result;
             if (webViewEnvironment != null)

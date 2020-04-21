@@ -27,9 +27,9 @@ using MtrDev.WebView2.Interop;
 
 namespace MtrDev.WebView2.Wrapper
 {
-    public class DevToolsProtocolEventReceivedEventArgs : EventArgs, IWebView2DevToolsProtocolEventReceivedEventArgs
+    public class DevToolsProtocolEventReceivedEventArgs : EventArgs, ICoreWebView2DevToolsProtocolEventReceivedEventArgs
     {
-        internal DevToolsProtocolEventReceivedEventArgs(string eventName, IWebView2DevToolsProtocolEventReceivedEventArgs args)
+        internal DevToolsProtocolEventReceivedEventArgs(string eventName, ICoreWebView2DevToolsProtocolEventReceivedEventArgs args)
         {
             ParameterObjectAsJson = args.ParameterObjectAsJson;
             EventName = eventName;

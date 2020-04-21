@@ -29,9 +29,9 @@ namespace MtrDev.WebView2.Wrapper
 {
     public class ScriptDialogOpeningEventArgs : EventArgs
     {
-        IWebView2ScriptDialogOpeningEventArgs _args;
+        ICoreWebView2ScriptDialogOpeningEventArgs _args;
 
-        internal ScriptDialogOpeningEventArgs(IWebView2ScriptDialogOpeningEventArgs args)
+        internal ScriptDialogOpeningEventArgs(ICoreWebView2ScriptDialogOpeningEventArgs args)
         {
             _args = args;
         }

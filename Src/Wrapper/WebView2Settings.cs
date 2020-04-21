@@ -32,13 +32,13 @@ namespace MtrDev.WebView2.Wrapper
     /// features. Setting changes made after NavigationStarting event will not
     /// apply until the next top level navigation.
     /// </summary>
-    public class WebView2Settings: IWebView2Settings2
+    public class WebView2Settings: ICoreWebView2Settings
     {
-        private IWebView2Settings2 _settings;
+        private ICoreWebView2Settings _settings;
 
-        internal WebView2Settings(IWebView2Settings settings)
+        internal WebView2Settings(ICoreWebView2Settings settings)
         {
-            _settings = (IWebView2Settings2)settings;
+            _settings = (ICoreWebView2Settings)settings;
         }
 
         #region IWebView2Settings
@@ -138,6 +138,28 @@ namespace MtrDev.WebView2.Wrapper
         {
             get => _settings.AreDefaultContextMenusEnabled;
             set => _settings.AreDefaultContextMenusEnabled = value;
+        }
+
+        /// <summary>
+        /// The AreRemoteObjectsAllowed property is used to control whether
+        /// remote objects are accessible from the page in webview. Defaults to TRUE.
+        /// </summary>
+        public bool AreRemoteObjectsAllowed 
+        { 
+            get => _settings.AreRemoteObjectsAllowed; 
+            set => _settings.AreRemoteObjectsAllowed = value; 
+        }
+
+        /// <summary>
+        /// The IsZoomControlEnabled property is used to prevent the user from
+        /// impacting the zoom of the WebView. Defaults to TRUE.
+        /// When disabled, user will not be able to zoom using ctrl+/- or
+        /// ctrl+mouse wheel, but the zoom can be set via put_ZoomFactor API.
+        /// </summary>
+        public bool IsZoomControlEnabled 
+        { 
+            get => _settings.IsZoomControlEnabled; 
+            set => _settings.IsZoomControlEnabled = value; 
         }
 
         #endregion

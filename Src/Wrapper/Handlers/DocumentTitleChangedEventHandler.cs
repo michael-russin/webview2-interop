@@ -28,13 +28,13 @@ using MtrDev.WebView2.Interop;
 namespace MtrDev.WebView2.Wrapper.Handlers
 {
     public class DocumentTitleChangedEventHandler : HandlerBase<DocumentTitleChangedEventArgs>, 
-        IWebView2DocumentTitleChangedEventHandler
+        ICoreWebView2DocumentTitleChangedEventHandler
     {
         public DocumentTitleChangedEventHandler(Action<DocumentTitleChangedEventArgs> callback) : base(callback)
         {
         }
 
-        public void Invoke(IWebView2WebView3 webview, object args)
+        public void Invoke(ICoreWebView2 webview, object args)
         {
             DocumentTitleChangedEventArgs completedArgs = new DocumentTitleChangedEventArgs(webview);
             Callback(completedArgs);

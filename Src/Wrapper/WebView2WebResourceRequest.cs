@@ -31,9 +31,9 @@ namespace MtrDev.WebView2.Wrapper
 {
     public class WebView2WebResourceRequest
     {
-        private IWebView2WebResourceRequest _request;
+        private ICoreWebView2WebResourceRequest _request;
 
-        internal WebView2WebResourceRequest(IWebView2WebResourceRequest request)
+        internal WebView2WebResourceRequest(ICoreWebView2WebResourceRequest request)
         {
             _request = request;
         }

@@ -31,14 +31,14 @@ namespace MtrDev.WebView2.Wrapper
 {
     public class WebView2WebResourceResponse
     {
-        internal IWebView2WebResourceResponse _response;
+        internal ICoreWebView2WebResourceResponse _response;
 
-        internal WebView2WebResourceResponse(IWebView2WebResourceResponse response)
+        internal WebView2WebResourceResponse(ICoreWebView2WebResourceResponse response)
         {
             _response = response;
         }
 
-        internal IWebView2WebResourceResponse InternalWebView2WebResourceResponse { get { return _response; } }
+        internal ICoreWebView2WebResourceResponse InternalWebView2WebResourceResponse { get { return _response; } }
 
         public IStream Content
         {

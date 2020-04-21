@@ -27,11 +27,11 @@ using MtrDev.WebView2.Interop;
 
 namespace MtrDev.WebView2.Wrapper
 {
-    public class PermissionRequestedEventArgs : EventArgs, IWebView2PermissionRequestedEventArgs
+    public class PermissionRequestedEventArgs : EventArgs, ICoreWebView2PermissionRequestedEventArgs
     {
-        private IWebView2PermissionRequestedEventArgs _args;
+        private ICoreWebView2PermissionRequestedEventArgs _args;
 
-        internal PermissionRequestedEventArgs(IWebView2PermissionRequestedEventArgs args)
+        internal PermissionRequestedEventArgs(ICoreWebView2PermissionRequestedEventArgs args)
         {
             _args = args;
         }
@@ -57,7 +57,7 @@ namespace MtrDev.WebView2.Wrapper
             set => _args.State = value;
         }
 
-        public IWebView2Deferral GetDeferral()
+        public ICoreWebView2Deferral GetDeferral()
         {
             return new WebView2Deferral(_args.GetDeferral());
         }

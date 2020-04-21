@@ -39,14 +39,16 @@ namespace MtrDev.WebView2.Wrapper
     /// </summary>
     public class WebView2WebView 
     {
-        private IWebView2WebView5 _webview;
+        private ICoreWebView2Host _webviewHost;
+        private ICoreWebView2 _webview;
 
-        internal WebView2WebView(IWebView2WebView webview)
+        internal WebView2WebView(ICoreWebView2Host webview)
         {
-            _webview = (IWebView2WebView5)webview;
+            _webviewHost = webview;
+            _webview = _webviewHost.CoreWebView2;
         }
 
-        public IWebView2WebView InnerWebView2WebView
+        public ICoreWebView2 InnerWebView2WebView
         {
             get
             {
@@ -54,7 +56,7 @@ namespace MtrDev.WebView2.Wrapper
             }
         }
 
-        #region IWebView2WebView
+        #region ICoreWebView2
         /// <summary>
         /// Wrapper around IWebView2Settings object contains various modifiable settings for the running WebView.
         /// </summary>
@@ -91,16 +93,6 @@ namespace MtrDev.WebView2.Wrapper
         public void Navigate(string uri)
         {
             _webview.Navigate(uri);
-        }
-
-        /// <summary>
-        /// ove focus into WebView. WebView will get focus and focus will be set to
-        /// correspondent element in the page hosted in the WebView.
-        /// </summary>
-        /// <param name="reason"></param>
-        public void MoveFocus(WEBVIEW2_MOVE_FOCUS_REASON reason)
-        {
-            _webview.MoveFocus(reason);
         }
 
         /// <summary>
@@ -150,42 +142,118 @@ namespace MtrDev.WebView2.Wrapper
             _webview.remove_NavigationStarting(registrationToken);
         }
 
-        private IDictionary<long, Action<DocumentStateChangedEventArgs>> _documentStateChangedCallbacks =
-            new Dictionary<long, Action<DocumentStateChangedEventArgs>>();
+        private IDictionary<long, Action<ContentLoadingEventArgs>> _contentLoadingEventDictionary =
+                new Dictionary<long, Action<ContentLoadingEventArgs>>();
 
         /// <summary>
-        /// Add an event handler for the DocumentStateChanged event.
-        /// DocumentStateChanged fires when new content has started loading
-        /// on the webview's main frame or if a same page navigation occurs (such as
-        /// through fragment navigations or history.pushState navigations).
-        /// This follows the NavigationStarting event and precedes the
-        /// NavigationCompleted event.
+        /// Add an event handler for the ContentLoading event.
+        /// ContentLoading fires before any content is loaded, including scripts added with
+        /// AddScriptToExecuteOnDocumentCreated
+        /// ContentLoading will not fire if a same page navigation occurs
+        /// (such as through fragment navigations or history.pushState navigations).
+        /// This follows the NavigationStarting and SourceChanged events and
+        /// precedes the HistoryChanged and NavigationCompleted events.
         /// </summary>
         /// <param name="callback"></param>
         /// <returns></returns>
-        public long RegisterDocumentStateChanged(Action<DocumentStateChangedEventArgs> callback)
+        public long RegisterContentLoading(Action<ContentLoadingEventArgs> callback)
         {
-            DocumentStateChangedEventHandler completedHandler = new DocumentStateChangedEventHandler(callback);
+            ContentLoadingEventHandler completedHandler = new ContentLoadingEventHandler(callback);
 
             EventRegistrationToken token;
-            _webview.add_DocumentStateChanged(completedHandler, out token);
-            _documentStateChangedCallbacks.Add(token.value, callback);
+            _webview.add_ContentLoading(completedHandler, out token);
+            _contentLoadingEventDictionary.Add(token.value, callback);
             return token.value;
         }
 
         /// <summary>
-        /// Remove an event handler previously added with RegisterDocumentStateChanged.
+        /// Remove an event handler for ContentLoading eventg.
         /// </summary>
         /// <param name="token"></param>
-        public void UnregisterDocumentStateChanged(long token)
+        public void UnregisterContentLoading(long token)
         {
-            _devToolsProtocolCallbacks.Remove(token);
-
-            EventRegistrationToken registrationToken = new EventRegistrationToken()
+            if (_contentLoadingEventDictionary.ContainsKey(token))
             {
-                value = token
-            };
-            _webview.remove_DocumentStateChanged(registrationToken);
+                _contentLoadingEventDictionary.Remove(token);
+            }
+            EventRegistrationToken registrationToken = new EventRegistrationToken();
+            registrationToken.value = token;
+            _webview.remove_ContentLoading(registrationToken);
+        }
+
+        private IDictionary<long, Action<SourceChangedEventArgs>> _sourceChangedEventDictionary =
+                new Dictionary<long, Action<SourceChangedEventArgs>>();
+
+        /// <summary>
+        /// SourceChanged fires when the Source property changes.
+        /// SourceChanged fires for navigating to a different site or fragment navigations.
+        /// It will not fires for other types of navigations such as page reloads or
+        /// history.pushState with the same URL as the current page.
+        /// SourceChanged fires before ContentLoading for navigation to a new document.
+        /// Add an event handler for the SourceChanged event.
+        /// </summary>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        public long RegisterSourceChanged(Action<SourceChangedEventArgs> callback)
+        {
+            SourceChangedEventHandler completedHandler = new SourceChangedEventHandler(callback);
+
+            EventRegistrationToken token;
+            _webview.add_SourceChanged(completedHandler, out token);
+            _sourceChangedEventDictionary.Add(token.value, callback);
+            return token.value;
+        }
+
+        /// <summary>
+        /// Remove an event handler for SourceChanged event.
+        /// </summary>
+        /// <param name="token"></param>
+        public void UnregisterSourceChanged(long token)
+        {
+            if (_sourceChangedEventDictionary.ContainsKey(token))
+            {
+                _sourceChangedEventDictionary.Remove(token);
+            }
+            EventRegistrationToken registrationToken = new EventRegistrationToken();
+            registrationToken.value = token;
+            _webview.remove_SourceChanged(registrationToken);
+        }
+
+        private IDictionary<long, Action<HistoryChangedEventArgs>> _historyChangedEventDictionary =
+                new Dictionary<long, Action<HistoryChangedEventArgs>>();
+
+        /// <summary>
+        /// HistoryChange listen to the change of navigation history for the top level
+        /// document. Use HistoryChange to check if get_CanGoBack/get_CanGoForward value
+        /// has changed. HistoryChanged also fires for using GoBack/GoForward.
+        /// HistoryChanged fires after SourceChanged and ContentLoading.
+        /// Add an event handler for the HistoryChanged event.
+        /// </summary>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        public long RegisterHistoryChanged(Action<HistoryChangedEventArgs> callback)
+        {
+            HistoryChangedEventHandler completedHandler = new HistoryChangedEventHandler(callback);
+
+            EventRegistrationToken token;
+            _webview.add_HistoryChanged(completedHandler, out token);
+            _historyChangedEventDictionary.Add(token.value, callback);
+            return token.value;
+        }
+
+        /// <summary>
+        /// Remove an event handler for HistoryChanged event.
+        /// </summary>
+        /// <param name="token"></param>
+        public void UnregisterHistoryChanged(long token)
+        {
+            if (_historyChangedEventDictionary.ContainsKey(token))
+            {
+                _historyChangedEventDictionary.Remove(token);
+            }
+            EventRegistrationToken registrationToken = new EventRegistrationToken();
+            registrationToken.value = token;
+            _webview.remove_HistoryChanged(registrationToken);
         }
 
         private IDictionary<long, Action<NavigationCompletedEventArgs>> _navigationCompletedEventDictionary =
@@ -259,113 +327,6 @@ namespace MtrDev.WebView2.Wrapper
             _webview.remove_FrameNavigationStarting(registrationToken);
         }
 
-        private IDictionary<long, Action<MoveFocusRequestedEventArgs>> _moveFocusRequestedDictionary =
-            new Dictionary<long, Action<MoveFocusRequestedEventArgs>>();
-
-        /// <summary>
-        /// Add an event handler for the MoveFocusRequested event.
-        /// MoveFocusRequested fires when user tries to tab out of the WebView.
-        /// The WebView's focus has not changed when this event is fired.
-        /// </summary>
-        /// <param name="callback"></param>
-        /// <returns></returns>
-        public long RegisterMoveFocusRequested(Action<MoveFocusRequestedEventArgs> callback)
-        {
-            MoveFocusRequestedEventHandler completedHandler = new MoveFocusRequestedEventHandler(callback);
-
-            EventRegistrationToken token;
-            _webview.add_MoveFocusRequested(completedHandler, out token);
-            _moveFocusRequestedDictionary.Add(token.value, callback);
-            return token.value;
-        }
-
-        /// <summary>
-        /// Remove an event handler previously added with RegisterMoveFocusRequested
-        /// </summary>
-        /// <param name="token"></param>
-        public void UnregisterMoveFocusRequested(long token)
-        {
-            if (_moveFocusRequestedDictionary.ContainsKey(token))
-            {
-                _moveFocusRequestedDictionary.Remove(token);
-            }
-            EventRegistrationToken registrationToken = new EventRegistrationToken();
-            registrationToken.value = token;
-            _webview.remove_MoveFocusRequested(registrationToken);
-        }
-
-        private IDictionary<long, Action<FocusChangedEventEventArgs>> _gotFocusCallbacks =
-            new Dictionary<long, Action<FocusChangedEventEventArgs>>();
-
-        /// <summary>
-        /// Add an event handler for the GotFocus event.
-        /// </summary>
-        /// <param name="callback"></param>
-        /// <returns></returns>
-        public long RegisterGotFocus(Action<FocusChangedEventEventArgs> callback)
-        {
-            FocusChangedEventHandler completedHandler = new FocusChangedEventHandler(callback);
-
-            EventRegistrationToken token;
-            _webview.add_GotFocus(completedHandler, out token);
-            _gotFocusCallbacks.Add(token.value, callback);
-            return token.value;
-        }
-
-        /// <summary>
-        /// Remove an event handler previously added with RegisterGotFocusdEvent
-        /// </summary>
-        /// <param name="token"></param>
-        public void UnregisterGotFocus(long token)
-        {
-            _frameNavigationStartingCallbacks.Remove(token);
-
-            EventRegistrationToken registrationToken = new EventRegistrationToken()
-            {
-                value = token
-            };
-            _webview.remove_GotFocus(registrationToken);
-        }
-
-        private IDictionary<long, Action<FocusChangedEventEventArgs>> _lostFocusEventDictionary =
-            new Dictionary<long, Action<FocusChangedEventEventArgs>>();
-
-        /// <summary>
-        /// Add an event handler for the LostFocus event.
-        /// LostFocus fires when WebView lost focus.
-        /// In the case where MoveFocusRequested event is fired, the focus is still
-        /// on WebView when MoveFocusRequested event fires. Lost focus only fires
-        /// afterwards when app's code or default action of MoveFocusRequested event
-        /// set focus away from WebView.
-        /// </summary>
-        /// <param name="callback"></param>
-        /// <returns></returns>
-        public long RegisterLostFocus(Action<FocusChangedEventEventArgs> callback)
-        {
-            FocusChangedEventHandler completedHandler = new FocusChangedEventHandler(callback);
-
-            EventRegistrationToken token;
-            _webview.add_LostFocus(completedHandler, out token);
-            _lostFocusEventDictionary.Add(token.value, callback);
-            return token.value;
-        }
-
-        /// <summary>
-        /// Remove an event handler previously added with RegisterLostFocus
-        /// </summary>
-        /// <param name="token"></param>
-        public void UnregisterLostFocus(long token)
-        {
-            if (_lostFocusEventDictionary.ContainsKey(token))
-            {
-                _lostFocusEventDictionary.Remove(token);
-            }
-            EventRegistrationToken registrationToken = new EventRegistrationToken();
-            registrationToken.value = token;
-            _webview.remove_LostFocus(registrationToken);
-        }
-
-
         private IDictionary<long, Action<ScriptDialogOpeningEventArgs>> _scriptDialogOpeningCallbacks =
             new Dictionary<long, Action<ScriptDialogOpeningEventArgs>>();
 
@@ -400,48 +361,6 @@ namespace MtrDev.WebView2.Wrapper
                 value = token
             };
             _webview.remove_ScriptDialogOpening(registrationToken);
-        }
-
-        private IDictionary<long, Action<ZoomFactorCompletedEventArgs>> _zoomFactorChangedEventDictionary =
-            new Dictionary<long, Action<ZoomFactorCompletedEventArgs>>();
-
-        /// <summary>
-        /// Add an event handler for the ZoomFactorChanged event.
-        /// The event fires when the ZoomFactor property of the WebView changes.
-        /// The event could fire because the caller modified the ZoomFactor property,
-        /// or due to the user manually modifying the zoom. When it is modified by the
-        /// caller via the ZoomFactor property, the internal zoom factor is updated
-        /// immediately and there will be no ZoomFactorChanged event.
-        /// WebView associates the last used zoom factor for each site. Therefore, it
-        /// is possible for the zoom factor to change when navigating to a different
-        /// page. When the zoom factor changes due to this, the ZoomFactorChanged
-        /// event fires right after the DocumentStateChanged event.
-        /// </summary>
-        /// <param name="callback"></param>
-        /// <returns></returns>
-        public long RegisterZoomFactorChanged(Action<ZoomFactorCompletedEventArgs> callback)
-        {
-            ZoomFactorChangedEventHandler completedHandler = new ZoomFactorChangedEventHandler(callback);
-
-            EventRegistrationToken token;
-            _webview.add_ZoomFactorChanged(completedHandler, out token);
-            _zoomFactorChangedEventDictionary.Add(token.value, callback);
-            return token.value;
-        }
-
-        /// <summary>
-        /// Remove an event handler previously added with RegisterZoomFactorChanged
-        /// </summary>
-        /// <param name="token"></param>
-        public void UnregisterZoomFactorChanged(long token)
-        {
-            if (_zoomFactorChangedEventDictionary.ContainsKey(token))
-            {
-                _zoomFactorChangedEventDictionary.Remove(token);
-            }
-            EventRegistrationToken registrationToken = new EventRegistrationToken();
-            registrationToken.value = token;
-            _webview.remove_ZoomFactorChanged(registrationToken);
         }
 
         private IDictionary<long, Action<PermissionRequestedEventArgs>> _permissionRequestedCallbacks =
@@ -610,90 +529,6 @@ namespace MtrDev.WebView2.Wrapper
         }
 
         /// <summary>
-        /// The webview bounds.
-        /// Bounds are relative to the parent HWND. The app has two ways it can
-        /// position a WebView:
-        /// 1. Create a child HWND that is the WebView parent HWND. Position this
-        ///    window where the WebView should be. In this case, use (0, 0) for the
-        ///    WebView's Bound's top left corner (the offset).
-        /// 2. Use the app's top most window as the WebView parent HWND. Set the
-        ///    WebView's Bound's top left corner so that the WebView is positioned
-        ///    correctly in the app.
-        /// The Bound's values are in the host's coordinate space.
-        /// </summary>
-        public Rectangle Bounds
-        {
-            get
-            {
-                tagRECT rect = _webview.Bounds;
-                return new Rectangle(rect.left, rect.top, (rect.right - rect.left), (rect.bottom - rect.top));
-            }
-            set
-            {
-                tagRECT rect = new tagRECT();
-                rect.top = value.Top;
-                rect.left = value.Left;
-                rect.right = value.Right;
-                rect.bottom = value.Bottom;
-                _webview.Bounds = rect;
-            }
-        }
-
-        /// <summary>
-        /// The zoom factor for the current page in the WebView.
-        /// The zoom factor is persisted per site.
-        /// Note that changing zoom factor could cause `window.innerWidth/innerHeight`
-        /// and page layout to change.
-        /// When WebView navigates to a page from a different site,
-        /// the zoom factor set for the previous page will not be applied.
-        /// If the app wants to set the zoom factor for a certain page, the earliest
-        /// place to do it is in the DocumentStateChanged event handler. Note that if it
-        /// does that, it might receive a ZoomFactorChanged event for the persisted
-        /// zoom factor before receiving the ZoomFactorChanged event for the specified
-        /// zoom factor.
-        /// Specifying a zoomFactor less than or equal to 0 is not allowed.
-        /// WebView also has an internal supported zoom factor range. When a specified
-        /// zoom factor is out of that range, it will be normalized to be within the
-        /// range, and a ZoomFactorChanged event will be fired for the real
-        /// applied zoom factor. When this range normalization happens, the
-        /// ZoomFactor property will report the zoom factor specified during the
-        /// previous modification of the ZoomFactor property until the
-        /// ZoomFactorChanged event is received after webview applies the normalized
-        /// zoom factor.
-        /// </summary>
-        public double ZoomFactor
-        {
-            get
-            {
-                return _webview.ZoomFactor;
-            }
-            set
-            {
-                _webview.ZoomFactor = value;
-            }
-        }
-
-        /// <summary>
-        /// The IsVisible property determines whether to show or hide the webview.
-        /// If IsVisible is set to false, the webview will be transparent and will
-        /// not be rendered.  However, this will not affect the window containing
-        /// the webview (the HWND parameter that was passed to CreateWebView).
-        /// If you want that window to disappear too, call ShowWindow on it directly
-        /// in addition to modifying the IsVisible property.
-        /// WebView as a child window won't get window messages when the top window
-        /// is minimized or restored. For performance reason, developer should set
-        /// IsVisible property of the WebView to false when the app window is
-        /// minimized and back to true when app window is restored. App window can do
-        /// this by handling SC_MINIMIZE and SC_RESTORE command upon receiving
-        /// WM_SYSCOMMAND message.
-        /// </summary>
-        public bool IsVisible
-        {
-            get => _webview.IsVisible;
-            set => _webview.IsVisible = value;
-        }
-
-        /// <summary>
         /// Post the specified webMessage to the top level document in this
         /// IWebView2WebView. The top level document's window.chrome.webview's message
         /// event fires. JavaScript in that document may subscribe and unsubscribe to
@@ -772,20 +607,6 @@ namespace MtrDev.WebView2.Wrapper
         }
 
         /// <summary>
-        /// Closes the webview and cleans up the underlying browser instance.
-        /// Cleaning up the browser instace will release the resources powering the webview.
-        /// The browser instance will be shut down if there are no other webviews using it.
-        ///
-        /// After calling Close, all method calls will fail and event handlers
-        /// will stop firing. Specifically, the WebView will release its references
-        /// to its event handlers when Close is called.
-        /// </summary>
-        public void Close()
-        {
-            _webview.Close();
-        }
-
-        /// <summary>
         /// Call an asynchronous DevToolsProtocol method. See the
         /// [DevTools Protocol Viewer](https://aka.ms/DevToolsProtocolDocs)
         /// for a list and description of available methods.
@@ -812,51 +633,6 @@ namespace MtrDev.WebView2.Wrapper
                 callbackHandler = new CallDevToolsProtocolMethodCompletedHandler(methodName, callback);
             }
             _webview.CallDevToolsProtocolMethod(methodName, parametersAsJson, callbackHandler);
-        }
-
-
-        private IDictionary<long, DevToolProtocol> _devToolsProtocolCallbacks =
-            new Dictionary<long, DevToolProtocol>();
-
-        /// <summary>
-        /// Subscribe to a DevToolsProtocol event. See the
-        /// [DevTools Protocol Viewer](https://aka.ms/DevToolsProtocolDocs)
-        /// for a list and description of available events.
-        /// The eventName parameter is the full name of the event in the format
-        /// `{domain}.{event}`.
-        /// The handler's Invoke method will be called whenever the corresponding
-        /// DevToolsProtocol event fires. Invoke will be called with the
-        /// an event args object containing the CDP event's parameter object as a JSON
-        /// string.
-        /// </summary>
-        /// <param name="eventName"></param>
-        /// <param name="callback"></param>
-        /// <returns></returns>
-        public long RegisterDevToolsProtocolEventReceived(string eventName, Action<DevToolsProtocolEventReceivedEventArgs> callback)
-        {
-            DevToolsProtocolEventReceivedEventHandler completedHandler = new DevToolsProtocolEventReceivedEventHandler(eventName, callback);
-
-            EventRegistrationToken token;
-            _webview.add_DevToolsProtocolEventReceived(eventName, completedHandler, out token);
-            DevToolProtocol devToolProtocol = new DevToolProtocol(eventName, callback);
-            _devToolsProtocolCallbacks.Add(token.value, devToolProtocol);
-            return token.value;
-        }
-
-        /// <summary>
-        /// Remove an event handler previously added with RegisterDevToolsProtocolEventReceived
-        /// </summary>
-        /// <param name="token"></param>
-        public void UnregisterDevToolsProtocolEventReceived(long token)
-        {
-            DevToolProtocol devToolProtocol = _devToolsProtocolCallbacks[token];
-            _devToolsProtocolCallbacks.Remove(token);
-
-            EventRegistrationToken registrationToken = new EventRegistrationToken()
-            {
-                value = token
-            };
-            _webview.remove_DevToolsProtocolEventReceived(devToolProtocol.EventName, registrationToken);
         }
 
         /// <summary>
@@ -903,9 +679,30 @@ namespace MtrDev.WebView2.Wrapper
         {
             _webview.GoForward();
         }
-        #endregion
 
-        #region IWebView2WebView3
+        private IDictionary<long, DevToolProtocol> _devToolsProtocolCallbacks =
+            new Dictionary<long, DevToolProtocol>();
+
+        /// <summary>
+        /// Subscribe to a DevToolsProtocol event. See the
+        /// [DevTools Protocol Viewer](https://aka.ms/DevToolsProtocolDocs)
+        /// for a list and description of available events.
+        /// The eventName parameter is the full name of the event in the format
+        /// `{domain}.{event}`.
+        /// The handler's Invoke method will be called whenever the corresponding
+        /// DevToolsProtocol event fires. Invoke will be called with the
+        /// an event args object containing the CDP event's parameter object as a JSON
+        /// string.
+        /// </summary>
+        /// <param name="eventName"></param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        public WebView2DevToolsProtocolEventReceiver GetDevToolsProtocolEventReceiver(string eventName)
+        {
+            ICoreWebView2DevToolsProtocolEventReceiver reciever = null;
+            _webview.GetDevToolsProtocolEventReceiver(eventName, out reciever);
+            return new WebView2DevToolsProtocolEventReceiver(eventName, reciever);
+        }
 
         /// <summary>
         /// Stop all navigations and pending resource fetches
@@ -916,7 +713,7 @@ namespace MtrDev.WebView2.Wrapper
         }
 
         private IDictionary<long, Action<NewWindowRequestedEventArgs>> _newWindowRequestedEventDictionary =
-            new Dictionary<long, Action<NewWindowRequestedEventArgs>>();
+    new Dictionary<long, Action<NewWindowRequestedEventArgs>>();
 
         /// <summary>
         /// Add an event handler for the NewWindowRequested event.
@@ -986,7 +783,6 @@ namespace MtrDev.WebView2.Wrapper
             _webview.remove_DocumentTitleChanged(registrationToken);
         }
 
-
         /// <summary>
         /// The title for the current top level document.
         /// If the document has no explicit title or is otherwise empty, then the URI
@@ -1001,9 +797,7 @@ namespace MtrDev.WebView2.Wrapper
                 return documentTitle;
             }
         }
-        #endregion
 
-        #region IWebView2WebView4
         public void AddRemoteObject(string name, ref object remoteObject)
         {
             if (string.IsNullOrEmpty(name))
@@ -1018,11 +812,11 @@ namespace MtrDev.WebView2.Wrapper
                 // If we got here without throwing an exception, the QI for IDispatch succeeded.
                 Marshal.Release(pdisp);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new InvalidComObjectException("The remote object doesn't support IDispatch interface.", ex);
             }
-            _webview.AddRemoteObject(name, remoteObject);
+            _webview.AddRemoteObject(name, ref remoteObject);
         }
 
         /// Remove the host object specified by the name so that it is no longer
@@ -1043,69 +837,6 @@ namespace MtrDev.WebView2.Wrapper
         {
             _webview.OpenDevToolsWindow();
         }
-
-        private IDictionary<long, Action<AcceleratorKeyPressedEventArgs>> _acceleratorKeyPressedDictionary =
-            new Dictionary<long, Action<AcceleratorKeyPressedEventArgs>>();
-
-        /// <summary>
-        /// Add an event handler for the AcceleratorKeyPressed event.
-        /// AcceleratorKeyPressed fires when an accelerator key or key combo is
-        /// pressed or released while the WebView is focused. A key is considered an
-        /// accelerator if either:
-        ///   1. Ctrl or Alt is currently being held, or
-        ///   2. the pressed key does not map to a character.
-        /// A few specific keys are never considered accelerators, such as Shift.
-        /// The Escape key is always considered an accelerator.
-        ///
-        /// Autorepeated key events caused by holding the key down will also fire this
-        /// event.  You can filter these out by checking the event args'
-        /// KeyEventLParam or PhysicalKeyStatus.
-        ///
-        /// In windowed mode, this event handler is called synchronously. Until you
-        /// call Handle() on the event args or the event handler returns, the browser
-        /// process will be blocked and outgoing cross-process COM calls will fail
-        /// with RPC_E_CANTCALLOUT_ININPUTSYNCCALL. All WebView2 API methods will
-        /// work, however.
-        ///
-        /// In windowless mode, the event handler is called asynchronously.  Further
-        /// input will not reach the browser until the event handler returns or
-        /// Handle() is called, but the browser process itself will not be blocked,
-        /// and outgoing COM calls will work normally.
-        ///
-        /// It is recommended to call Handle(TRUE) as early as you can know that you want
-        /// to handle the accelerator key.
-        /// </summary>
-        /// <param name="callback"></param>
-        /// <returns></returns>
-        public long RegisterAcceleratorKeyPressed(Action<AcceleratorKeyPressedEventArgs> callback)
-        {
-            AcceleratorKeyPressedEventHandler completedHandler = new AcceleratorKeyPressedEventHandler(callback);
-
-            EventRegistrationToken token;
-            _webview.add_AcceleratorKeyPressed(completedHandler, out token);
-            _acceleratorKeyPressedDictionary.Add(token.value, callback);
-            return token.value;
-        }
-
-        /// <summary>
-        /// Remove an event handler previously added with RegisterAcceleratorKeyPressed
-        /// </summary>
-        /// <param name="token"></param>
-        public void UnregisterAcceleratorKeyPressed(long token)
-        {
-            _acceleratorKeyPressedDictionary.Remove(token);
-
-            EventRegistrationToken registrationToken = new EventRegistrationToken()
-            {
-                value = token
-            };
-            _webview.remove_AcceleratorKeyPressed(registrationToken);
-        }
-
-        #endregion
-
-        #region IWebView2WebView5
-
 
         private IDictionary<long, Action<ContainsFullScreenElementChangedEventArgs>> _containsFullScreenElementChangedDictionary =
             new Dictionary<long, Action<ContainsFullScreenElementChangedEventArgs>>();
@@ -1148,8 +879,6 @@ namespace MtrDev.WebView2.Wrapper
         {
             get => _webview.ContainsFullScreenElement;
         }
-
-
         private IDictionary<long, Action<WebResourceRequestedEventArgs>> _webResourceRequestedEventDictionary =
             new Dictionary<long, Action<WebResourceRequestedEventArgs>>();
 
@@ -1218,6 +947,385 @@ namespace MtrDev.WebView2.Wrapper
             _webview.RemoveWebResourceRequestedFilter(uri, resourceContext);
         }
 
-        #endregion IWebView2WebView5
+        private IDictionary<long, Action<WindowCloseRequestedEventArgs>> _windowCloseRequestedDictionary =
+            new Dictionary<long, Action<WindowCloseRequestedEventArgs>>();
+
+        /// <summary>
+        /// Add an event handler for the WindowCloseRequested event.
+        /// Fires when content inside the WebView requested to close the window,
+        /// such as after window.close is called. The app should close the WebView
+        /// and related app window if that makes sense to the app.
+        /// </summary>
+        /// <param name="callback"></param>
+        public long RegisterWindowCloseRequested(Action<WindowCloseRequestedEventArgs> callback)
+        {
+            WindowCloseRequestedEventHandler completedHandler = new WindowCloseRequestedEventHandler(callback);
+
+            EventRegistrationToken token;
+            _webview.add_WindowCloseRequested(completedHandler, out token);
+            _windowCloseRequestedDictionary.Add(token.value, callback);
+            return token.value;
+        }
+
+        /// <summary>
+        /// Remove an event handler previously added with RegisterWindowCloseRequested.
+        /// </summary>
+        /// <param name="token"></param>
+        public void UnRegisterWindowCloseRequested(long token)
+        {
+            _windowCloseRequestedDictionary.Remove(token);
+
+            EventRegistrationToken registrationToken = new EventRegistrationToken()
+            {
+                value = token
+            };
+            _webview.remove_WindowCloseRequested(registrationToken);
+        }
+
+        #endregion
+
+        /// This interface is the owner of the CoreWebView2 object, and provides support
+        /// for resizing, showing and hiding, focusing, and other functionality related
+        /// to windowing and composition. The CoreWebView2Host owns the CoreWebView2,
+        /// and if all references to the CoreWebView2Host go away, the WebView will
+        /// be closed.
+        #region ICoreWebView2Host
+
+        /// <summary>
+        /// The IsVisible property determines whether to show or hide the webview.
+        /// If IsVisible is set to false, the webview will be transparent and will
+        /// not be rendered.  However, this will not affect the window containing
+        /// the webview (the HWND parameter that was passed to CreateWebView).
+        /// If you want that window to disappear too, call ShowWindow on it directly
+        /// in addition to modifying the IsVisible property.
+        /// WebView as a child window won't get window messages when the top window
+        /// is minimized or restored. For performance reason, developer should set
+        /// IsVisible property of the WebView to false when the app window is
+        /// minimized and back to true when app window is restored. App window can do
+        /// this by handling SC_MINIMIZE and SC_RESTORE command upon receiving
+        /// WM_SYSCOMMAND message.
+        /// </summary>
+        public bool IsVisible
+        {
+            get => _webviewHost.IsVisible;
+            set => _webviewHost.IsVisible = value;
+        }
+
+        /// <summary>
+        /// The webview bounds.
+        /// Bounds are relative to the parent HWND. The app has two ways it can
+        /// position a WebView:
+        /// 1. Create a child HWND that is the WebView parent HWND. Position this
+        ///    window where the WebView should be. In this case, use (0, 0) for the
+        ///    WebView's Bound's top left corner (the offset).
+        /// 2. Use the app's top most window as the WebView parent HWND. Set the
+        ///    WebView's Bound's top left corner so that the WebView is positioned
+        ///    correctly in the app.
+        /// The Bound's values are in the host's coordinate space.
+        /// </summary>
+        public Rectangle Bounds
+        {
+            get
+            {
+                tagRECT rect = _webviewHost.Bounds;
+                return new Rectangle(rect.left, rect.top, (rect.right - rect.left), (rect.bottom - rect.top));
+            }
+            set
+            {
+                tagRECT rect = new tagRECT();
+                rect.top = value.Top;
+                rect.left = value.Left;
+                rect.right = value.Right;
+                rect.bottom = value.Bottom;
+                _webviewHost.Bounds = rect;
+            }
+        }
+
+        /// <summary>
+        /// The zoom factor for the current page in the WebView.
+        /// The zoom factor is persisted per site.
+        /// Note that changing zoom factor could cause `window.innerWidth/innerHeight`
+        /// and page layout to change.
+        /// When WebView navigates to a page from a different site,
+        /// the zoom factor set for the previous page will not be applied.
+        /// If the app wants to set the zoom factor for a certain page, the earliest
+        /// place to do it is in the DocumentStateChanged event handler. Note that if it
+        /// does that, it might receive a ZoomFactorChanged event for the persisted
+        /// zoom factor before receiving the ZoomFactorChanged event for the specified
+        /// zoom factor.
+        /// Specifying a zoomFactor less than or equal to 0 is not allowed.
+        /// WebView also has an internal supported zoom factor range. When a specified
+        /// zoom factor is out of that range, it will be normalized to be within the
+        /// range, and a ZoomFactorChanged event will be fired for the real
+        /// applied zoom factor. When this range normalization happens, the
+        /// ZoomFactor property will report the zoom factor specified during the
+        /// previous modification of the ZoomFactor property until the
+        /// ZoomFactorChanged event is received after webview applies the normalized
+        /// zoom factor.
+        /// </summary>
+        public double ZoomFactor
+        {
+            get
+            {
+                return _webviewHost.ZoomFactor;
+            }
+            set
+            {
+                _webviewHost.ZoomFactor = value;
+            }
+        }
+
+        private IDictionary<long, Action<ZoomFactorCompletedEventArgs>> _zoomFactorChangedEventDictionary =
+            new Dictionary<long, Action<ZoomFactorCompletedEventArgs>>();
+
+        /// <summary>
+        /// Add an event handler for the ZoomFactorChanged event.
+        /// The event fires when the ZoomFactor property of the WebView changes.
+        /// The event could fire because the caller modified the ZoomFactor property,
+        /// or due to the user manually modifying the zoom. When it is modified by the
+        /// caller via the ZoomFactor property, the internal zoom factor is updated
+        /// immediately and there will be no ZoomFactorChanged event.
+        /// WebView associates the last used zoom factor for each site. Therefore, it
+        /// is possible for the zoom factor to change when navigating to a different
+        /// page. When the zoom factor changes due to this, the ZoomFactorChanged
+        /// event fires right after the DocumentStateChanged event.
+        /// </summary>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        public long RegisterZoomFactorChanged(Action<ZoomFactorCompletedEventArgs> callback)
+        {
+            ZoomFactorChangedEventHandler completedHandler = new ZoomFactorChangedEventHandler(callback);
+
+            EventRegistrationToken token;
+            _webviewHost.add_ZoomFactorChanged(completedHandler, out token);
+            _zoomFactorChangedEventDictionary.Add(token.value, callback);
+            return token.value;
+        }
+
+        /// <summary>
+        /// Remove an event handler previously added with RegisterZoomFactorChanged
+        /// </summary>
+        /// <param name="token"></param>
+        public void UnregisterZoomFactorChanged(long token)
+        {
+            if (_zoomFactorChangedEventDictionary.ContainsKey(token))
+            {
+                _zoomFactorChangedEventDictionary.Remove(token);
+            }
+            EventRegistrationToken registrationToken = new EventRegistrationToken();
+            registrationToken.value = token;
+            _webviewHost.remove_ZoomFactorChanged(registrationToken);
+        }
+
+        /// <summary>
+        /// ove focus into WebView. WebView will get focus and focus will be set to
+        /// correspondent element in the page hosted in the WebView.
+        /// </summary>
+        /// <param name="reason"></param>
+        public void MoveFocus(WEBVIEW2_MOVE_FOCUS_REASON reason)
+        {
+            _webviewHost.MoveFocus(reason);
+        }
+
+        private IDictionary<long, Action<MoveFocusRequestedEventArgs>> _moveFocusRequestedDictionary =
+            new Dictionary<long, Action<MoveFocusRequestedEventArgs>>();
+
+        /// <summary>
+        /// Add an event handler for the MoveFocusRequested event.
+        /// MoveFocusRequested fires when user tries to tab out of the WebView.
+        /// The WebView's focus has not changed when this event is fired.
+        /// </summary>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        public long RegisterMoveFocusRequested(Action<MoveFocusRequestedEventArgs> callback)
+        {
+            MoveFocusRequestedEventHandler completedHandler = new MoveFocusRequestedEventHandler(callback);
+
+            EventRegistrationToken token;
+            _webviewHost.add_MoveFocusRequested(completedHandler, out token);
+            _moveFocusRequestedDictionary.Add(token.value, callback);
+            return token.value;
+        }
+
+        /// <summary>
+        /// Remove an event handler previously added with RegisterMoveFocusRequested
+        /// </summary>
+        /// <param name="token"></param>
+        public void UnregisterMoveFocusRequested(long token)
+        {
+            if (_moveFocusRequestedDictionary.ContainsKey(token))
+            {
+                _moveFocusRequestedDictionary.Remove(token);
+            }
+            EventRegistrationToken registrationToken = new EventRegistrationToken();
+            registrationToken.value = token;
+            _webviewHost.remove_MoveFocusRequested(registrationToken);
+        }
+
+        private IDictionary<long, Action<FocusChangedEventEventArgs>> _gotFocusCallbacks =
+            new Dictionary<long, Action<FocusChangedEventEventArgs>>();
+
+        /// <summary>
+        /// Add an event handler for the GotFocus event.
+        /// </summary>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        public long RegisterGotFocus(Action<FocusChangedEventEventArgs> callback)
+        {
+            FocusChangedEventHandler completedHandler = new FocusChangedEventHandler(callback);
+
+            EventRegistrationToken token;
+            _webviewHost.add_GotFocus(completedHandler, out token);
+            _gotFocusCallbacks.Add(token.value, callback);
+            return token.value;
+        }
+
+        /// <summary>
+        /// Remove an event handler previously added with RegisterGotFocusdEvent
+        /// </summary>
+        /// <param name="token"></param>
+        public void UnregisterGotFocus(long token)
+        {
+            _frameNavigationStartingCallbacks.Remove(token);
+
+            EventRegistrationToken registrationToken = new EventRegistrationToken()
+            {
+                value = token
+            };
+            _webviewHost.remove_GotFocus(registrationToken);
+        }
+
+        private IDictionary<long, Action<FocusChangedEventEventArgs>> _lostFocusEventDictionary =
+            new Dictionary<long, Action<FocusChangedEventEventArgs>>();
+
+        /// <summary>
+        /// Add an event handler for the LostFocus event.
+        /// LostFocus fires when WebView lost focus.
+        /// In the case where MoveFocusRequested event is fired, the focus is still
+        /// on WebView when MoveFocusRequested event fires. Lost focus only fires
+        /// afterwards when app's code or default action of MoveFocusRequested event
+        /// set focus away from WebView.
+        /// </summary>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        public long RegisterLostFocus(Action<FocusChangedEventEventArgs> callback)
+        {
+            FocusChangedEventHandler completedHandler = new FocusChangedEventHandler(callback);
+
+            EventRegistrationToken token;
+            _webviewHost.add_LostFocus(completedHandler, out token);
+            _lostFocusEventDictionary.Add(token.value, callback);
+            return token.value;
+        }
+
+        /// <summary>
+        /// Remove an event handler previously added with RegisterLostFocus
+        /// </summary>
+        /// <param name="token"></param>
+        public void UnregisterLostFocus(long token)
+        {
+            if (_lostFocusEventDictionary.ContainsKey(token))
+            {
+                _lostFocusEventDictionary.Remove(token);
+            }
+            EventRegistrationToken registrationToken = new EventRegistrationToken();
+            registrationToken.value = token;
+            _webviewHost.remove_LostFocus(registrationToken);
+        }
+
+        private IDictionary<long, Action<AcceleratorKeyPressedEventArgs>> _acceleratorKeyPressedDictionary =
+            new Dictionary<long, Action<AcceleratorKeyPressedEventArgs>>();
+
+        /// <summary>
+        /// Add an event handler for the AcceleratorKeyPressed event.
+        /// AcceleratorKeyPressed fires when an accelerator key or key combo is
+        /// pressed or released while the WebView is focused. A key is considered an
+        /// accelerator if either:
+        ///   1. Ctrl or Alt is currently being held, or
+        ///   2. the pressed key does not map to a character.
+        /// A few specific keys are never considered accelerators, such as Shift.
+        /// The Escape key is always considered an accelerator.
+        ///
+        /// Autorepeated key events caused by holding the key down will also fire this
+        /// event.  You can filter these out by checking the event args'
+        /// KeyEventLParam or PhysicalKeyStatus.
+        ///
+        /// In windowed mode, this event handler is called synchronously. Until you
+        /// call Handle() on the event args or the event handler returns, the browser
+        /// process will be blocked and outgoing cross-process COM calls will fail
+        /// with RPC_E_CANTCALLOUT_ININPUTSYNCCALL. All WebView2 API methods will
+        /// work, however.
+        ///
+        /// In windowless mode, the event handler is called asynchronously.  Further
+        /// input will not reach the browser until the event handler returns or
+        /// Handle() is called, but the browser process itself will not be blocked,
+        /// and outgoing COM calls will work normally.
+        ///
+        /// It is recommended to call Handle(TRUE) as early as you can know that you want
+        /// to handle the accelerator key.
+        /// </summary>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        public long RegisterAcceleratorKeyPressed(Action<AcceleratorKeyPressedEventArgs> callback)
+        {
+            AcceleratorKeyPressedEventHandler completedHandler = new AcceleratorKeyPressedEventHandler(callback);
+
+            EventRegistrationToken token;
+            _webviewHost.add_AcceleratorKeyPressed(completedHandler, out token);
+            _acceleratorKeyPressedDictionary.Add(token.value, callback);
+            return token.value;
+        }
+
+        /// <summary>
+        /// Remove an event handler previously added with RegisterAcceleratorKeyPressed
+        /// </summary>
+        /// <param name="token"></param>
+        public void UnregisterAcceleratorKeyPressed(long token)
+        {
+            _acceleratorKeyPressedDictionary.Remove(token);
+
+            EventRegistrationToken registrationToken = new EventRegistrationToken()
+            {
+                value = token
+            };
+            _webviewHost.remove_AcceleratorKeyPressed(registrationToken);
+        }
+
+        /// <summary>
+        /// The parent window provided by the app that this WebView is using to
+        /// render content. This API initially returns the window passed into
+        /// CreateCoreWebView2Host.
+        /// </summary>
+        public IntPtr ParentWindow
+        {
+            get => _webviewHost.ParentWindow;
+            set => _webviewHost.ParentWindow = value;
+        }
+
+        /// <summary>
+        /// This is a notification separate from put_Bounds that tells WebView its
+        /// parent (or any ancestor) HWND moved. This is needed for accessibility and
+        /// certain dialogs in WebView to work correctly.
+        /// </summary>
+        public void NotifyParentWindowPositionChanged()
+        {
+            _webviewHost.NotifyParentWindowPositionChanged();
+        }
+
+        /// <summary>
+        /// Closes the webview and cleans up the underlying browser instance.
+        /// Cleaning up the browser instace will release the resources powering the webview.
+        /// The browser instance will be shut down if there are no other webviews using it.
+        ///
+        /// After calling Close, all method calls will fail and event handlers
+        /// will stop firing. Specifically, the WebView will release its references
+        /// to its event handlers when Close is called.
+        /// </summary>
+        public void Close()
+        {
+            _webviewHost.Close();
+        }
+
+        #endregion
     }
 }

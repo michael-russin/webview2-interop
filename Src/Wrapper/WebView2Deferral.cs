@@ -31,11 +31,11 @@ namespace MtrDev.WebView2.Wrapper
     /// This class is used to complete deferrals on event args that
     /// support getting deferrals via their GetDeferral method.
     /// </summary>
-    public class WebView2Deferral : IWebView2Deferral
+    public class WebView2Deferral : ICoreWebView2Deferral
     {
-        private IWebView2Deferral _deferral;
+        private ICoreWebView2Deferral _deferral;
 
-        internal WebView2Deferral(IWebView2Deferral deferral)
+        internal WebView2Deferral(ICoreWebView2Deferral deferral)
         {
             _deferral = deferral;
         }

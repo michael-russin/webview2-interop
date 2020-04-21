@@ -27,7 +27,7 @@ using MtrDev.WebView2.Interop;
 
 namespace MtrDev.WebView2.Wrapper.Handlers
 {
-    public class ZoomFactorChangedEventHandler : IWebView2ZoomFactorChangedEventHandler
+    public class ZoomFactorChangedEventHandler : ICoreWebView2ZoomFactorChangedEventHandler
     {
         Action<ZoomFactorCompletedEventArgs> _callback;
 
@@ -37,7 +37,7 @@ namespace MtrDev.WebView2.Wrapper.Handlers
         }
 
 
-        public void Invoke(IWebView2WebView webview, object args)
+        public void Invoke(ICoreWebView2Host webview, object args)
         {
             ZoomFactorCompletedEventArgs eventArgs = new ZoomFactorCompletedEventArgs(args);
             _callback.Invoke(eventArgs);

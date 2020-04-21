@@ -27,11 +27,11 @@ using MtrDev.WebView2.Interop;
 
 namespace MtrDev.WebView2.Wrapper
 {
-    public class NavigationCompletedEventArgs : EventArgs, IWebView2NavigationCompletedEventArgs
+    public class NavigationCompletedEventArgs : EventArgs, ICoreWebView2NavigationCompletedEventArgs
     {
-        private IWebView2NavigationCompletedEventArgs _args;
+        private ICoreWebView2NavigationCompletedEventArgs _args;
 
-        public NavigationCompletedEventArgs(IWebView2NavigationCompletedEventArgs args)
+        public NavigationCompletedEventArgs(ICoreWebView2NavigationCompletedEventArgs args)
         {
             _args = args;
         }
@@ -50,5 +50,7 @@ namespace MtrDev.WebView2.Wrapper
         {
             return string.Format("IsSuccess={0}, WebErrorStatus={1}", IsSuccess, WebErrorStatus);
         }
+
+        public long NavigationId => _args.NavigationId;
     }
 }

@@ -29,10 +29,10 @@ namespace MtrDev.WebView2.Wrapper
 {
     public class WebResourceRequestedEventArgs : EventArgs
     {
-        private IWebView2WebResourceRequestedEventArgs2 _args;
+        private ICoreWebView2WebResourceRequestedEventArgs _args;
         private WebView2WebResourceResponse _webResponse;
 
-        internal WebResourceRequestedEventArgs(IWebView2WebResourceRequestedEventArgs2 args)
+        internal WebResourceRequestedEventArgs(ICoreWebView2WebResourceRequestedEventArgs args)
         {
             _args = args;
             _webResponse = new WebView2WebResourceResponse(_args.Response);
@@ -58,7 +58,7 @@ namespace MtrDev.WebView2.Wrapper
             get
             {
                 WEBVIEW2_WEB_RESOURCE_CONTEXT context = WEBVIEW2_WEB_RESOURCE_CONTEXT.WEBVIEW2_WEB_RESOURCE_CONTEXT_ALL;
-                _args.resourceContext(ref context);
+                _args.ResourceContext(ref context);
                 return context;
             }
         }

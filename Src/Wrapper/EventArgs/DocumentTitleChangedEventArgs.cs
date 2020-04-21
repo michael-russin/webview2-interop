@@ -29,7 +29,7 @@ namespace MtrDev.WebView2.Wrapper
 {
     public class DocumentTitleChangedEventArgs : EventArgs
     {
-        internal DocumentTitleChangedEventArgs(IWebView2WebView3 webview)
+        internal DocumentTitleChangedEventArgs(ICoreWebView2 webview)
         {
             string title;
             webview.DocumentTitle(out title);

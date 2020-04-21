@@ -31,15 +31,15 @@ namespace MtrDev.WebView2.Wrapper
 {
     public class WebView2HttpRequestHeaderCollection 
     {
-        private IWebView2HttpRequestHeaders _httpHeaders;
+        private ICoreWebView2HttpRequestHeaders _httpHeaders;
         private IDictionary<string, string> _headerNameValues;
 
-        internal WebView2HttpRequestHeaderCollection(IWebView2HttpRequestHeaders httpHeaders)
+        internal WebView2HttpRequestHeaderCollection(ICoreWebView2HttpRequestHeaders httpHeaders)
         {
             _httpHeaders = httpHeaders;
             _headerNameValues = new Dictionary<string, string>();
 
-            IWebView2HttpHeadersCollectionIterator iterator;
+            ICoreWebView2HttpHeadersCollectionIterator iterator;
             _httpHeaders.GetIterator(out iterator);
             if (iterator != null)
             {

@@ -22,16 +22,17 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 // OTHER DEALINGS IN THE SOFTWARE.
 #endregion
+
 using System;
 using MtrDev.WebView2.Interop;
 
 namespace MtrDev.WebView2.Wrapper
 {
-    public class NavigationStartingEventArgs : EventArgs, IWebView2NavigationStartingEventArgs
+    public class NavigationStartingEventArgs : EventArgs, ICoreWebView2NavigationStartingEventArgs
     {
-        private IWebView2NavigationStartingEventArgs _args;
+        private ICoreWebView2NavigationStartingEventArgs _args;
 
-        internal NavigationStartingEventArgs(IWebView2NavigationStartingEventArgs args)
+        internal NavigationStartingEventArgs(ICoreWebView2NavigationStartingEventArgs args)
         {
             _args = args;
         }
@@ -89,14 +90,16 @@ namespace MtrDev.WebView2.Wrapper
             set => _args.Cancel = value;
         }
 
-        IWebView2HttpRequestHeaders IWebView2NavigationStartingEventArgs.RequestHeaders
+        ICoreWebView2HttpRequestHeaders ICoreWebView2NavigationStartingEventArgs.RequestHeaders
         {
             get => throw new NotImplementedException();
         }
 
+        public long NavigationId => _args.NavigationId;
+
         public override string ToString()
-        {            
-            return string.Format("Uri={0}, IsUserInitiated={1}, IsRedirected={2}, Cancel={3}", Uri, IsUserInitiated, IsRedirected, Cancel);
+        {
+            return string.Format("Uri={0}, IsUserInitiated={1}, IsRedirected={2}, Cancel={3}, NavigationId={4}", Uri, IsUserInitiated, IsRedirected, Cancel, NavigationId);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace MtrDev.WebView2.Wrapper
 {
     public class CreateWebViewCompletedEventArgs : EventArgs
     {
-        internal CreateWebViewCompletedEventArgs(int result, IWebView2WebView webView)
+        internal CreateWebViewCompletedEventArgs(int result, ICoreWebView2Host webView)
         {
             Result = result;
             WebView = new WebView2WebView(webView);

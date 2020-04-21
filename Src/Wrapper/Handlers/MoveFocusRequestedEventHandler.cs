@@ -28,13 +28,13 @@ using MtrDev.WebView2.Interop;
 namespace MtrDev.WebView2.Wrapper.Handlers
 {
     public class MoveFocusRequestedEventHandler : HandlerBase<MoveFocusRequestedEventArgs>, 
-        IWebView2MoveFocusRequestedEventHandler
+        ICoreWebView2MoveFocusRequestedEventHandler
     {
         public MoveFocusRequestedEventHandler(Action<MoveFocusRequestedEventArgs> callback) : base(callback)
         {
         }
 
-        public void Invoke(IWebView2WebView webview, IWebView2MoveFocusRequestedEventArgs args)
+        public void Invoke(ICoreWebView2Host webview, ICoreWebView2MoveFocusRequestedEventArgs args)
         {
             MoveFocusRequestedEventArgs eventArgs = new MoveFocusRequestedEventArgs(args);
             Callback.Invoke(eventArgs);

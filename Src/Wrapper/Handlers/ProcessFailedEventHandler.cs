@@ -28,13 +28,13 @@ using MtrDev.WebView2.Interop;
 
 namespace MtrDev.WebView2.Wrapper.Handlers
 {
-    public class ProcessFailedEventHandler : HandlerBase<ProcessFailedEventArgs>, IWebView2ProcessFailedEventHandler
+    public class ProcessFailedEventHandler : HandlerBase<ProcessFailedEventArgs>, ICoreWebView2ProcessFailedEventHandler
     {
         public ProcessFailedEventHandler(Action<ProcessFailedEventArgs> callback) : base(callback)
         {
         }
 
-        public void Invoke(IWebView2WebView webview, IWebView2ProcessFailedEventArgs args)
+        public void Invoke(ICoreWebView2 webview, ICoreWebView2ProcessFailedEventArgs args)
         {
             ProcessFailedEventArgs eventArgs = new ProcessFailedEventArgs(args);
             Callback.Invoke(eventArgs);

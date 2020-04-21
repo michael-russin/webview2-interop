@@ -27,11 +27,11 @@ using MtrDev.WebView2.Interop;
 
 namespace MtrDev.WebView2.Wrapper
 {
-    public class ProcessFailedEventArgs : EventArgs, IWebView2ProcessFailedEventArgs
+    public class ProcessFailedEventArgs : EventArgs, ICoreWebView2ProcessFailedEventArgs
     {
-        private IWebView2ProcessFailedEventArgs _args;
+        private ICoreWebView2ProcessFailedEventArgs _args;
 
-        internal ProcessFailedEventArgs(IWebView2ProcessFailedEventArgs args)
+        internal ProcessFailedEventArgs(ICoreWebView2ProcessFailedEventArgs args)
         {
             _args = args;
         }

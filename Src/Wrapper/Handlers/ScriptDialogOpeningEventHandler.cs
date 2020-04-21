@@ -27,13 +27,13 @@ using MtrDev.WebView2.Interop;
 
 namespace MtrDev.WebView2.Wrapper.Handlers
 {
-    public class ScriptDialogOpeningEventHandler : HandlerBase<ScriptDialogOpeningEventArgs>, IWebView2ScriptDialogOpeningEventHandler
+    public class ScriptDialogOpeningEventHandler : HandlerBase<ScriptDialogOpeningEventArgs>, ICoreWebView2ScriptDialogOpeningEventHandler
     {
         public ScriptDialogOpeningEventHandler(Action<ScriptDialogOpeningEventArgs> callback) : base(callback)
         {
         }
 
-        public void Invoke(IWebView2WebView webview, IWebView2ScriptDialogOpeningEventArgs args)
+        public void Invoke(ICoreWebView2 webview, ICoreWebView2ScriptDialogOpeningEventArgs args)
         {
             ScriptDialogOpeningEventArgs eventArgs = new ScriptDialogOpeningEventArgs(args);
             Callback.Invoke(eventArgs);

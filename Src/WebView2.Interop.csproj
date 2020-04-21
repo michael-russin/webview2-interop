@@ -52,23 +52,60 @@
   <ItemGroup>
     <Compile Include="ExternDll.cs" />
     <Compile Include="Interop\Globals.cs" />
-    <Compile Include="Interop\IWebView2AcceleratorKeyPressedEventArgs.cs" />
-    <Compile Include="Interop\IWebView2AcceleratorKeyPressedEventHandler.cs" />
-    <Compile Include="Interop\IWebView2ContainsFullScreenElementChangedEventHandler.cs" />
-    <Compile Include="Interop\IWebView2Environment3.cs" />
-    <Compile Include="Interop\IWebView2NewVersionAvailableEventArgs.cs" />
-    <Compile Include="Interop\IWebView2NewVersionAvailableEventHandler.cs" />
-    <Compile Include="Interop\IWebView2Settings2.cs" />
-    <Compile Include="Interop\IWebView2WebResourceRequestedEventArgs2.cs" />
-    <Compile Include="Interop\IWebView2WebView4.cs" />
-    <Compile Include="Interop\IWebView2WebView5.cs" />
+    <Compile Include="Interop\ICoreWebView2.cs" />
+    <Compile Include="Interop\ICoreWebView2AcceleratorKeyPressedEventArgs.cs" />
+    <Compile Include="Interop\ICoreWebView2AcceleratorKeyPressedEventHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2AddScriptToExecuteOnDocumentCreatedCompletedHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2CallDevToolsProtocolMethodCompletedHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2CapturePreviewCompletedHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2ContainsFullScreenElementChangedEventHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2ContentLoadingEventArgs.cs" />
+    <Compile Include="Interop\ICoreWebView2ContentLoadingEventHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2CreateCoreWebView2HostCompletedHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2Deferral.cs" />
+    <Compile Include="Interop\ICoreWebView2DevToolsProtocolEventReceivedEventArgs.cs" />
+    <Compile Include="Interop\ICoreWebView2DevToolsProtocolEventReceivedEventHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2DevToolsProtocolEventReceiver.cs" />
+    <Compile Include="Interop\ICoreWebView2DocumentTitleChangedEventHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2Environment.cs" />
+    <Compile Include="Interop\ICoreWebView2ExecuteScriptCompletedHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2FocusChangedEventHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2HistoryChangedEventHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2Host.cs" />
+    <Compile Include="Interop\ICoreWebView2HttpHeadersCollectionIterator.cs" />
+    <Compile Include="Interop\ICoreWebView2HttpRequestHeaders.cs" />
+    <Compile Include="Interop\ICoreWebView2HttpResponseHeaders.cs" />
+    <Compile Include="Interop\ICoreWebView2MoveFocusRequestedEventArgs.cs" />
+    <Compile Include="Interop\ICoreWebView2MoveFocusRequestedEventHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2NavigationCompletedEventArgs.cs" />
+    <Compile Include="Interop\ICoreWebView2NavigationCompletedEventHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2NavigationStartingEventArgs.cs" />
+    <Compile Include="Interop\ICoreWebView2NavigationStartingEventHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2NewBrowserVersionAvailableEventArgs.cs" />
+    <Compile Include="Interop\ICoreWebView2NewBrowserVersionAvailableEventHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2NewWindowRequestedEventArgs.cs" />
+    <Compile Include="Interop\ICoreWebView2NewWindowRequestedEventHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2PermissionRequestedEventArgs.cs" />
+    <Compile Include="Interop\ICoreWebView2PermissionRequestedEventHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2ProcessFailedEventArgs.cs" />
+    <Compile Include="Interop\ICoreWebView2ProcessFailedEventHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2ScriptDialogOpeningEventArgs.cs" />
+    <Compile Include="Interop\ICoreWebView2ScriptDialogOpeningEventHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2Settings.cs" />
+    <Compile Include="Interop\ICoreWebView2SourceChangedEventArgs.cs" />
+    <Compile Include="Interop\ICoreWebView2SourceChangedEventHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2WebMessageReceivedEventArgs.cs" />
+    <Compile Include="Interop\ICoreWebView2WebMessageReceivedEventHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2WebResourceRequest.cs" />
+    <Compile Include="Interop\ICoreWebView2WebResourceRequestedEventArgs.cs" />
+    <Compile Include="Interop\ICoreWebView2WebResourceRequestedEventHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2WebResourceResponse.cs" />
+    <Compile Include="Interop\ICoreWebView2WindowCloseRequestedEventHandler.cs" />
+    <Compile Include="Interop\ICoreWebView2ZoomFactorChangedEventHandler.cs" />
     <Compile Include="Interop\WEBVIEW2_KEY_EVENT_TYPE.cs" />
     <Compile Include="Interop\WEBVIEW2_PHYSICAL_KEY_STATUS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2NavigationCompletedEventArgs.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -80,27 +117,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Interop\IWebView2WebResourceRequestedEventHandler.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2AddScriptToExecuteOnDocumentCreatedCompletedHandler.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2MoveFocusRequestedEventArgs.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
     <Compile Include="Interop\WEBVIEW2_PERMISSION_STATE.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2ScriptDialogOpeningEventHandler.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2WebResourceRequestedEventArgs.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -112,31 +129,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Interop\IWebView2ProcessFailedEventArgs.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2WebResourceRequest.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2ZoomFactorChangedEventHandler.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
     <Compile Include="Interop\__MIDL___MIDL_itf_webview22Elibrary_formatted_0007_0001_0001.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2PermissionRequestedEventHandler.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2WebResourceResponse.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2Deferral.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -144,19 +137,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Interop\IWebView2ProcessFailedEventHandler.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
     <Compile Include="Interop\_LARGE_INTEGER.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2ExecuteScriptCompletedHandler.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2WebMessageReceivedEventArgs.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -164,23 +145,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Interop\IWebView2DevToolsProtocolEventReceivedEventArgs.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2CallDevToolsProtocolMethodCompletedHandler.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
     <Compile Include="Interop\_ULARGE_INTEGER.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2CapturePreviewCompletedHandler.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2DocumentStateChangedEventArgs.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -192,10 +157,6 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Interop\IWebView2DocumentTitleChangedEventHandler.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
     <Compile Include="Interop\IStream.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
@@ -204,51 +165,11 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Interop\IWebView2DocumentStateChangedEventHandler.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2HttpResponseHeaders.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
     <Compile Include="Interop\tagRECT.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Interop\IWebView2WebView3.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2WebView.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2WebMessageReceivedEventHandler.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2NewWindowRequestedEventHandler.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2ScriptDialogOpeningEventArgs.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2NewWindowRequestedEventArgs.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2Settings.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
     <Compile Include="Interop\WEBVIEW2_MOVE_FOCUS_REASON.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2NavigationStartingEventHandler.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -260,55 +181,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Interop\IWebView2CreateWebViewCompletedHandler.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2NavigationCompletedEventHandler.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2CreateWebView2EnvironmentCompletedHandler.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2MoveFocusRequestedEventHandler.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2Environment.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2DevToolsProtocolEventReceivedEventHandler.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2PermissionRequestedEventArgs.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2NavigationStartingEventArgs.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
     <Compile Include="Interop\WEBVIEW2_PERMISSION_TYPE.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2HttpRequestHeaders.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2WebView2.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2HttpHeadersCollectionIterator.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Interop\IWebView2FocusChangedEventHandler.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -320,22 +193,19 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Interop\IWebView2Environment2.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
     <Compile Include="Wrapper\EventArgs\AcceleratorKeyPressedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\AddScriptToExecuteOnDocumentCreatedCompletedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\CallDevToolsProtocolMethodCompletedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\CapturePreviewCompletedArgs.cs" />
     <Compile Include="Wrapper\EventArgs\ContainsFullScreenElementChangedEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\ContentLoadingEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\CreateWebViewCompletedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\DevToolsProtocolEventReceivedEventArgs.cs" />
-    <Compile Include="Wrapper\EventArgs\DocumentStateChangedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\DocumentTitleChangedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\EnvironmentCreatedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\ExecuteScriptCompletedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\FocusChangedEventEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\HistoryChangedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\MoveFocusRequestedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\NavigationCompletedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\NavigationStartingEventArgs.cs" />
@@ -344,23 +214,26 @@
     <Compile Include="Wrapper\EventArgs\PermissionRequestedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\ProcessFailedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\ScriptDialogOpeningEventArgs .cs" />
+    <Compile Include="Wrapper\EventArgs\SourceChangedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\WebMessageReceivedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\WebResourceRequestedEventArgs.cs" />
+    <Compile Include="Wrapper\EventArgs\WindowCloseRequestedEventArgs.cs" />
     <Compile Include="Wrapper\EventArgs\ZoomFactorCompletedEventArgs.cs" />
     <Compile Include="Wrapper\Handlers\AcceleratorKeyPressedEventHandler.cs" />
     <Compile Include="Wrapper\Handlers\AddScriptToExecuteOnDocumentCreatedCompletedHandler.cs" />
     <Compile Include="Wrapper\Handlers\CallDevToolsProtocolMethodCompletedHandler.cs" />
     <Compile Include="Wrapper\Handlers\CapturePreviewCompletedHandler .cs" />
     <Compile Include="Wrapper\Handlers\ContainsFullScreenElementChangedEventHandler.cs" />
+    <Compile Include="Wrapper\Handlers\ContentLoadingEventHandler.cs" />
     <Compile Include="Wrapper\Handlers\CreateWebViewCompletedHandler.cs" />
     <Compile Include="Wrapper\Handlers\DevToolProtocol.cs" />
     <Compile Include="Wrapper\Handlers\DevToolsProtocolEventReceivedEventHandler.cs" />
-    <Compile Include="Wrapper\Handlers\DocumentStateChangedEventHandler .cs" />
     <Compile Include="Wrapper\Handlers\DocumentTitleChangedEventHandler.cs" />
     <Compile Include="Wrapper\Handlers\EnvironmentCompletedHandler.cs" />
     <Compile Include="Wrapper\Handlers\ExecuteScriptCompletedHandler.cs" />
     <Compile Include="Wrapper\Handlers\FocusChangedEventHandler.cs" />
     <Compile Include="Wrapper\Handlers\HandlerBase.cs" />
+    <Compile Include="Wrapper\Handlers\HistoryChangedEventHandler.cs" />
     <Compile Include="Wrapper\Handlers\MoveFocusRequestedEventHandler.cs" />
     <Compile Include="Wrapper\Handlers\NavigationCompletedEventHandler.cs" />
     <Compile Include="Wrapper\Handlers\NavigationStartingEventHandler.cs" />
@@ -369,11 +242,14 @@
     <Compile Include="Wrapper\Handlers\PermissionRequestedEventHandler.cs" />
     <Compile Include="Wrapper\Handlers\ProcessFailedEventHandler.cs" />
     <Compile Include="Wrapper\Handlers\ScriptDialogOpeningEventHandler.cs" />
+    <Compile Include="Wrapper\Handlers\SourceChangedEventHandler.cs" />
     <Compile Include="Wrapper\Handlers\WebMessageReceivedEventHandler.cs" />
     <Compile Include="Wrapper\Handlers\WebResourceRequestedEventHandler.cs" />
+    <Compile Include="Wrapper\Handlers\WindowCloseRequestedEventHandler.cs" />
     <Compile Include="Wrapper\Handlers\ZoomFactorChangedEventHandler.cs" />
     <Compile Include="Wrapper\ManagedIStream.cs" />
     <Compile Include="Wrapper\WebView2Deferral.cs" />
+    <Compile Include="Wrapper\WebView2DevToolsProtocolEventReceiver.cs" />
     <Compile Include="Wrapper\WebView2Environment.cs" />
     <Compile Include="Wrapper\WebView2HttpRequestHeaderCollection.cs" />
     <Compile Include="Wrapper\WebView2HttpResponseHeaderCollection.cs" />

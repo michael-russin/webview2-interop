@@ -50,7 +50,7 @@ namespace MtrDev.WebView2.Wrapper
             Action<EnvironmentCreatedEventArgs> callback)
         {
             EnvironmentCompletedHandler handler = new EnvironmentCompletedHandler(callback);
-            int hr = Globals.CreateWebView2EnvironmentWithDetails(browserExecutableFolder,
+            int hr = Globals.CreateCoreWebView2EnvironmentWithDetails(browserExecutableFolder,
                 userDataFolder,
                 additionalBrowserArguments,
                 handler);
@@ -71,7 +71,7 @@ namespace MtrDev.WebView2.Wrapper
         public static int CreateEnvironment(Action<EnvironmentCreatedEventArgs> callback)
         {
             EnvironmentCompletedHandler handler = new EnvironmentCompletedHandler(callback);
-            int hr = Globals.CreateWebView2Environment(handler);
+            int hr = Globals.CreateCoreWebView2Environment(handler);
             if (hr != 0 && callback != null)
             {
                 EnvironmentCreatedEventArgs args = new EnvironmentCreatedEventArgs(hr, null);
@@ -88,8 +88,15 @@ namespace MtrDev.WebView2.Wrapper
         /// <returns></returns>
         public static int GetWebView2BrowserVersionInfo(string browserExecutableFolder, out string versionInfo)
         {
-            int hr = Globals.GetWebView2BrowserVersionInfo(browserExecutableFolder, out versionInfo);
+            int hr = Globals.GetCoreWebView2BrowserVersionInfo(browserExecutableFolder, out versionInfo);
             return hr;
+        }
+
+        public static int CompareBrowserVersions(string version1, string version2)
+        {
+            int result = 0;
+            int hr = Globals.CompareBrowserVersions(version1, version2, out result);
+            return result;
         }
     }
 }

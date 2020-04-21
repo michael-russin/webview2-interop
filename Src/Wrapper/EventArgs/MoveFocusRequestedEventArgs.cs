@@ -27,11 +27,11 @@ using MtrDev.WebView2.Interop;
 
 namespace MtrDev.WebView2.Wrapper
 {
-    public class MoveFocusRequestedEventArgs: EventArgs, IWebView2MoveFocusRequestedEventArgs
+    public class MoveFocusRequestedEventArgs: EventArgs, ICoreWebView2MoveFocusRequestedEventArgs
     {
-        private IWebView2MoveFocusRequestedEventArgs _args;
+        private ICoreWebView2MoveFocusRequestedEventArgs _args;
 
-        public MoveFocusRequestedEventArgs(IWebView2MoveFocusRequestedEventArgs args)
+        public MoveFocusRequestedEventArgs(ICoreWebView2MoveFocusRequestedEventArgs args)
         {
             _args = args;
         }

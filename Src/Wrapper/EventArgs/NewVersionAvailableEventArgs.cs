@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace MtrDev.WebView2.Wrapper
 {
-    public class NewVersionAvailableEventArgs : EventArgs, IWebView2NewVersionAvailableEventArgs
+    public class NewVersionAvailableEventArgs : EventArgs, ICoreWebView2NewBrowserVersionAvailableEventArgs
     {
-        private IWebView2NewVersionAvailableEventArgs _args;
+        private ICoreWebView2NewBrowserVersionAvailableEventArgs _args;
 
-        public NewVersionAvailableEventArgs(IWebView2NewVersionAvailableEventArgs args)
+        public NewVersionAvailableEventArgs(ICoreWebView2NewBrowserVersionAvailableEventArgs args)
         {
             _args = args;
         }

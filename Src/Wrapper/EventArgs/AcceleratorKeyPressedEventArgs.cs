@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 
 namespace MtrDev.WebView2.Wrapper
 {
-    public class AcceleratorKeyPressedEventArgs: EventArgs, IWebView2AcceleratorKeyPressedEventArgs
+    public class AcceleratorKeyPressedEventArgs: EventArgs, ICoreWebView2AcceleratorKeyPressedEventArgs
     {
-        private IWebView2AcceleratorKeyPressedEventArgs _args;
+        private ICoreWebView2AcceleratorKeyPressedEventArgs _args;
 
-        internal AcceleratorKeyPressedEventArgs(IWebView2AcceleratorKeyPressedEventArgs args)
+        internal AcceleratorKeyPressedEventArgs(ICoreWebView2AcceleratorKeyPressedEventArgs args)
         {
             _args = args;
         }

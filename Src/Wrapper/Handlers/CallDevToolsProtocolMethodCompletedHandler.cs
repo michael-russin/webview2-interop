@@ -27,7 +27,7 @@ using MtrDev.WebView2.Interop;
 
 namespace MtrDev.WebView2.Wrapper.Handlers
 {
-    public class CallDevToolsProtocolMethodCompletedHandler : HandlerBase<CallDevToolsProtocolMethodCompletedEventArgs>, IWebView2CallDevToolsProtocolMethodCompletedHandler
+    public class CallDevToolsProtocolMethodCompletedHandler : HandlerBase<CallDevToolsProtocolMethodCompletedEventArgs>, ICoreWebView2CallDevToolsProtocolMethodCompletedHandler
     {
         private string _method;
 

@@ -31,13 +31,13 @@ using MtrDev.WebView2.Interop;
 
 namespace MtrDev.WebView2.Wrapper.Handlers
 {
-    public class EnvironmentCompletedHandler : HandlerBase<EnvironmentCreatedEventArgs>, IWebView2CreateWebView2EnvironmentCompletedHandler
+    public class EnvironmentCompletedHandler : HandlerBase<EnvironmentCreatedEventArgs>, ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler
     {
         public EnvironmentCompletedHandler(Action<EnvironmentCreatedEventArgs> callback) : base(callback)
         {
         }
 
-        public void Invoke(int result, IWebView2Environment webViewEnvironment)
+        public void Invoke(int result, ICoreWebView2Environment webViewEnvironment)
         {
             EnvironmentCreatedEventArgs eventArgs = new EnvironmentCreatedEventArgs(result, webViewEnvironment);
 

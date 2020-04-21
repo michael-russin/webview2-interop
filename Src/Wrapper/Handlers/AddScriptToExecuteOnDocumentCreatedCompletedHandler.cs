@@ -28,7 +28,7 @@ using MtrDev.WebView2.Interop;
 namespace MtrDev.WebView2.Wrapper.Handlers
 {
     public class AddScriptToExecuteOnDocumentCreatedCompletedHandler : HandlerBase<AddScriptToExecuteOnDocumentCreatedCompletedEventArgs>,
-        IWebView2AddScriptToExecuteOnDocumentCreatedCompletedHandler
+        ICoreWebView2AddScriptToExecuteOnDocumentCreatedCompletedHandler
     {
         public AddScriptToExecuteOnDocumentCreatedCompletedHandler(Action<AddScriptToExecuteOnDocumentCreatedCompletedEventArgs> callback) : base(callback)
         {

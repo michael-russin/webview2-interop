@@ -28,7 +28,7 @@ using System;
 namespace MtrDev.WebView2.Wrapper.Handlers
 {
     public class DevToolsProtocolEventReceivedEventHandler : HandlerBase<DevToolsProtocolEventReceivedEventArgs>,
-        IWebView2DevToolsProtocolEventReceivedEventHandler
+        ICoreWebView2DevToolsProtocolEventReceivedEventHandler
     {
         private string _eventName;
 
@@ -38,7 +38,7 @@ namespace MtrDev.WebView2.Wrapper.Handlers
             _eventName = eventName;
         }
 
-        public void Invoke(IWebView2WebView webview, IWebView2DevToolsProtocolEventReceivedEventArgs args)
+        public void Invoke(ICoreWebView2 webview, ICoreWebView2DevToolsProtocolEventReceivedEventArgs args)
         {
             DevToolsProtocolEventReceivedEventArgs eventArgs = new DevToolsProtocolEventReceivedEventArgs(_eventName, args);
             Callback.Invoke(eventArgs);

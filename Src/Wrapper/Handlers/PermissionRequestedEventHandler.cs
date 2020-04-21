@@ -28,13 +28,13 @@ using MtrDev.WebView2.Interop;
 namespace MtrDev.WebView2.Wrapper.Handlers
 {
     public class PermissionRequestedEventHandler : HandlerBase<PermissionRequestedEventArgs>,
-        IWebView2PermissionRequestedEventHandler
+        ICoreWebView2PermissionRequestedEventHandler
     {
         public PermissionRequestedEventHandler(Action<PermissionRequestedEventArgs> callback) : base(callback)
         {
         }
 
-        public void Invoke(IWebView2WebView webview, IWebView2PermissionRequestedEventArgs args)
+        public void Invoke(ICoreWebView2 webview, ICoreWebView2PermissionRequestedEventArgs args)
         {
             PermissionRequestedEventArgs eventArgs = new PermissionRequestedEventArgs(args);
             Callback.Invoke(eventArgs);

@@ -27,11 +27,11 @@ using MtrDev.WebView2.Interop;
 
 namespace MtrDev.WebView2.Wrapper
 {
-    public class WebMessageReceivedEventArgs : EventArgs, IWebView2WebMessageReceivedEventArgs
+    public class WebMessageReceivedEventArgs : EventArgs, ICoreWebView2WebMessageReceivedEventArgs
     {
-        private IWebView2WebMessageReceivedEventArgs _args;
+        private ICoreWebView2WebMessageReceivedEventArgs _args;
 
-        internal WebMessageReceivedEventArgs(IWebView2WebMessageReceivedEventArgs args)
+        internal WebMessageReceivedEventArgs(ICoreWebView2WebMessageReceivedEventArgs args)
         {
             _args = args;
         }

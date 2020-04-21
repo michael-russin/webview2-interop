@@ -22,19 +22,20 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 // OTHER DEALINGS IN THE SOFTWARE.
 #endregion
+
 using System;
 using MtrDev.WebView2.Interop;
 
 namespace MtrDev.WebView2.Wrapper.Handlers
 {
     public class NavigationStartingEventHandler : HandlerBase<NavigationStartingEventArgs>,
-        IWebView2NavigationStartingEventHandler
+        ICoreWebView2NavigationStartingEventHandler
     {
         public NavigationStartingEventHandler(Action<NavigationStartingEventArgs> callback) : base(callback)
         {
         }
 
-        public void Invoke(IWebView2WebView webview, IWebView2NavigationStartingEventArgs args)
+        public void Invoke(ICoreWebView2 webview, ICoreWebView2NavigationStartingEventArgs args)
         {
             NavigationStartingEventArgs completedArgs = new NavigationStartingEventArgs(args);
             Callback(completedArgs);

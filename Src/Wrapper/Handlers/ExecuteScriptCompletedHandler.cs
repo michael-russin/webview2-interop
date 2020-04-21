@@ -27,7 +27,7 @@ using MtrDev.WebView2.Interop;
 
 namespace MtrDev.WebView2.Wrapper.Handlers
 {
-    public class ExecuteScriptCompletedHandler : HandlerBase<ExecuteScriptCompletedEventArgs>, IWebView2ExecuteScriptCompletedHandler
+    public class ExecuteScriptCompletedHandler : HandlerBase<ExecuteScriptCompletedEventArgs>, ICoreWebView2ExecuteScriptCompletedHandler
     {
         public ExecuteScriptCompletedHandler(Action<ExecuteScriptCompletedEventArgs> callback) : base(callback)
         {

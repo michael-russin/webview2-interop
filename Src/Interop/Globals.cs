@@ -25,14 +25,14 @@ namespace MtrDev.WebView2.Interop
         /// <param name="environment_created_handler"></param>
         /// <returns></returns>
         [DllImport(ExternDll.WebView2Loader, SetLastError = true)]
-        public static extern int CreateWebView2EnvironmentWithDetails(
+        public static extern int CreateCoreWebView2EnvironmentWithDetails(
             [In, MarshalAs(UnmanagedType.LPWStr)]
             string browserExecutableFolder,
             [In, MarshalAs(UnmanagedType.LPWStr)]
             string userDataFolder,
             [In, MarshalAs(UnmanagedType.LPWStr)]
             string additionalBrowserArguments,
-            [In] IWebView2CreateWebView2EnvironmentCompletedHandler environment_created_handler);
+            [In] ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler environment_created_handler);
 
         /// <summary>
         /// Creates an evergreen WebView2 Environment using the installed Edge version.
@@ -43,8 +43,8 @@ namespace MtrDev.WebView2.Interop
         /// <param name="environment_created_handler"></param>
         /// <returns></returns>
         [DllImport(ExternDll.WebView2Loader, SetLastError = true)]
-        public static extern int CreateWebView2Environment(
-            [In] IWebView2CreateWebView2EnvironmentCompletedHandler environment_created_handler);
+        public static extern int CreateCoreWebView2Environment(
+            [In] ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler environment_created_handler);
 
         /// <summary>
         /// Get the browser version info including channel name if it is not the stable channel
@@ -58,10 +58,18 @@ namespace MtrDev.WebView2.Interop
         /// <param name="versionInfo"></param>
         /// <returns></returns>
         [DllImport(ExternDll.WebView2Loader, SetLastError = true)]
-        public static extern int GetWebView2BrowserVersionInfo(
+        public static extern int GetCoreWebView2BrowserVersionInfo(
             [In, MarshalAs(UnmanagedType.LPWStr)]
             string browserExecutableFolder,
             [MarshalAs(UnmanagedType.LPWStr)]
             out string versionInfo);
+
+        [DllImport(ExternDll.WebView2Loader, SetLastError = true)]
+        public static extern int CompareBrowserVersions(
+            [In, MarshalAs(UnmanagedType.LPWStr)]
+            string version1,
+            [In, MarshalAs(UnmanagedType.LPWStr)]
+            string version2,
+            out int result);
     }
 }

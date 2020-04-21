@@ -27,7 +27,7 @@ using MtrDev.WebView2.Interop;
 
 namespace MtrDev.WebView2.Wrapper.Handlers
 {
-    public class WebMessageReceivedEventHandler : IWebView2WebMessageReceivedEventHandler
+    public class WebMessageReceivedEventHandler : ICoreWebView2WebMessageReceivedEventHandler
     {
         Action<WebMessageReceivedEventArgs> _callback;
 
@@ -36,7 +36,7 @@ namespace MtrDev.WebView2.Wrapper.Handlers
             _callback = callback;
         }
 
-        public void Invoke(IWebView2WebView webview, IWebView2WebMessageReceivedEventArgs args)
+        public void Invoke(ICoreWebView2 webview, ICoreWebView2WebMessageReceivedEventArgs args)
         {
             WebMessageReceivedEventArgs eventArgs = new WebMessageReceivedEventArgs(args);
             _callback.Invoke(eventArgs);

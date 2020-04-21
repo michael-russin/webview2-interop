@@ -31,14 +31,14 @@ namespace MtrDev.WebView2.Wrapper.Handlers
     /// Fires when an HTTP request is made in the webview. The host can override
     /// request, response headers and response content.
     /// </summary>
-    public class WebResourceRequestedEventHandler : HandlerBase<WebResourceRequestedEventArgs>, IWebView2WebResourceRequestedEventHandler
+    public class WebResourceRequestedEventHandler : HandlerBase<WebResourceRequestedEventArgs>, ICoreWebView2WebResourceRequestedEventHandler
     {
         public WebResourceRequestedEventHandler(Action<WebResourceRequestedEventArgs> callback) : base(callback)
         {
         }
 
         //public void Invoke(IWebView2WebView webview, IWebView2WebResourceRequestedEventArgs args)
-        public void Invoke(IWebView2WebView webview, IWebView2WebResourceRequestedEventArgs2 args)
+        public void Invoke(ICoreWebView2 webview, ICoreWebView2WebResourceRequestedEventArgs args)
         {
             WebResourceRequestedEventArgs eventArgs = new WebResourceRequestedEventArgs(args);
             Callback.Invoke(eventArgs);

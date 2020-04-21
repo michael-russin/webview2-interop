@@ -27,12 +27,12 @@ using MtrDev.WebView2.Interop;
 
 namespace MtrDev.WebView2.Wrapper
 {
-    public class NewWindowRequestedEventArgs : EventArgs, IWebView2NewWindowRequestedEventArgs
+    public class NewWindowRequestedEventArgs : EventArgs, ICoreWebView2NewWindowRequestedEventArgs
     {
-        private IWebView2NewWindowRequestedEventArgs _args;
+        private ICoreWebView2NewWindowRequestedEventArgs _args;
         private bool _windowSet;
 
-        internal NewWindowRequestedEventArgs(IWebView2NewWindowRequestedEventArgs args)
+        internal NewWindowRequestedEventArgs(ICoreWebView2NewWindowRequestedEventArgs args)
         {
             _args = args;
             _windowSet = false;
@@ -43,7 +43,7 @@ namespace MtrDev.WebView2.Wrapper
         public bool IsUserInitiated => _args.IsUserInitiated;
 
 
-        public IWebView2WebView NewWindow
+        public ICoreWebView2 NewWindow
         {
             get
             {
@@ -61,7 +61,7 @@ namespace MtrDev.WebView2.Wrapper
 
         public string Uri => _args.Uri;
 
-        public IWebView2Deferral GetDeferral()
+        public ICoreWebView2Deferral GetDeferral()
         {
             return new WebView2Deferral(_args.GetDeferral());
         }

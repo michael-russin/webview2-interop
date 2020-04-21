@@ -31,7 +31,7 @@ using MtrDev.WebView2.Interop;
 
 namespace MtrDev.WebView2.Wrapper.Handlers
 {
-    public class NavigationCompletedEventHandler : IWebView2NavigationCompletedEventHandler
+    public class NavigationCompletedEventHandler : ICoreWebView2NavigationCompletedEventHandler
     {
         Action<NavigationCompletedEventArgs> _callback;
 
@@ -40,7 +40,7 @@ namespace MtrDev.WebView2.Wrapper.Handlers
             _callback = callback;
         }
 
-        public void Invoke(IWebView2WebView webview, IWebView2NavigationCompletedEventArgs args)
+        public void Invoke(ICoreWebView2 webview, ICoreWebView2NavigationCompletedEventArgs args)
         {
             NavigationCompletedEventArgs completedArgs = new NavigationCompletedEventArgs(args);
             _callback(completedArgs);

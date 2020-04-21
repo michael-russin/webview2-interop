@@ -27,7 +27,7 @@ using MtrDev.WebView2.Interop;
 
 namespace MtrDev.WebView2.Wrapper.Handlers
 {
-    public class CapturePreviewCompletedHandler : HandlerBase<CapturePreviewCompletedArgs>, IWebView2CapturePreviewCompletedHandler
+    public class CapturePreviewCompletedHandler : HandlerBase<CapturePreviewCompletedArgs>, ICoreWebView2CapturePreviewCompletedHandler
     {
         public CapturePreviewCompletedHandler(Action<CapturePreviewCompletedArgs> callback) : base(callback)
         {

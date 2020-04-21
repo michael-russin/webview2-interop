@@ -27,13 +27,13 @@ using MtrDev.WebView2.Interop;
 
 namespace MtrDev.WebView2.Wrapper.Handlers
 {
-    public class CreateWebViewCompletedHandler : HandlerBase<CreateWebViewCompletedEventArgs>, IWebView2CreateWebViewCompletedHandler
+    public class CreateWebViewCompletedHandler : HandlerBase<CreateWebViewCompletedEventArgs>, ICoreWebView2CreateCoreWebView2HostCompletedHandler
     {
         public CreateWebViewCompletedHandler(Action<CreateWebViewCompletedEventArgs> callback) : base(callback)
         {
         }
 
-        public void Invoke(int result, IWebView2WebView webView)
+        public void Invoke(int result, ICoreWebView2Host webView)
         {
             CreateWebViewCompletedEventArgs eventArgs = new CreateWebViewCompletedEventArgs(result, webView);
             Callback.Invoke(eventArgs);

@@ -19,6 +19,10 @@ namespace MtrDev.WebView2.Interop
         /// <summary>
         /// A dialog invoked via the window.prompt JavaScript function.
         /// </summary>
-		WEBVIEW2_SCRIPT_DIALOG_KIND_PROMPT
+		WEBVIEW2_SCRIPT_DIALOG_KIND_PROMPT,
+        /// <summary>
+        /// A dialog invoked via the beforeunload JavaScript event.
+        WEBVIEW2_SCRIPT_DIALOG_KIND_BEFOREUNLOAD
+        /// </summary>
     }
 }

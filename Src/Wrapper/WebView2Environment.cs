@@ -33,11 +33,11 @@ namespace MtrDev.WebView2.Wrapper
 {
     public class WebView2Environment 
     {
-        private IWebView2Environment3 _environment;
+        private ICoreWebView2Environment _environment;
 
-        internal WebView2Environment(IWebView2Environment environment)
+        internal WebView2Environment(ICoreWebView2Environment environment)
         {
-            _environment = (IWebView2Environment3)environment;
+            _environment = (ICoreWebView2Environment)environment;
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace MtrDev.WebView2.Wrapper
         /// <param name="response"></param>
         public WebView2WebResourceResponse CreateWebResourceResponse(IStream content, int statusCode, string reasonPhrase, string headers)
         {
-            IWebView2WebResourceResponse response = null;
+            ICoreWebView2WebResourceResponse response = null;
             _environment.CreateWebResourceResponse(content, statusCode, reasonPhrase, headers, ref response);
 
             WebView2WebResourceResponse wrappedResonse = new WebView2WebResourceResponse(response);
@@ -76,7 +76,7 @@ namespace MtrDev.WebView2.Wrapper
         {
             CreateWebViewCompletedHandler callback = new CreateWebViewCompletedHandler(handler);
 
-            _environment.CreateWebView(parentHwnd, callback);
+            _environment.CreateCoreWebView2Host(parentHwnd, callback);
         }
 
         #region IWebView2Environment2
