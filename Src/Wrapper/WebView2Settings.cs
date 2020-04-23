@@ -41,7 +41,7 @@ namespace MtrDev.WebView2.Wrapper
             _settings = (ICoreWebView2Settings)settings;
         }
 
-        #region IWebView2Settings
+        #region ICoreWebView2Settings
         /// <summary>
         /// AreDefaultScriptDialogsEnabled is used when loading a new
         /// HTML document. If set to false, then WebView won't render the default
